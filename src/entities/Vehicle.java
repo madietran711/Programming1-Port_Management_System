@@ -1,4 +1,4 @@
 package entities;
 
-public class Vehicle {
+public class Vehicle implements service.Vehicle {
 }

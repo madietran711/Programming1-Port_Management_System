@@ -1,4 +1,4 @@
 package entities;
 
-public class PortManager {
+public class PortManager extends User{
 }

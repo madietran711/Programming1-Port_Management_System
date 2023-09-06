@@ -1,4 +1,4 @@
 package entities;
 
-public class Port {
+public class Port implements service.Port {
 }
