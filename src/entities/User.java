@@ -5,7 +5,7 @@ import java.util.List;
 
 import service.Account;
 
-public class User implements Account {
+public abstract class User implements Account {
     private String username;
     private String password;
 
