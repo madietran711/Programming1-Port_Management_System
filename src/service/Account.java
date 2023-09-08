@@ -6,6 +6,7 @@ import java.util.List;
 import entities.Port;
 import entities.Ship;
 import entities.Trip;
+import entities.Truck;
 
 public interface Account {
     public boolean userLogin(String username, String password);

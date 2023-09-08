@@ -4,7 +4,6 @@ import java.util.Date;
 import java.util.List;
 
 import service.Account;
-import service.Truck;
 
 public class User implements Account {
     private String username;
