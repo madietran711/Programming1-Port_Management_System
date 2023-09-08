@@ -1,4 +1,4 @@
 package entities;
 
-public class Ship extends Vehicle{
+public class Ship extends Vehicle {
 }

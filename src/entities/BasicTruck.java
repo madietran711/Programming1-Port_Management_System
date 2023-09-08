@@ -1,4 +1,4 @@
 package entities;
 
-public class BasicTruck extends Truck  {
+public class BasicTruck extends Truck {
 }
