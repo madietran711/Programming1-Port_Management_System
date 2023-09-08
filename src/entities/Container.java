@@ -1,8 +1,13 @@
 package entities;
 
-public class Container {
+public abstract class Container {
     // @NotNull
     // @Unique
-    private String ID;
+    private String id;
     private double weight;
+
+    public Container(String id, double weight) {
+        this.id = id;
+        this.weight = weight;
+    }
 }

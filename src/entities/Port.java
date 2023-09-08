@@ -5,18 +5,33 @@ import java.util.List;
 import service.Station;
 
 public class Port implements Station {
-    private String ID;
+    private String id;
     private String name;
     private double latitude;
     private double longitude;
     private String description;
     private double currentCapacity;
-    private double storingCapacity;
-    private boolean landingAbility;
-    // what does the attribute above do again?
+    private double maxCapacity;
+    private boolean landingAbility; // what does this attribute do again?
     private List<Trip> tripList;
     private List<Vehicle> vehicleList;
     private List<Container> containerList;
+
+    public Port(String id, String name, double latitude, double longitude, String description, double currentCapacity,
+            double maxCapacity, boolean landingAbility, List<Trip> tripList, List<Vehicle> vehicleList,
+            List<Container> containerList) {
+        this.id = id;
+        this.name = name;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.description = description;
+        this.currentCapacity = currentCapacity;
+        this.maxCapacity = maxCapacity;
+        this.landingAbility = landingAbility;
+        this.tripList = tripList;
+        this.vehicleList = vehicleList;
+        this.containerList = containerList;
+    }
 
     @Override
     public int getTotalVehicleCount() {

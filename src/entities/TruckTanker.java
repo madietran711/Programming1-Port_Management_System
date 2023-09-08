@@ -2,11 +2,10 @@ package entities;
 
 import java.util.ArrayList;
 
-public abstract class Truck extends Vehicle {
+public class TruckTanker extends Truck {
 
-    public Truck(String id, String name, double currentFuel, double maxFuel, double currentCapacity,
+    public TruckTanker(String id, String name, double currentFuel, double maxFuel, double currentCapacity,
             double carryingCapacity, Port currentPort, ArrayList<Container> containerList) {
         super(id, name, currentFuel, maxFuel, currentCapacity, carryingCapacity, currentPort, containerList);
     }
-
 }
