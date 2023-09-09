@@ -1,41 +1,52 @@
 package entities;
 
-import java.util.Date;
+import java.io.Serializable;
 import java.util.List;
 
-import service.Account;
+import service.User.implementation.UserImplement;
 
-public abstract class User implements Account {
+public class User implements Serializable {
+    private final UserImplement userImplement = new UserImplement(this); // Pass the current User instance.//
+    private String ID;
     private String username;
     private String password;
 
-    @Override
-    public boolean userLogin(String username, String password) {
-        throw new UnsupportedOperationException("Unimplemented method 'userLogin'");
+    public User() {
+    }
+
+    public User(String ID, String username, String password) {
+        this.ID = ID;
+        this.username = username;
+        this.password = password;
     }
 
     @Override
-    public boolean resetPassword(String username, String oldpassword, String newpassword) {
-        throw new UnsupportedOperationException("Unimplemented method 'resetPassword'");
+    public String toString() {
+        return "User{" +
+                "ID='" + ID + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", userImplement=" + userImplement +
+                '}';
     }
 
-    @Override
-    public List<Ship> getAllShipsInPort(Port port) {
-        throw new UnsupportedOperationException("Unimplemented method 'getAllShipsInPort'");
+    public List<Port> getAllPorts() {
+        return userImplement.getAllPorts();
     }
 
-    @Override
-    public List<Truck> getAllTrucksInPort(Port port) {
-        throw new UnsupportedOperationException("Unimplemented method 'getAllTrucksInPort'");
+    public Port createPort(Port entity) {
+        return userImplement.createPort(entity);
     }
 
-    @Override
-    public List<Trip> getAllTripOnDate(Date date) {
-        throw new UnsupportedOperationException("Unimplemented method 'getAllTripOnDate'");
+    public Port getById(String id) {
+        return userImplement.getPortById(id);
     }
 
-    @Override
-    public List<Trip> getAllTripBetweenDate(Date date1, Date date2) {
-        throw new UnsupportedOperationException("Unimplemented method 'getAllTripBetweenDate'");
+    public Port updatePort(Port entity) {
+        return userImplement.updatePort(entity);
+    }
+
+    public boolean deletePort(String id) {
+        return userImplement.deletePort(id);
     }
 }

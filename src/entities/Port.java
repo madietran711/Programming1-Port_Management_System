@@ -1,11 +1,14 @@
 package entities;
 
+import java.io.Serializable;
 import java.util.List;
 
-import service.Station;
+import service.Port.PortInterface;
+import service.Port.implementation.PortImplement;
 
-public class Port implements Station {
-    private String id;
+public class Port implements Serializable {
+    private final PortImplement portImplement = new PortImplement(this); // Pass the current Port instance.
+    private String ID;
     private String name;
     private double latitude;
     private double longitude;
@@ -17,80 +20,166 @@ public class Port implements Station {
     private List<Vehicle> vehicleList;
     private List<Container> containerList;
 
-    public Port(String id, String name, double latitude, double longitude, String description, double currentCapacity,
-            double maxCapacity, boolean landingAbility, List<Trip> tripList, List<Vehicle> vehicleList,
-            List<Container> containerList) {
-        this.id = id;
+    public Port() {
+    }
+
+    public Port(String ID, String name, double latitude, double longitude, String description, double currentCapacity,
+            double storingCapacity, boolean landingAbility) {
+        this.ID = ID;
         this.name = name;
         this.latitude = latitude;
         this.longitude = longitude;
         this.description = description;
         this.currentCapacity = currentCapacity;
-        this.maxCapacity = maxCapacity;
+        this.storingCapacity = storingCapacity;
         this.landingAbility = landingAbility;
+    }
+
+    @Override
+    public String toString() {
+        return "Port{" +
+                "ID='" + ID + '\'' +
+                ", name='" + name + '\'' +
+                ", latitude=" + latitude +
+                ", longitude=" + longitude +
+                ", description='" + description + '\'' +
+                ", currentCapacity=" + currentCapacity +
+                ", storingCapacity=" + storingCapacity +
+                ", landingAbility=" + landingAbility +
+                ", tripList=" + tripList +
+                ", vehicleList=" + vehicleList +
+                ", containerList=" + containerList +
+                '}';
+    }
+
+    // Getters and setters
+    public String getID() {
+        return ID;
+    }
+
+    public void setID(String ID) {
+        this.ID = ID;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public double getCurrentCapacity() {
+        return currentCapacity;
+    }
+
+    public void setCurrentCapacity(double currentCapacity) {
+        this.currentCapacity = currentCapacity;
+    }
+
+    public double getStoringCapacity() {
+        return storingCapacity;
+    }
+
+    public void setStoringCapacity(double storingCapacity) {
+        this.storingCapacity = storingCapacity;
+    }
+
+    public boolean isLandingAbility() {
+        return landingAbility;
+    }
+
+    public void setLandingAbility(boolean landingAbility) {
+        this.landingAbility = landingAbility;
+    }
+
+    public List<Vehicle> getVehicleList() {
+        return vehicleList;
+    }
+
+    public List<Trip> getTripList() {
+        return tripList;
+    }
+
+    public List<Container> getContainerList() {
+        return containerList;
+    }
+
+    public void setTripList(List<Trip> tripList) {
         this.tripList = tripList;
+    }
+
+    public void setVehicleList(List<Vehicle> vehicleList) {
         this.vehicleList = vehicleList;
+    }
+
+    public void setContainerList(List<Container> containerList) {
         this.containerList = containerList;
     }
 
-    @Override
+    // Implement PortInterface methods by delegating to portImplement
+
     public int getTotalVehicleCount() {
-        throw new UnsupportedOperationException("Unimplemented method 'getTotalVehicleCount'");
+        return portImplement.getTotalVehicleCount();
     }
 
-    @Override
-    public List<Vehicle> getVehicleList() {
-        throw new UnsupportedOperationException("Unimplemented method 'getVehicleList'");
-    }
-
-    @Override
     public int getTotalContainerCount() {
-        throw new UnsupportedOperationException("Unimplemented method 'getTotalContainerCount'");
+        return portImplement.getTotalContainerCount();
     }
 
-    @Override
-    public List<Container> getContainerList() {
-        throw new UnsupportedOperationException("Unimplemented method 'getContainerList'");
-    }
-
-    @Override
     public double calculateDistanceFromPort(Port port) {
-        throw new UnsupportedOperationException("Unimplemented method 'calculateDistanceFromPort'");
+        return portImplement.calculateDistanceFromPort(port);
     }
 
-    @Override
     public void addVehicle(Vehicle vehicle) {
-        throw new UnsupportedOperationException("Unimplemented method 'addVehicle'");
+        portImplement.addVehicle(vehicle);
     }
 
-    @Override
     public void removeVehicle(Vehicle vehicle) {
-        throw new UnsupportedOperationException("Unimplemented method 'removeVehicle'");
+        portImplement.removeVehicle(vehicle);
     }
 
-    @Override
     public void addContainer(Container container) {
-        throw new UnsupportedOperationException("Unimplemented method 'addContainer'");
+        portImplement.addContainer(container);
     }
 
-    @Override
     public void removeContainer(Container container) {
-        throw new UnsupportedOperationException("Unimplemented method 'removeContainer'");
+        portImplement.removeContainer(container);
     }
 
-    @Override
     public void addTrip(Trip trip) {
-        throw new UnsupportedOperationException("Unimplemented method 'addTrip'");
+        portImplement.addTrip(trip);
     }
 
-    @Override
     public void removeTrip(Trip trip) {
-        throw new UnsupportedOperationException("Unimplemented method 'removeTrip'");
+        portImplement.removeTrip(trip);
     }
 
-    @Override
     public List<Trip> getTrafficRecord() {
-        throw new UnsupportedOperationException("Unimplemented method 'getTrafficRecord'");
+        return portImplement.getTrafficRecord();
     }
-
 }
