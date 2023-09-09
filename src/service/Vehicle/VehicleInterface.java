@@ -1,8 +1,13 @@
-package service;
+package service.Vehicle;
 
+import entities.Vehicle;
+import service.CRUD.CRUDInterface;
+
+import java.util.List;
 import java.util.Map;
 
-public interface Courier {
+public interface VehicleInterface extends CRUDInterface<Vehicle, String> {
+
     public void loadContainer();
 
     public void unloadContainer();

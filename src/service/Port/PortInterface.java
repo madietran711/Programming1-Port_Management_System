@@ -1,20 +1,23 @@
-package service;
+package service.Port;
 
+import java.util.Collections;
 import java.util.List;
 
 import entities.Container;
 import entities.Port;
 import entities.Trip;
 import entities.Vehicle;
+import service.CRUD.CRUDInterface;
+import utils.DatFileMethods;
 
-public interface Station {
+public interface PortInterface extends CRUDInterface<Port, String> {
+
     public int getTotalVehicleCount();
 
-    public List<Vehicle> getVehicleList();
 
     public int getTotalContainerCount();
 
-    public List<Container> getContainerList();
+
 
     // for the method above, are we supposed to count the containers that has yet
     // been unloaded from the vehicles docked in the current port
@@ -32,7 +35,7 @@ public interface Station {
 
     public void removeTrip(Trip trip);
 
-    // for the adder and removeer methods, probably should return a boolean to
+    // for the adder and remover methods, probably should return a boolean to
     // indicate if it was carried out correctly or not
     public List<Trip> getTrafficRecord();
 }

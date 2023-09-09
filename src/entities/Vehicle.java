@@ -1,12 +1,17 @@
 package entities;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Map;
 
-import service.Courier;
+import service.User.implementation.UserImplement;
+import service.Vehicle.VehicleInterface;
+import service.Vehicle.implementation.VehicleImplement;
 
 // NOTE: BasicTruck, ReeferTruck and TankerTruck extends directly from Vehicle, need to make change in the UML diagram
-public class Vehicle implements Courier {
+public class Vehicle implements Serializable {
+
+    private final VehicleImplement vehicleImplement = new VehicleImplement(this); // Pass the current User instance.
     // @NotNull
     // @Unique
     private String ID;
@@ -17,39 +22,72 @@ public class Vehicle implements Courier {
     private Port currentPort;
     private ArrayList<Container> containerList;
 
-    @Override
-    public void loadContainer() {
-        throw new UnsupportedOperationException("Unimplemented method 'loadContainer'");
+    public Vehicle() {
     }
 
-    @Override
-    public void unloadContainer() {
-        throw new UnsupportedOperationException("Unimplemented method 'unloadContainer'");
+    public Vehicle(String ID, String name, double currentFuel, double currentCapacity, double carryingCapacity, Port currentPort, ArrayList<Container> containerList) {
+        this.ID = ID;
+        this.name = name;
+        this.currentFuel = currentFuel;
+        this.currentCapacity = currentCapacity;
+        this.carryingCapacity = carryingCapacity;
+        this.currentPort = currentPort;
+        this.containerList = containerList;
     }
 
-    @Override
-    public void move() {
-        throw new UnsupportedOperationException("Unimplemented method 'move'");
+    public String getID() {
+        return ID;
     }
 
-    @Override
-    public void refuel() {
-        throw new UnsupportedOperationException("Unimplemented method 'refuel'");
+    public void setID(String ID) {
+        this.ID = ID;
     }
 
-    @Override
-    public int getTotalContainer() {
-        throw new UnsupportedOperationException("Unimplemented method 'getTotalContainer'");
+    public String getName() {
+        return name;
     }
 
-    @Override
-    public boolean canMoveToPortWithCurrentLoad() {
-        throw new UnsupportedOperationException("Unimplemented method 'canMoveToPortWithCurrentLoad'");
+    public void setName(String name) {
+        this.name = name;
     }
 
-    @Override
-    public Map<entities.Container, Integer> getTotalContainerWithType() {
-        throw new UnsupportedOperationException("Unimplemented method 'getTotalContainerWithType'");
+    public double getCurrentFuel() {
+        return currentFuel;
     }
 
+    public void setCurrentFuel(double currentFuel) {
+        this.currentFuel = currentFuel;
+    }
+
+    public double getCurrentCapacity() {
+        return currentCapacity;
+    }
+
+    public void setCurrentCapacity(double currentCapacity) {
+        this.currentCapacity = currentCapacity;
+    }
+
+    public double getCarryingCapacity() {
+        return carryingCapacity;
+    }
+
+    public void setCarryingCapacity(double carryingCapacity) {
+        this.carryingCapacity = carryingCapacity;
+    }
+
+    public Port getCurrentPort() {
+        return currentPort;
+    }
+
+    public void setCurrentPort(Port currentPort) {
+        this.currentPort = currentPort;
+    }
+
+    public ArrayList<Container> getContainerList() {
+        return containerList;
+    }
+
+    public void setContainerList(ArrayList<Container> containerList) {
+        this.containerList = containerList;
+    }
 }
