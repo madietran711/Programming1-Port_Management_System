@@ -3,7 +3,11 @@ package service.User;
 import java.util.Date;
 import java.util.List;
 
-import entities.*;
+import entities.port.Port;
+import entities.trip.Trip;
+import entities.user.User;
+import entities.vehicle.Ship;
+import entities.vehicle.Truck;
 import service.CRUD.CRUDInterface;
 
 public interface UserInterface extends CRUDInterface<User, String> {

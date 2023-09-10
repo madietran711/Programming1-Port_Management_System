@@ -1,6 +1,10 @@
 package service.User.implementation;
 
-import entities.*;
+import entities.port.Port;
+import entities.trip.Trip;
+import entities.user.User;
+import entities.vehicle.Ship;
+import entities.vehicle.Truck;
 import service.CRUD.CRUDInterface;
 import service.CRUD.implementation.CRUDImplement;
 import service.Port.implementation.PortImplement;
@@ -86,7 +90,7 @@ public class UserImplement implements UserInterface {
 
     @Override
     public Port createPort(Port entity) {
-        PortImplement portImplement = new PortImplement(new Port());
+       PortImplement portImplement = new PortImplement(new Port());
         return portImplement.create(entity);
     }
 

@@ -1,7 +1,6 @@
 package service.Trip.implementation;
 
-import entities.Port;
-import entities.Trip;
+import entities.trip.Trip;
 import service.CRUD.CRUDInterface;
 import service.CRUD.implementation.CRUDImplement;
 import service.Trip.TripInterface;

@@ -1,9 +1,9 @@
 package service.Port.implementation;
 
-import entities.Container;
-import entities.Port;
-import entities.Trip;
-import entities.Vehicle;
+import entities.container.Container;
+import entities.port.Port;
+import entities.trip.Trip;
+import entities.vehicle.Vehicle;
 import service.CRUD.CRUDInterface;
 import service.CRUD.implementation.CRUDImplement;
 import service.Port.PortInterface;
@@ -74,7 +74,8 @@ public class PortImplement implements PortInterface, Serializable {
 
     @Override
     public void addVehicle(Vehicle vehicle) {
-    port.addVehicle(vehicle);
+
+    port.getVehicleList().add(vehicle);
     portRepository.update(port);
 
 

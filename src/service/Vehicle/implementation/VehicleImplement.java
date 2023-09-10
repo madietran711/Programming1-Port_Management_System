@@ -1,16 +1,18 @@
 package service.Vehicle.implementation;
 
-import entities.Container;
-import entities.User;
-import entities.Vehicle;
+import entities.container.Container;
+import entities.port.Port;
+import entities.vehicle.Vehicle;
 import service.CRUD.CRUDInterface;
 import service.CRUD.implementation.CRUDImplement;
+import service.Port.implementation.PortImplement;
 import service.Vehicle.VehicleInterface;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
-public class VehicleImplement implements VehicleInterface {
+public class VehicleImplement implements VehicleInterface, Serializable {
     static CRUDInterface<Vehicle, String> vehicleRepository;
     static {
         vehicleRepository = new CRUDImplement<Vehicle, String>("Vehicle.dat", Vehicle.class);
@@ -79,5 +81,11 @@ public class VehicleImplement implements VehicleInterface {
     @Override
     public boolean canMoveToPortWithCurrentLoad() {
         return false;
+    }
+
+    @Override
+    public void addVehicleToPort(Port currentPort) {
+        PortImplement portImplement = new PortImplement(currentPort);
+        portImplement.addVehicle(vehicle);
     }
 }

@@ -1,10 +1,12 @@
 package utils;
 
-import entities.Port;
-import entities.User;
+import entities.port.Port;
+import entities.user.SystemAdmin;
+import entities.vehicle.Vehicle;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class DatFileMethods implements Serializable {
@@ -54,10 +56,10 @@ public class DatFileMethods implements Serializable {
 
     public static void main(String[] args) {
         List<Port> ports = new ArrayList<>();
-        ports.add(new Port("1", "Port 1", 1, 1, "Port 1", 1, 1, true));
-        ports.add(new Port("2", "Port 2", 2, 2, "Port 2", 2, 2, true));
+        ports.add(new Port("1", "Port 1", 1, 1, "Port 1", 1, 1, true, new ArrayList<>(),new ArrayList<>(), Collections.emptyList()));
+        ports.add(new Port("2", "Port 2", 2, 2, "Port 2", 2, 2, true,new ArrayList<>(),new ArrayList<>(),new ArrayList<>()));
         writeAllLines("Port.dat", ports);
-        User admin = new User("1", "admin", "admin");
+        SystemAdmin admin = new SystemAdmin("1", "admin", "admin");
 
         System.out.println("---------------------------------------------------------------------------------------------");
         System.out.println("Test get All method");
@@ -68,21 +70,23 @@ public class DatFileMethods implements Serializable {
 
         System.out.println("---------------------------------------------------------------------------------------------");
         System.out.println("Test create method");
-        Port newPort = new Port("3", "Port 3", 3, 3, "Port 3", 3, 3, true);
+       Port newPort = new Port("3", "Port 3", 3, 3, "Port 3", 3, 3, true,new ArrayList<>(),new ArrayList<>(),new ArrayList<>());
         admin.createPort(newPort);
+        ports = admin.getAllPorts();
+         Vehicle newVehicle = new Vehicle("1", "Vehicle 1", 1,1,1,ports.get(1), new ArrayList<>());
+        System.out.println(newVehicle);
+        admin.updatePort(ports.get(1));
         admin.getAllPorts().forEach(System.out::println);
 
         System.out.println("---------------------------------------------------------------------------------------------");
         System.out.println("Test update method");
-        Port updatePort = new Port("3", "Port 3 Updated", 3, 3, "Port 3", 3, 3, true);
+        Port updatePort = new Port("3", "Port 3 Updated", 3, 3, "Port 3", 3, 3, true,new ArrayList<>(),new ArrayList<>(),new ArrayList<>());
         admin.updatePort(updatePort);
         admin.getAllPorts().forEach(System.out::println);
 
         System.out.println("---------------------------------------------------------------------------------------------");
         System.out.println("Test delete method");
-        admin.deletePort("3");
-        admin.deletePort("1");
-        admin.deletePort("2");
+admin.deletePort("3");
         admin.getAllPorts().forEach(System.out::println);
 
 

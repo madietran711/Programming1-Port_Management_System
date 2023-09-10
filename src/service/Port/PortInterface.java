@@ -1,14 +1,12 @@
 package service.Port;
 
-import java.util.Collections;
 import java.util.List;
 
-import entities.Container;
-import entities.Port;
-import entities.Trip;
-import entities.Vehicle;
+import entities.container.Container;
+import entities.port.Port;
+import entities.trip.Trip;
+import entities.vehicle.Vehicle;
 import service.CRUD.CRUDInterface;
-import utils.DatFileMethods;
 
 public interface PortInterface extends CRUDInterface<Port, String> {
 

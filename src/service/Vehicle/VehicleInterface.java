@@ -1,9 +1,10 @@
 package service.Vehicle;
 
-import entities.Vehicle;
+import entities.port.Port;
+import entities.vehicle.Vehicle;
+import entities.container.Container;
 import service.CRUD.CRUDInterface;
 
-import java.util.List;
 import java.util.Map;
 
 public interface VehicleInterface extends CRUDInterface<Vehicle, String> {
@@ -18,9 +19,11 @@ public interface VehicleInterface extends CRUDInterface<Vehicle, String> {
 
     // for the 4 methods above, shouldn't it return a boolean value to verify if the
     // method can be carried out
-    public Map<entities.Container, Integer> getTotalContainerWithType();
+    public Map<Container, Integer> getTotalContainerWithType();
 
     public int getTotalContainer();
 
     public boolean canMoveToPortWithCurrentLoad();
+
+    public void addVehicleToPort(Port currentPort);
 }
