@@ -2,6 +2,7 @@ package utils;
 
 import entities.Port;
 import entities.User;
+import entities.Vehicle;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ public class DatFileMethods implements Serializable {
         String absolutePath = "src" + File.separator + "dataFiles" + File.separator + fileName;
         return new File(absolutePath).getPath();
     }
+
     // write all data in a file
     public static <T> void writeAllLines(String fileName, List<T> data) {
         String filePath = getFilePath(fileName);
@@ -30,8 +32,8 @@ public class DatFileMethods implements Serializable {
     // read all data in a file
     public static <T> List<T> readAllLines(String fileName, Class<T> objectType) {
 
-       String filePath = getFilePath(fileName);
-       // initiate an empty array list to store all data
+        String filePath = getFilePath(fileName);
+        // initiate an empty array list to store all data
         List<T> allFileData = new ArrayList<>();
         try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(filePath))) {
             // loop through the file until it reaches the end of file
@@ -39,7 +41,7 @@ public class DatFileMethods implements Serializable {
                 try {
                     // read object from file
                     Object object = inputStream.readObject();
-                        allFileData.add(objectType.cast(object));
+                    allFileData.add(objectType.cast(object));
 
                 } catch (EOFException e) {
                     // End Of File Exception: break the loop
@@ -64,8 +66,6 @@ public class DatFileMethods implements Serializable {
         admin.getAllPorts().forEach(System.out::println);
 
 
-
-
         System.out.println("---------------------------------------------------------------------------------------------");
         System.out.println("Test create method");
         Port newPort = new Port("3", "Port 3", 3, 3, "Port 3", 3, 3, true);
@@ -85,6 +85,34 @@ public class DatFileMethods implements Serializable {
         admin.deletePort("2");
         admin.getAllPorts().forEach(System.out::println);
 
+        // Vehicle
+        List<Vehicle> vehicles = new ArrayList<>();
+        vehicles.add(new Vehicle("1", "Vehicle 1", 1, 1, 1, null, null));
+        vehicles.add(new Vehicle("2", "Vehicle 2", 2, 2, 2, null, null));
+        writeAllLines("Vehicle.dat", vehicles);
+        User adminVehicle = new User("1", "adminVehicle", "adminVehicle");
 
+        System.out.println("---------------------------------------------------------------------------------------------");
+        System.out.println("Test get All method");
+        adminVehicle.getAllVehicles().forEach(System.out::println);
+
+        System.out.println("---------------------------------------------------------------------------------------------");
+        System.out.println("Test create method");
+        Vehicle newVehicle = new Vehicle("3", "Vehicle 3", 3, 3, 3, null, null);
+        adminVehicle.createVehicle(newVehicle);
+        adminVehicle.getAllVehicles().forEach(System.out::println);
+
+        System.out.println("---------------------------------------------------------------------------------------------");
+        System.out.println("Test update method");
+        Vehicle updateVehicle = new Vehicle("3", "Vehicle 3 Updated", 3, 3, 3, null, null);
+        adminVehicle.updateVehicle(updateVehicle);
+        adminVehicle.getAllVehicles().forEach(System.out::println);
+
+        System.out.println("---------------------------------------------------------------------------------------------");
+        System.out.println("Test delete method");
+        adminVehicle.deleteVehicle("1");
+        adminVehicle.deleteVehicle("2");
+        adminVehicle.deleteVehicle("3");
+        adminVehicle.getAllVehicles().forEach(System.out::println);
     }
 }

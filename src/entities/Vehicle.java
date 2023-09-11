@@ -1,12 +1,9 @@
 package entities;
 
+import service.Vehicle.implementation.VehicleImplement;
+
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Map;
-
-import service.User.implementation.UserImplement;
-import service.Vehicle.VehicleInterface;
-import service.Vehicle.implementation.VehicleImplement;
 
 // NOTE: BasicTruck, ReeferTruck and TankerTruck extends directly from Vehicle, need to make change in the UML diagram
 public class Vehicle implements Serializable {
@@ -33,6 +30,19 @@ public class Vehicle implements Serializable {
         this.carryingCapacity = carryingCapacity;
         this.currentPort = currentPort;
         this.containerList = containerList;
+    }
+
+    @Override
+    public String toString() {
+        return "Vehicle{" +
+                "ID='" + ID + '\'' +
+                ", name='" + name + '\'' +
+                ", currentFuel=" + currentFuel +
+                ", currentCapacity=" + currentCapacity +
+                ", carryingCapacity=" + carryingCapacity +
+                ", currentPort=" + currentPort +
+                ", containerList=" + containerList +
+                '}';
     }
 
     public String getID() {

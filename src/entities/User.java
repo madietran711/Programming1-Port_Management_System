@@ -42,7 +42,7 @@ public class User implements Serializable {
     }
 
 
-    public Port getById(String id) {
+    public Port getVehicleById(String id) {
         return userImplement.getPortById(id);
     }
 
@@ -53,4 +53,27 @@ public class User implements Serializable {
     public boolean deletePort(String id) {
         return userImplement.deletePort(id);
     }
+
+    public List<Vehicle> getAllVehicles() {
+        return userImplement.getAllVehicles();
+    }
+    public Vehicle createVehicle(Vehicle entity) {
+        return userImplement.createVehicle(entity);
+    }
+
+
+    public Vehicle getById(String id) {
+        return userImplement.getVehicleById(id);
+    }
+
+    public Vehicle updateVehicle(Vehicle entity) {
+        return userImplement.updateVehicle(entity);
+    }
+
+    public boolean deleteVehicle(String id) {
+        return userImplement.deleteVehicle(id);
+    }
 }
+
+
+

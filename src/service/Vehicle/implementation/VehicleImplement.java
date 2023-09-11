@@ -7,10 +7,11 @@ import service.CRUD.CRUDInterface;
 import service.CRUD.implementation.CRUDImplement;
 import service.Vehicle.VehicleInterface;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
-public class VehicleImplement implements VehicleInterface {
+public class VehicleImplement implements VehicleInterface, Serializable {
     static CRUDInterface<Vehicle, String> vehicleRepository;
     static {
         vehicleRepository = new CRUDImplement<Vehicle, String>("Vehicle.dat", Vehicle.class);

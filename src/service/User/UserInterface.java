@@ -26,4 +26,10 @@ public interface UserInterface extends CRUDInterface<User, String> {
     public Port getPortById(String id);
     public Port updatePort(Port entity);
     public boolean deletePort(String id);
+
+    public List<Vehicle> getAllVehicles();
+    public Vehicle createVehicle(Vehicle entity) ;
+    public Vehicle getVehicleById(String id);
+    public Vehicle updateVehicle(Vehicle entity);
+    public boolean deleteVehicle(String id);
 }
