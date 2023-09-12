@@ -5,6 +5,7 @@ import entities.trip.Trip;
 import entities.user.User;
 import entities.vehicle.Ship;
 import entities.vehicle.Truck;
+import entities.vehicle.Vehicle;
 import service.CRUD.CRUDInterface;
 import service.CRUD.implementation.CRUDImplement;
 import service.Port.implementation.PortImplement;
@@ -12,11 +13,13 @@ import service.Port.implementation.PortImplement;
 import service.Trip.implementation.TripImplement;
 
 import service.User.UserInterface;
+import service.Vehicle.implementation.VehicleImplement;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-public class UserImplement implements UserInterface {
+public class UserImplement implements UserInterface, Serializable {
     static CRUDInterface<User, String> userRepository;
     static {
         userRepository = new CRUDImplement<User, String>("User.dat", User.class);
@@ -145,6 +148,36 @@ public class UserImplement implements UserInterface {
     public boolean deleteTrip(String id) {
         TripImplement tripImplement = new TripImplement(new Trip());
         return tripImplement.delete(id);
+    }
+
+    @Override
+    public List<Vehicle> getAllVehicles(){
+        VehicleImplement vehicleImplement = new VehicleImplement(new Vehicle());
+        return vehicleImplement.getAll();
+    }
+
+    @Override
+    public Vehicle createVehicle(Vehicle entity) {
+        VehicleImplement vehicleImplement = new VehicleImplement(new Vehicle());
+        return vehicleImplement.create(entity);
+    }
+
+    @Override
+    public Vehicle getVehicleById(String id) {
+        VehicleImplement vehicleImplement = new VehicleImplement(new Vehicle());
+        return vehicleImplement.getById(id);
+    }
+
+    @Override
+    public Vehicle updateVehicle(Vehicle entity) {
+        VehicleImplement vehicleImplement = new VehicleImplement(new Vehicle());
+        return vehicleImplement.update(entity);
+    }
+
+    @Override
+    public boolean deleteVehicle(String id) {
+        VehicleImplement vehicleImplement = new VehicleImplement(new Vehicle());
+        return vehicleImplement.delete(id);
     }
 
 

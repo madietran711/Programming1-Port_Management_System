@@ -8,6 +8,7 @@ import entities.trip.Trip;
 import entities.user.User;
 import entities.vehicle.Ship;
 import entities.vehicle.Truck;
+import entities.vehicle.Vehicle;
 import service.CRUD.CRUDInterface;
 
 public interface UserInterface extends CRUDInterface<User, String> {
@@ -46,5 +47,10 @@ public interface UserInterface extends CRUDInterface<User, String> {
 
     public boolean deleteTrip(String id);
 
+    public List<Vehicle> getAllVehicles();
+    public Vehicle createVehicle(Vehicle entity) ;
+    public Vehicle getVehicleById(String id);
+    public Vehicle updateVehicle(Vehicle entity);
+    public boolean deleteVehicle(String id);
 
 }

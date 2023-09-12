@@ -8,12 +8,7 @@ import entities.user.SystemAdmin;
 import entities.vehicle.Vehicle;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Collections;
-
-import java.util.Date;
-
-import java.util.List;
+import java.util.*;
 
 public class DatFileMethods implements Serializable {
     // get file path
@@ -111,10 +106,10 @@ public class DatFileMethods implements Serializable {
         System.out.println(
                 "---------------------------------------------------------------------------------------------");
         List<Trip> trips = new ArrayList<Trip>();
-        trips.add(new Trip("1", null, new Date(123, 8, 10), new Date(123, 8, 15), admin.getAllPorts().get(0),
+        trips.add(new Trip("1", null, new Date(123, Calendar.SEPTEMBER, 10), new Date(123, Calendar.SEPTEMBER, 15), admin.getAllPorts().get(0),
                 admin.getAllPorts().get(1),
                 "On going"));
-        trips.add(new Trip("2", null, new Date(123, 8, 20), new Date(123, 8, 27), admin.getAllPorts().get(1),
+        trips.add(new Trip("2", null, new Date(123, Calendar.SEPTEMBER, 20), new Date(123, Calendar.SEPTEMBER, 27), admin.getAllPorts().get(1),
                 admin.getAllPorts().get(0),
                 "On hold"));
         writeAllLines("Trip.dat", trips);
@@ -124,14 +119,14 @@ public class DatFileMethods implements Serializable {
         admin.getAllTrips().forEach(System.out::println);
 
         System.out.println("\nTest create method");
-        Trip newTrip = new Trip("3", newVehicle, new Date(123, 8, 1), new Date(123, 8, 29), admin.getAllPorts().get(0),
+        Trip newTrip = new Trip("3", newVehicle, new Date(123, Calendar.SEPTEMBER, 1), new Date(123, Calendar.SEPTEMBER, 29), admin.getAllPorts().get(0),
                 admin.getAllPorts().get(1), "On going");
         admin.createTrip(newTrip);
         trips = admin.getAllTrips();
         admin.getAllTrips().forEach(System.out::println);
 
         System.out.println("\nTest update method");
-        Trip updateTrip = new Trip("3", newVehicle, new Date(123, 7, 1), new Date(123, 9, 29),
+        Trip updateTrip = new Trip("3", newVehicle, new Date(123, Calendar.AUGUST, 1), new Date(123, Calendar.OCTOBER, 29),
                 admin.getAllPorts().get(1),
                 admin.getAllPorts().get(0), "On going");
         admin.updateTrip(updateTrip);
@@ -141,5 +136,36 @@ public class DatFileMethods implements Serializable {
         admin.deleteTrip("3");
         admin.getAllTrips().forEach(System.out::println);
 
+
+        // Vehicle
+        List<Vehicle> vehicles = new ArrayList<>();
+        vehicles.add(new Vehicle("1", "Vehicle 1", 1, 1, 1, ports.get(0), new ArrayList<>()));
+        vehicles.add(new Vehicle("2", "Vehicle 2", 2, 2, 2, ports.get(0), new ArrayList<>()));
+        writeAllLines("Vehicle.dat", vehicles);
+        SystemAdmin adminVehicle = new SystemAdmin("1", "adminVehicle", "adminVehicle");
+
+        System.out.println("---------------------------------------------------------------------------------------------");
+        System.out.println("Test get All method");
+        adminVehicle.getAllVehicles().forEach(System.out::println);
+
+        System.out.println("---------------------------------------------------------------------------------------------");
+        System.out.println("Test create method");
+        Vehicle newVehicle1 = new Vehicle("3", "Vehicle 3", 3, 3, 3, ports.get(1), new ArrayList<>());
+        adminVehicle.createVehicle(newVehicle1);
+        adminVehicle.getAllVehicles().forEach(System.out::println);
+
+        System.out.println("---------------------------------------------------------------------------------------------");
+        System.out.println("Test update method");
+        Vehicle updateVehicle = new Vehicle("3", "Vehicle 3 Updated", 3, 3, 3, ports.get(1), new ArrayList<>());
+        adminVehicle.updateVehicle(updateVehicle);
+        adminVehicle.getAllVehicles().forEach(System.out::println);
+        adminVehicle.getAllPorts().forEach(System.out::println);
+
+        System.out.println("---------------------------------------------------------------------------------------------");
+        System.out.println("Test delete method");
+        adminVehicle.deleteVehicle("1");
+        adminVehicle.deleteVehicle("2");
+        adminVehicle.deleteVehicle("3");
+        adminVehicle.getAllVehicles().forEach(System.out::println);
     }
 }
