@@ -5,9 +5,10 @@ import service.CRUD.CRUDInterface;
 import service.CRUD.implementation.CRUDImplement;
 import service.Container.ContainerInterface;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class ContainerImplement implements ContainerInterface {
+public class ContainerImplement implements ContainerInterface, Serializable {
     static CRUDInterface<Container, String> containerRepository;
     static {
         containerRepository = new CRUDImplement<Container, String>("Container.dat", Container.class);
@@ -17,6 +18,12 @@ public class ContainerImplement implements ContainerInterface {
 containerRepository.create(entity);
         return entity;
     }
+
+    public ContainerImplement(Container container) {
+        this.container = container;
+    }
+
+    private Container container;
 
     @Override
     public List<Container> getAll() {
