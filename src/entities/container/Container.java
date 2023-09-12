@@ -24,4 +24,28 @@ public class Container implements Serializable {
     public Container() {
 
     }
+
+    @Override
+    public String toString() {
+        return "Container{" +
+                "ID='" + ID + '\'' +
+                ", weight=" + weight +
+                '}';
+    }
+
+    public String getID() {
+        return ID;
+    }
+
+    public void setID(String ID) {
+        this.ID = ID;
+    }
+
+    public double getWeight() {
+        return weight;
+    }
+
+    public void setWeight(double weight) {
+        this.weight = weight;
+    }
 }
