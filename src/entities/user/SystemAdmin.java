@@ -38,11 +38,7 @@ public class SystemAdmin extends User {
         return userImplement.createPort(entity);
     }
 
-    public List<Container> getAllContainers(){ return userImplement.getAllContainers();}
-    public Container getByContainerId(String id) {return userImplement.getContainerById(id);}
-    public Container updateContainer(Container entity){ return userImplement.updateContainer(entity); }
-    public boolean deleteContainer(String id) { return userImplement.deleteContainer(id); }
-    public Container createContainer(Container entity) { return userImplement.createContainer(entity); }
+
 
     public List<Trip> getAllTrips() {
         return userImplement.getAllTrips();

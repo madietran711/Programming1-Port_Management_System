@@ -3,6 +3,7 @@ package service.User;
 import java.util.Date;
 import java.util.List;
 
+import entities.container.Container;
 import entities.port.Port;
 import entities.trip.Trip;
 import entities.user.User;
@@ -52,5 +53,9 @@ public interface UserInterface extends CRUDInterface<User, String> {
     public Vehicle getVehicleById(String id);
     public Vehicle updateVehicle(Vehicle entity);
     public boolean deleteVehicle(String id);
-
+    public List<Container> getAllContainers();
+    public Container getContainerById(String id);
+    public Container updateContainer(Container entity);
+    public boolean deleteContainer(String id);
+    public Container createContainer(Container entity);
 }

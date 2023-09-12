@@ -7,6 +7,7 @@ import entities.trip.Trip;
 
 import entities.user.SystemAdmin;
 import entities.vehicle.Vehicle;
+import enums.TripStatus;
 
 import java.io.*;
 import java.util.*;
@@ -100,6 +101,7 @@ public class DatFileMethods implements Serializable {
                 "---------------------------------------------------------------------------------------------");
         System.out.println("Test delete method");
         admin.deletePort("3");
+
         admin.getAllPorts().forEach(System.out::println);
 
 
@@ -109,10 +111,10 @@ public class DatFileMethods implements Serializable {
         List<Trip> trips = new ArrayList<Trip>();
         trips.add(new Trip("1", null, new Date(123, Calendar.SEPTEMBER, 10), new Date(123, Calendar.SEPTEMBER, 15), admin.getAllPorts().get(0),
                 admin.getAllPorts().get(1),
-                "On going"));
+                TripStatus.ONGOING));
         trips.add(new Trip("2", null, new Date(123, Calendar.SEPTEMBER, 20), new Date(123, Calendar.SEPTEMBER, 27), admin.getAllPorts().get(1),
                 admin.getAllPorts().get(0),
-                "On hold"));
+                TripStatus.ONGOING));
         writeAllLines("Trip.dat", trips);
 
         System.out.println("Test Trip methods");
@@ -121,7 +123,7 @@ public class DatFileMethods implements Serializable {
 
         System.out.println("\nTest create method");
         Trip newTrip = new Trip("3", newVehicle, new Date(123, Calendar.SEPTEMBER, 1), new Date(123, Calendar.SEPTEMBER, 29), admin.getAllPorts().get(0),
-                admin.getAllPorts().get(1), "On going");
+                admin.getAllPorts().get(1),  TripStatus.ONGOING);
         admin.createTrip(newTrip);
         trips = admin.getAllTrips();
         admin.getAllTrips().forEach(System.out::println);
@@ -129,7 +131,7 @@ public class DatFileMethods implements Serializable {
         System.out.println("\nTest update method");
         Trip updateTrip = new Trip("3", newVehicle, new Date(123, Calendar.AUGUST, 1), new Date(123, Calendar.OCTOBER, 29),
                 admin.getAllPorts().get(1),
-                admin.getAllPorts().get(0), "On going");
+                admin.getAllPorts().get(0),  TripStatus.ONGOING);
         admin.updateTrip(updateTrip);
         admin.getAllTrips().forEach(System.out::println);
 
@@ -169,7 +171,7 @@ public class DatFileMethods implements Serializable {
         admin.getAllVehicles().forEach(System.out::println);
 
 
-        // Container
+         //Container
         List<Container> containers = new ArrayList<>();
         containers.add(new Container("1", 1.0));
         containers.add(new Container("2", 2.0));

@@ -3,6 +3,7 @@ package entities.trip;
 import entities.port.Port;
 import entities.vehicle.Vehicle;
 
+import enums.TripStatus;
 import service.Trip.TripInterface;
 import service.Trip.implementation.TripImplement;
 
@@ -20,14 +21,14 @@ public class Trip implements Serializable {
     private Date arrivalDate;
     private Port departurePort;
     private Port arrivalPort;
-    private String status;
+    private TripStatus status;
 
 
     public Trip() {
     }
 
     public Trip(String ID, Vehicle trackingVehicle, Date departureDate, Date arrivalDate, Port departurePort,
-            Port arrivalPort, String status) {
+            Port arrivalPort, TripStatus status) {
         this.ID = ID;
         this.trackingVehicle = trackingVehicle;
         this.departureDate = departureDate;
@@ -46,7 +47,7 @@ public class Trip implements Serializable {
                 ", arrivalDate=" + arrivalDate +
                 ", arrivalPort=" + arrivalPort +
                 ", departurePort=" + departurePort +
-                ", status=" + status + '\'' +
+                ", status=" + status.toString() + '\'' +
                 '}';
     }
 
@@ -100,11 +101,12 @@ public class Trip implements Serializable {
     }
 
     public String getStatus() {
-        return status;
+        return status.toString();
     }
 
     public void setStatus(String status) {
-        this.status = status;
+
+        this.status = TripStatus.valueOf(status.toUpperCase());
     }
 
 }
