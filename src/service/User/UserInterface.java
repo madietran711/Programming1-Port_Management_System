@@ -27,6 +27,7 @@ public interface UserInterface extends CRUDInterface<User, String> {
     // manager
     public List<Port> getAllPorts();
 
+
     public Port createPort(Port entity);
 
     public Port getPortById(String id);
@@ -44,5 +45,6 @@ public interface UserInterface extends CRUDInterface<User, String> {
     public Trip updateTrip(Trip entity);
 
     public boolean deleteTrip(String id);
+
 
 }

@@ -1,25 +1,29 @@
 package utils;
 
 import entities.port.Port;
+
 import entities.trip.Trip;
+
 import entities.user.SystemAdmin;
 import entities.vehicle.Vehicle;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
+
 import java.util.Date;
+
 import java.util.List;
 
 public class DatFileMethods implements Serializable {
     // get file path
     private static String getFilePath(String fileName) {
-        // Assuming file is located in a folder named "dataFiles" relative to your
-        // project's root directory
+        // Assuming file is located in a folder named "dataFiles" relative to your project's root directory
         String absolutePath = "src" + File.separator + "dataFiles" + File.separator + fileName;
         return new File(absolutePath).getPath();
     }
-
+  
+  
     // write all data in a file
     public static <T> void writeAllLines(String fileName, List<T> data) {
         String filePath = getFilePath(fileName);
@@ -36,8 +40,10 @@ public class DatFileMethods implements Serializable {
     // read all data in a file
     public static <T> List<T> readAllLines(String fileName, Class<T> objectType) {
 
-        String filePath = getFilePath(fileName);
-        // initiate an empty array list to store all data
+
+       String filePath = getFilePath(fileName);
+       // initiate an empty array list to store all data
+
         List<T> allFileData = new ArrayList<>();
         try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(filePath))) {
             // loop through the file until it reaches the end of file
@@ -45,7 +51,7 @@ public class DatFileMethods implements Serializable {
                 try {
                     // read object from file
                     Object object = inputStream.readObject();
-                    allFileData.add(objectType.cast(object));
+            allFileData.add(objectType.cast(object));
 
                 } catch (EOFException e) {
                     // End Of File Exception: break the loop
@@ -60,6 +66,7 @@ public class DatFileMethods implements Serializable {
 
     public static void main(String[] args) {
         List<Port> ports = new ArrayList<>();
+
         ports.add(new Port("1", "Port 1", 1, 1, "Port 1", 1, 1, true, new ArrayList<>(), new ArrayList<>(),
                 Collections.emptyList()));
         ports.add(new Port("2", "Port 2", 2, 2, "Port 2", 2, 2, true, new ArrayList<>(), new ArrayList<>(),
@@ -80,9 +87,12 @@ public class DatFileMethods implements Serializable {
         admin.createPort(newPort);
         ports = admin.getAllPorts();
         Vehicle newVehicle = new Vehicle("1", "Vehicle 1", 1, 1, 1, ports.get(1), new ArrayList<>());
+
+      
         System.out.println(newVehicle);
         admin.updatePort(ports.get(1));
         admin.getAllPorts().forEach(System.out::println);
+
 
         System.out.println(
                 "---------------------------------------------------------------------------------------------");
@@ -130,5 +140,6 @@ public class DatFileMethods implements Serializable {
         System.out.println("\nTest delete method");
         admin.deleteTrip("3");
         admin.getAllTrips().forEach(System.out::println);
+
     }
 }

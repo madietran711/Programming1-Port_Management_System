@@ -1,7 +1,9 @@
 package entities.user;
 
 import entities.port.Port;
+
 import entities.trip.Trip;
+
 import service.User.UserInterface;
 import service.User.implementation.UserImplement;
 
@@ -34,6 +36,7 @@ public class SystemAdmin extends User {
         return userImplement.createPort(entity);
     }
 
+
     public List<Trip> getAllTrips() {
         return userImplement.getAllTrips();
     }
@@ -53,5 +56,6 @@ public class SystemAdmin extends User {
     public boolean deleteTrip(String id) {
         return userImplement.deleteTrip(id);
     }
+
 
 }

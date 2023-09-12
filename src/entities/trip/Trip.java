@@ -2,6 +2,7 @@ package entities.trip;
 
 import entities.port.Port;
 import entities.vehicle.Vehicle;
+
 import service.Trip.TripInterface;
 import service.Trip.implementation.TripImplement;
 
@@ -13,12 +14,14 @@ public class Trip implements Serializable {
     private final TripInterface tripImplement = new TripImplement(this); // Pass the current Trip implementation
 
     private String ID;
+
     private Vehicle trackingVehicle;
     private Date departureDate;
     private Date arrivalDate;
     private Port departurePort;
     private Port arrivalPort;
     private String status;
+
 
     public Trip() {
     }
@@ -103,4 +106,5 @@ public class Trip implements Serializable {
     public void setStatus(String status) {
         this.status = status;
     }
+
 }

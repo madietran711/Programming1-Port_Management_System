@@ -8,7 +8,9 @@ import entities.vehicle.Truck;
 import service.CRUD.CRUDInterface;
 import service.CRUD.implementation.CRUDImplement;
 import service.Port.implementation.PortImplement;
+
 import service.Trip.implementation.TripImplement;
+
 import service.User.UserInterface;
 
 import java.util.Date;
@@ -31,6 +33,7 @@ public class UserImplement implements UserInterface {
         userRepository.create(entity);
         return entity;
     }
+
 
     @Override
     public List<User> getAll() {
@@ -83,6 +86,7 @@ public class UserImplement implements UserInterface {
     }
 
     @Override
+
     public List<Port> getAllPorts() {
         PortImplement portImplement = new PortImplement(new Port());
         return portImplement.getAll();
@@ -111,6 +115,7 @@ public class UserImplement implements UserInterface {
         PortImplement portImplement = new PortImplement(new Port());
         return portImplement.delete(id);
     }
+
 
     @Override
     public List<Trip> getAllTrips() {
@@ -141,5 +146,6 @@ public class UserImplement implements UserInterface {
         TripImplement tripImplement = new TripImplement(new Trip());
         return tripImplement.delete(id);
     }
+
 
 }
