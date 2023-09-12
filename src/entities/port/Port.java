@@ -21,7 +21,7 @@ public class Port implements Serializable {
     private double currentCapacity;
     private double storingCapacity;
     private boolean landingAbility;
-    // what does the attribute above do again?
+
     private List<Trip> tripList;
     private List<Vehicle> vehicleList;
     private List<Container> containerList;
@@ -30,7 +30,9 @@ public class Port implements Serializable {
     }
 
     public Port(String ID, String name, double latitude, double longitude, String description, double currentCapacity,
+
                 double storingCapacity, boolean landingAbility) {
+
 
         this.ID = ID;
         this.name = name;
@@ -42,7 +44,11 @@ public class Port implements Serializable {
         this.landingAbility = landingAbility;
     }
 
-    public Port(String ID, String name, double latitude, double longitude, String description, double currentCapacity, double storingCapacity, boolean landingAbility, List<Trip> tripList, List<Vehicle> vehicleList, List<Container> containerList) {
+
+    public Port(String ID, String name, double latitude, double longitude, String description, double currentCapacity,
+            double storingCapacity, boolean landingAbility, List<Trip> tripList, List<Vehicle> vehicleList,
+            List<Container> containerList) {
+
         this.ID = ID;
         this.name = name;
         this.latitude = latitude;
@@ -150,6 +156,7 @@ public class Port implements Serializable {
     public List<Container> getContainerList() {
         return containerList;
     }
+
     public void setTripList(List<Trip> tripList) {
         this.tripList = tripList;
     }
@@ -162,9 +169,6 @@ public class Port implements Serializable {
         this.containerList = containerList;
     }
 
-// Implement PortInterface methods by delegating to portImplement
-
-
 
     public int getTotalVehicleCount() {
         return portImplement.getTotalVehicleCount();
@@ -174,7 +178,6 @@ public class Port implements Serializable {
     public int getTotalContainerCount() {
         return portImplement.getTotalContainerCount();
     }
-
 
 
     public double calculateDistanceFromPort(Port port) {

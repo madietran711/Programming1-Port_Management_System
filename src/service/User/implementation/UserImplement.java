@@ -8,6 +8,9 @@ import entities.vehicle.Truck;
 import service.CRUD.CRUDInterface;
 import service.CRUD.implementation.CRUDImplement;
 import service.Port.implementation.PortImplement;
+
+import service.Trip.implementation.TripImplement;
+
 import service.User.UserInterface;
 
 import java.util.Date;
@@ -83,14 +86,15 @@ public class UserImplement implements UserInterface {
     }
 
     @Override
-    public List<Port> getAllPorts(){
+
+    public List<Port> getAllPorts() {
         PortImplement portImplement = new PortImplement(new Port());
         return portImplement.getAll();
-}
+    }
 
     @Override
     public Port createPort(Port entity) {
-       PortImplement portImplement = new PortImplement(new Port());
+        PortImplement portImplement = new PortImplement(new Port());
         return portImplement.create(entity);
     }
 
@@ -111,5 +115,37 @@ public class UserImplement implements UserInterface {
         PortImplement portImplement = new PortImplement(new Port());
         return portImplement.delete(id);
     }
+
+
+    @Override
+    public List<Trip> getAllTrips() {
+        TripImplement tripImplement = new TripImplement(new Trip());
+        return tripImplement.getAll();
+    }
+
+    @Override
+    public Trip createTrip(Trip entity) {
+        TripImplement tripImplement = new TripImplement(new Trip());
+        return tripImplement.create(entity);
+    }
+
+    @Override
+    public Trip getTripById(String id) {
+        TripImplement tripImplement = new TripImplement(new Trip());
+        return tripImplement.getById(id);
+    }
+
+    @Override
+    public Trip updateTrip(Trip entity) {
+        TripImplement tripImplement = new TripImplement(new Trip());
+        return tripImplement.update(entity);
+    }
+
+    @Override
+    public boolean deleteTrip(String id) {
+        TripImplement tripImplement = new TripImplement(new Trip());
+        return tripImplement.delete(id);
+    }
+
 
 }

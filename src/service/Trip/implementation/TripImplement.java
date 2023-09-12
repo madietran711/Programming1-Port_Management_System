@@ -5,13 +5,25 @@ import service.CRUD.CRUDInterface;
 import service.CRUD.implementation.CRUDImplement;
 import service.Trip.TripInterface;
 
+
+import java.io.Serializable;
 import java.util.List;
 
-public class TripImplement implements TripInterface{
+public class TripImplement implements TripInterface, Serializable {
+
     static CRUDInterface<Trip, String> tripRepository;
     static {
         tripRepository = new CRUDImplement<Trip, String>("Trip.dat", Trip.class);
     }
+
+
+    private Trip trip; // Add an instance variable to store the Trip instance.
+
+    public TripImplement(Trip trip) {
+        this.trip = trip;
+    }
+
+
     @Override
     public Trip create(Trip entity) {
         tripRepository.create(entity);
@@ -20,7 +32,9 @@ public class TripImplement implements TripInterface{
 
     @Override
     public List<Trip> getAll() {
-       return tripRepository.getAll();
+
+        return tripRepository.getAll();
+
 
     }
 

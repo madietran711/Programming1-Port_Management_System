@@ -26,8 +26,25 @@ public interface UserInterface extends CRUDInterface<User, String> {
 
     // manager
     public List<Port> getAllPorts();
-    public Port createPort(Port entity) ;
+
+
+    public Port createPort(Port entity);
+
     public Port getPortById(String id);
+
     public Port updatePort(Port entity);
+
     public boolean deletePort(String id);
+
+    public List<Trip> getAllTrips();
+
+    public Trip createTrip(Trip entity);
+
+    public Trip getTripById(String id);
+
+    public Trip updateTrip(Trip entity);
+
+    public boolean deleteTrip(String id);
+
+
 }
