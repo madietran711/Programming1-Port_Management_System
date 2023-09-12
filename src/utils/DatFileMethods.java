@@ -110,7 +110,7 @@ public class DatFileMethods implements Serializable {
         List<Trip> trips = new ArrayList<Trip>();
         trips.add(new Trip("1", null, new Date(123, Calendar.SEPTEMBER, 10), new Date(123, Calendar.SEPTEMBER, 15), admin.getAllPorts().get(0),
                 admin.getAllPorts().get(1),
-                TripStatus.ONGOING));
+                TripStatus.ON_GOING));
         trips.add(new Trip("2", null, new Date(123, Calendar.SEPTEMBER, 20), new Date(123, Calendar.SEPTEMBER, 27), admin.getAllPorts().get(1),
                 admin.getAllPorts().get(0),
                 TripStatus.COMPLETED));
@@ -122,7 +122,7 @@ public class DatFileMethods implements Serializable {
 
         System.out.println("\nTest create method");
         Trip newTrip = new Trip("3", newVehicle, new Date(123, Calendar.SEPTEMBER, 1), new Date(123, Calendar.SEPTEMBER, 29), admin.getAllPorts().get(0),
-                admin.getAllPorts().get(1), TripStatus.ONGOING);
+                admin.getAllPorts().get(1), TripStatus.ON_GOING);
         admin.createTrip(newTrip);
         trips = admin.getAllTrips();
         admin.getAllTrips().forEach(System.out::println);
@@ -130,7 +130,7 @@ public class DatFileMethods implements Serializable {
         System.out.println("\nTest update method");
         Trip updateTrip = new Trip("3", newVehicle, new Date(123, Calendar.AUGUST, 1), new Date(123, Calendar.OCTOBER, 29),
                 admin.getAllPorts().get(1),
-                admin.getAllPorts().get(0), TripStatus.ONGOING);
+                admin.getAllPorts().get(0), TripStatus.ON_GOING);
         admin.updateTrip(updateTrip);
         admin.getAllTrips().forEach(System.out::println);
 
