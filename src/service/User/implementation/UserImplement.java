@@ -1,5 +1,6 @@
 package service.User.implementation;
 
+import entities.container.Container;
 import entities.port.Port;
 import entities.trip.Trip;
 import entities.user.User;
@@ -7,6 +8,7 @@ import entities.vehicle.Ship;
 import entities.vehicle.Truck;
 import service.CRUD.CRUDInterface;
 import service.CRUD.implementation.CRUDImplement;
+import service.Container.implementation.ContainerImplement;
 import service.Port.implementation.PortImplement;
 import service.User.UserInterface;
 
@@ -111,5 +113,36 @@ public class UserImplement implements UserInterface {
         PortImplement portImplement = new PortImplement(new Port());
         return portImplement.delete(id);
     }
+
+    @Override
+    public List<Container> getAllContainers() {
+        ContainerImplement containerImplement = new ContainerImplement(new Container());
+        return containerImplement.getAll();
+    }
+
+    @Override
+    public Container getContainerById(String id) {
+        ContainerImplement containerImplement = new ContainerImplement(new Container());
+        return containerImplement.getById(id);
+    }
+
+    @Override
+    public Container updateContainer(Container entity) {
+        ContainerImplement containerImplement = new ContainerImplement(new Container());
+        return containerImplement.update(entity);
+    }
+
+    @Override
+    public boolean deleteContainer(String id) {
+        ContainerImplement containerImplement = new ContainerImplement(new Container());
+        return containerImplement.delete(id);
+    }
+
+    @Override
+    public Container createContainer(Container entity) {
+        ContainerImplement containerImplement = new ContainerImplement(new Container());
+        return containerImplement.create(entity);
+    }
+
 
 }
