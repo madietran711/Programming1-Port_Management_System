@@ -16,6 +16,10 @@ public class SystemAdmin extends User {
         super(ID, username, password);
     }
 
+    public SystemAdmin(String username, String password) {
+        super(username, password);
+    }
+
     private final UserInterface userImplement = new UserImplement(this); // delegation
 
     public List<Port> getAllPorts() {

@@ -12,6 +12,9 @@ public class PortManager extends User {
     private final UserImplement userImplement = new UserImplement(this);
     private Port managingPort;
 
+    public PortManager(String username, String password) {
+        super(username, password);
+    }
 
     public double calculateFuelUsageOnDate(Date date) {
         throw new UnsupportedOperationException("Not implemented");
