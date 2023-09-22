@@ -10,6 +10,7 @@ import entities.vehicle.Vehicle;
 import enums.TripStatus;
 
 import java.io.*;
+import java.time.LocalDate;
 import java.util.*;
 
 public class DatFileMethods implements Serializable {
@@ -108,10 +109,10 @@ public class DatFileMethods implements Serializable {
         System.out.println(
                 "---------------------------------------------------------------------------------------------");
         List<Trip> trips = new ArrayList<Trip>();
-        trips.add(new Trip("1", null, new Date(123, Calendar.SEPTEMBER, 10), new Date(123, Calendar.SEPTEMBER, 15), admin.getAllPorts().get(0),
+        trips.add(new Trip("1", null, LocalDate.of(2023, 9, 10), LocalDate.of(2023, 9, 15), admin.getAllPorts().get(0),
                 admin.getAllPorts().get(1),
                 TripStatus.ON_GOING));
-        trips.add(new Trip("2", null, new Date(123, Calendar.SEPTEMBER, 20), new Date(123, Calendar.SEPTEMBER, 27), admin.getAllPorts().get(1),
+        trips.add(new Trip("2", null, LocalDate.of(2023, 9, 20), LocalDate.of(2023, 9, 27), admin.getAllPorts().get(1),
                 admin.getAllPorts().get(0),
                 TripStatus.COMPLETED));
         writeAllLines("Trip.dat", trips);
@@ -121,14 +122,14 @@ public class DatFileMethods implements Serializable {
         admin.getAllTrips().forEach(System.out::println);
 
         System.out.println("\nTest create method");
-        Trip newTrip = new Trip("3", newVehicle, new Date(123, Calendar.SEPTEMBER, 1), new Date(123, Calendar.SEPTEMBER, 29), admin.getAllPorts().get(0),
+        Trip newTrip = new Trip("3", newVehicle, LocalDate.of(2023, 9, 1), LocalDate.of(2023, 9, 29), admin.getAllPorts().get(0),
                 admin.getAllPorts().get(1), TripStatus.ON_GOING);
         admin.createTrip(newTrip);
         trips = admin.getAllTrips();
         admin.getAllTrips().forEach(System.out::println);
 
         System.out.println("\nTest update method");
-        Trip updateTrip = new Trip("3", newVehicle, new Date(123, Calendar.AUGUST, 1), new Date(123, Calendar.OCTOBER, 29),
+        Trip updateTrip = new Trip("3", newVehicle, LocalDate.of(2023, 8, 1), LocalDate.of(2023, 10, 29),
                 admin.getAllPorts().get(1),
                 admin.getAllPorts().get(0), TripStatus.ON_GOING);
         admin.updateTrip(updateTrip);

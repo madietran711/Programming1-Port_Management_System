@@ -4,9 +4,8 @@ import entities.container.Container;
 import entities.port.Port;
 import entities.trip.Trip;
 import entities.user.User;
-import entities.vehicle.Ship;
-import entities.vehicle.Truck;
 import entities.vehicle.Vehicle;
+import enums.TripStatus;
 import service.CRUD.CRUDInterface;
 import service.CRUD.implementation.CRUDImplement;
 import service.Container.implementation.ContainerImplement;
@@ -18,8 +17,10 @@ import service.User.UserInterface;
 import service.Vehicle.implementation.VehicleImplement;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class UserImplement implements UserInterface, Serializable {
     static CRUDInterface<User, String> userRepository;
@@ -70,23 +71,52 @@ public class UserImplement implements UserInterface, Serializable {
         return false;
     }
 
-    @Override
-    public List<Ship> getAllShipsInPort(Port port) {
-        return null;
+    public <T extends Vehicle> List<T> getAllVehiclesOfTypeInPort(Port port, Class<T> vehicleType) {
+        return port.getVehicleList()
+                .stream()
+                .filter(vehicleType::isInstance)
+                .map(vehicleType::cast)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public List<Truck> getAllTrucksInPort(Port port) {
-        return null;
+    public List<Trip> getAllTripOnDate(LocalDate date) {
+        TripImplement tripImplement = new TripImplement(new Trip());
+        // get all trip
+        List<Trip> tripList = tripImplement.getAll();
+        // filter tripList by date
+        List<Trip> tripListOnDate = tripList.stream()
+                        // check if trip is completed and arrival date is equal to the input date
+                .filter(trip -> (trip.getArrivalDate().equals(date) && trip.getStatus() == TripStatus.COMPLETED) ||
+                        // check if trip is on going and departure date is equal to the input date
+                        (trip.getDepartureDate().equals(date) && trip.getStatus() == TripStatus.ON_GOING) ||
+                        // check if trip is on going and the input date is between departure date and arrival date
+                        (trip.getDepartureDate().isBefore(date) && trip.getArrivalDate().isAfter(date) && trip.getStatus() == TripStatus.ON_GOING))
+                .collect(Collectors.toList());
+
+        return tripListOnDate;
+
     }
 
     @Override
-    public List<Trip> getAllTripOnDate(Date date) {
-        return null;
+    public List<Trip> getAllTripBetweenDate(LocalDate date1, LocalDate date2) {
+        TripImplement tripImplement = new TripImplement(new Trip());
+        List<Trip> tripList = tripImplement.getAll();
+
+        List<Trip> tripsBetweenDates = tripList.stream()
+                // check if trip is completed and arrival date is between the input dates
+                .filter(trip -> (trip.getArrivalDate().isAfter(date1) && trip.getArrivalDate().isBefore(date2) && trip.getStatus() == TripStatus.COMPLETED) ||
+                        // check if trip is on going and departure date is between the input dates
+                        (trip.getDepartureDate().isAfter(date1) && trip.getDepartureDate().isBefore(date2) && trip.getStatus() == TripStatus.ON_GOING) ||
+                        // check if trip is on going and the input dates are between departure date and arrival date
+                        (trip.getDepartureDate().isBefore(date1) && trip.getArrivalDate().isAfter(date2) && trip.getStatus() == TripStatus.ON_GOING))
+                .collect(Collectors.toList());
+
+        return tripsBetweenDates;
     }
 
     @Override
-    public List<Trip> getAllTripBetweenDate(Date date1, Date date2) {
+    public List<Trip> calculateFuelUsageOnDate(Date date) {
         return null;
     }
 

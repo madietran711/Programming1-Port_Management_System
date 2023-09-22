@@ -1,5 +1,6 @@
 package service.User;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -7,57 +8,52 @@ import entities.container.Container;
 import entities.port.Port;
 import entities.trip.Trip;
 import entities.user.User;
-import entities.vehicle.Ship;
-import entities.vehicle.Truck;
 import entities.vehicle.Vehicle;
 import service.CRUD.CRUDInterface;
 
 public interface UserInterface extends CRUDInterface<User, String> {
-
-    public boolean userLogin(String username, String password);
-
-    public boolean resetPassword(String username, String oldPassword, String newPassword);
-
-    public List<Ship> getAllShipsInPort(Port port);
-
-    public List<Truck> getAllTrucksInPort(Port port);
-
-    public List<Trip> getAllTripOnDate(Date date);
-
-    public List<Trip> getAllTripBetweenDate(Date date1, Date date2);
-
-    // manager
-    public List<Port> getAllPorts();
+//    + User(username : String, password : String) : void
+//+ userLogin(username : String, password : String): boolean
+//+ resetPassword (username : String, oldPassword : String, newPassword : String): boolean
+//+ getAllShipsInPort(port : Port): List<Ship>
+//+ getAllTrucksInPort(port : Port): List<Truck>
+//+ getAllTripInDay(date : Date): List<Trip>
+//+ getAllTripBetweenDay(date1 : Date, date2 : Date): List<tTrip>
+// + calculateFuelUsageOnDate(date : Date): double
+// + calculateWeightOfContainersByType(): Map<ContainerType, Double>
 
 
-    public Port createPort(Port entity);
+    boolean userLogin(String username, String password);
 
-    public Port getPortById(String id);
+     boolean resetPassword(String username, String oldPassword, String newPassword);
 
-    public Port updatePort(Port entity);
+    <T extends Vehicle> List<T> getAllVehiclesOfTypeInPort(Port port, Class<T> vehicleType);
 
-    public boolean deletePort(String id);
+     List<Trip> getAllTripOnDate(LocalDate date);
 
-    public List<Trip> getAllTrips();
+     List<Trip> getAllTripBetweenDate(LocalDate date1, LocalDate date2);
+     List<Trip> calculateFuelUsageOnDate(Date date);
 
-    public Trip createTrip(Trip entity);
-
-    public Trip getTripById(String id);
-
-    public Trip updateTrip(Trip entity);
-
-    public boolean deleteTrip(String id);
-
-    public List<Vehicle> getAllVehicles();
-    public Vehicle createVehicle(Vehicle entity) ;
-    public Vehicle getVehicleById(String id);
-    public Vehicle updateVehicle(Vehicle entity);
-    public boolean deleteVehicle(String id);
-    public List<Container> getAllContainers();
-    public Container getContainerById(String id);
-    public Container updateContainer(Container entity);
-    public boolean deleteContainer(String id) ;
-    public Container createContainer(Container entity);
+     List<Port> getAllPorts();
+     Port createPort(Port entity);
+     Port getPortById(String id);
+     Port updatePort(Port entity);
+     boolean deletePort(String id);
+     List<Trip> getAllTrips();
+     Trip createTrip(Trip entity);
+     Trip getTripById(String id);
+     Trip updateTrip(Trip entity);
+     boolean deleteTrip(String id);
+     List<Vehicle> getAllVehicles();
+     Vehicle createVehicle(Vehicle entity) ;
+     Vehicle getVehicleById(String id);
+     Vehicle updateVehicle(Vehicle entity);
+     boolean deleteVehicle(String id);
+     List<Container> getAllContainers();
+     Container getContainerById(String id);
+     Container updateContainer(Container entity);
+     boolean deleteContainer(String id) ;
+     Container createContainer(Container entity);
 
 
 }

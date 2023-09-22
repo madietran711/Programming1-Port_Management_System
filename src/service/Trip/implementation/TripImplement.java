@@ -1,12 +1,14 @@
 package service.Trip.implementation;
 
 import entities.trip.Trip;
+import enums.TripStatus;
 import service.CRUD.CRUDInterface;
 import service.CRUD.implementation.CRUDImplement;
 import service.Trip.TripInterface;
 
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.List;
 
 public class TripImplement implements TripInterface, Serializable {
@@ -51,5 +53,29 @@ public class TripImplement implements TripInterface, Serializable {
     @Override
     public boolean delete(String id) {
         return tripRepository.delete(id);
+    }
+
+
+    @Override
+    public boolean updateTripStatus() {
+        LocalDate currentDate = LocalDate.now();
+        LocalDate departureDate = this.trip.getDepartureDate();
+        LocalDate arrivalDate = this.trip.getArrivalDate();
+        // before the departure date
+        if (currentDate.isBefore(departureDate) ){
+            this.trip.setStatus(String.valueOf(TripStatus.PENDING));
+            return true;
+        }
+        // during the trip
+        else if (!currentDate.isBefore(departureDate) && !currentDate.isAfter(arrivalDate)) {
+            this.trip.setStatus(String.valueOf(TripStatus.ON_GOING));
+            return true;
+        }
+        // after the arrival date
+        else if (currentDate.isAfter(arrivalDate)) {
+            this.trip.setStatus(String.valueOf(TripStatus.COMPLETED));
+            return true;
+        }
+        return false;
     }
 }

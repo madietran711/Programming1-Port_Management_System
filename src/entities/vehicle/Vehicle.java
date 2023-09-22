@@ -16,8 +16,8 @@ public class Vehicle implements Serializable {
     // @Unique
     private String ID;
     private String name;
+    private double fuelTankCapacity;
     private double currentFuel;
-    private double currentCapacity;
     private double carryingCapacity;
     private Port currentPort;
     private ArrayList<Container> containerList;
@@ -28,8 +28,8 @@ public class Vehicle implements Serializable {
 
                 ", ID='" + ID + '\'' +
                 ", name='" + name + '\'' +
-                ", currentFuel=" + currentFuel +
-                ", currentCapacity=" + currentCapacity +
+                ", currentFuel=" +currentFuel +
+                ", fuelCapacity= "+ fuelTankCapacity +
                 ", carryingCapacity=" + carryingCapacity +
                 ", currentPort=" + getCurrentPort().getName() +
                 ", containerList=" + containerList +
@@ -39,19 +39,19 @@ public class Vehicle implements Serializable {
     public Vehicle() {
     }
 
-    public Vehicle(String ID, String name, double currentFuel, double currentCapacity, double carryingCapacity) {
+    public Vehicle(String ID, String name, double fuelTankCapacity,double currentFuel, double carryingCapacity) {
         this.ID = ID;
         this.name = name;
+        this.fuelTankCapacity = currentFuel;
         this.currentFuel = currentFuel;
-        this.currentCapacity = currentCapacity;
         this.carryingCapacity = carryingCapacity;
     }
 
-    public Vehicle(String ID, String name, double currentFuel, double currentCapacity, double carryingCapacity, Port currentPort, ArrayList<Container> containerList) {
+    public Vehicle(String ID, String name,double fuelTankCapacity, double currentFuel, double carryingCapacity, Port currentPort, ArrayList<Container> containerList) {
         this.ID = ID;
         this.name = name;
+        this.fuelTankCapacity = currentFuel;
         this.currentFuel = currentFuel;
-        this.currentCapacity = currentCapacity;
         this.carryingCapacity = carryingCapacity;
         this.currentPort = currentPort;
        setCurrentPort(currentPort);
@@ -74,20 +74,24 @@ public class Vehicle implements Serializable {
         this.name = name;
     }
 
+    public double getFuelTankCapacity() {
+        return fuelTankCapacity;
+    }
+
+    public void setFuelTankCapacity(double fuelTankCapacity) {
+        this.fuelTankCapacity = fuelTankCapacity;
+    }
+
+    public double getCurrentCapacity() {
+        return vehicleImplement.calculateTotalWeight();
+    }
+
     public double getCurrentFuel() {
         return currentFuel;
     }
 
     public void setCurrentFuel(double currentFuel) {
         this.currentFuel = currentFuel;
-    }
-
-    public double getCurrentCapacity() {
-        return currentCapacity;
-    }
-
-    public void setCurrentCapacity(double currentCapacity) {
-        this.currentCapacity = currentCapacity;
     }
 
     public double getCarryingCapacity() {

@@ -5,17 +5,20 @@ import entities.vehicle.Vehicle;
 import entities.container.Container;
 import service.CRUD.CRUDInterface;
 
+import java.util.List;
 import java.util.Map;
 
 public interface VehicleInterface extends CRUDInterface<Vehicle, String> {
 
-    public void loadContainer();
+    public boolean loadContainer(List<Container> containerList);
 
-    public void unloadContainer();
+    public boolean unloadContainer();
 
-    public void move();
+    public boolean move();
 
-    public void refuel();
+    public boolean refuel();
+public double calculateTotalWeight();
+
 
     // for the 4 methods above, shouldn't it return a boolean value to verify if the
     // method can be carried out
@@ -23,7 +26,23 @@ public interface VehicleInterface extends CRUDInterface<Vehicle, String> {
 
     public int getTotalContainer();
 
-    public boolean canMoveToPortWithCurrentLoad();
+    public boolean canMoveToPortWithCurrentLoad(Port port);
+
 
     public void addVehicleToPort(Port currentPort);
+
+
+
+
+//+ loadContainer() : boolean
+//+ unloadContainer() : boolean
+//+ move() : boolean
+//+ refuel() : boolean
+//+ getTotalContainerWithType(): Map<ContainerType, int>
+//+ getTotalContainer(): int
+//+ calculateWeight(): double
+//+ calculateCurrentLoad(): double
+//+ canMoveToPortWithCurrentLoad(): boolean
+
+
 }

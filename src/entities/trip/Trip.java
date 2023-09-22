@@ -8,6 +8,7 @@ import service.Trip.TripInterface;
 import service.Trip.implementation.TripImplement;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Trip implements Serializable {
@@ -17,8 +18,8 @@ public class Trip implements Serializable {
     private String ID;
 
     private Vehicle trackingVehicle;
-    private Date departureDate;
-    private Date arrivalDate;
+    private LocalDate departureDate;
+    private LocalDate arrivalDate;
     private Port departurePort;
     private Port arrivalPort;
     private TripStatus status;
@@ -27,7 +28,7 @@ public class Trip implements Serializable {
     public Trip() {
     }
 
-    public Trip(String ID, Vehicle trackingVehicle, Date departureDate, Date arrivalDate, Port departurePort,
+    public Trip(String ID, Vehicle trackingVehicle, LocalDate departureDate, LocalDate arrivalDate, Port departurePort,
             Port arrivalPort, TripStatus status) {
         this.ID = ID;
         this.trackingVehicle = trackingVehicle;
@@ -69,19 +70,19 @@ public class Trip implements Serializable {
         this.trackingVehicle = trackingVehicle;
     }
 
-    public Date getDepartureDate() {
+    public LocalDate getDepartureDate() {
         return departureDate;
     }
 
-    public void setDepartureDate(Date departureDate) {
+    public void setDepartureDate(LocalDate departureDate) {
         this.departureDate = departureDate;
     }
 
-    public Date getArrivalDate() {
+    public LocalDate getArrivalDate() {
         return arrivalDate;
     }
 
-    public void setArrivalDate(Date arrivalDate) {
+    public void setArrivalDate(LocalDate arrivalDate) {
         this.arrivalDate = arrivalDate;
     }
 

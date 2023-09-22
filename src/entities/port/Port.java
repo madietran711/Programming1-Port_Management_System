@@ -1,6 +1,7 @@
 package entities.port;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import entities.container.Container;
@@ -42,6 +43,9 @@ public class Port implements Serializable {
         this.currentCapacity = currentCapacity;
         this.storingCapacity = storingCapacity;
         this.landingAbility = landingAbility;
+        this.tripList = new ArrayList<>();
+        this.vehicleList = new ArrayList<>();
+        this.containerList = new ArrayList<>();
     }
 
 

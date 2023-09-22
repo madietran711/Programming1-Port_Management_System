@@ -1,6 +1,9 @@
 package service.Container.implementation;
 
 import entities.container.Container;
+import entities.vehicle.Ship;
+import entities.vehicle.Truck;
+import entities.vehicle.Vehicle;
 import service.CRUD.CRUDInterface;
 import service.CRUD.implementation.CRUDImplement;
 import service.Container.ContainerInterface;
@@ -43,5 +46,19 @@ containerRepository.create(entity);
     @Override
     public boolean delete(String id) {
         return containerRepository.delete(id);
+    }
+
+    @Override
+    public double calculateFuelConsumptionByWeightPerKm(Vehicle vehicle) {
+        // check if container is on truck or ship
+        // if on truck, calculate fuel need for container per km
+        if (vehicle instanceof Truck) {
+            return this.container.getWeight() * this.container.getTruckFuelConsumption();
+        }
+        // if on ship,  calculate fuel need for container per km
+        if (vehicle instanceof Ship) {
+            return this.container.getWeight() * this.container.getShipFuelConsumption();
+        }
+        return 0.0;
     }
 }

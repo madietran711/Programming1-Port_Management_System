@@ -5,4 +5,6 @@ import service.CRUD.CRUDInterface;
 
 public interface TripInterface extends CRUDInterface<Trip, String> {
 
+    boolean updateTripStatus();
+
 }

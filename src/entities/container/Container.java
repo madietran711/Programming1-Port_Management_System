@@ -1,6 +1,7 @@
 package entities.container;
 
 
+import entities.vehicle.Vehicle;
 import service.Container.ContainerInterface;
 import service.Container.implementation.ContainerImplement;
 
@@ -11,6 +12,7 @@ public class Container implements Serializable {
     // @Unique
     private String ID;
     private double weight;
+
 
     private final ContainerInterface containerImplement = new ContainerImplement(this);
 
@@ -27,10 +29,9 @@ public class Container implements Serializable {
 
     @Override
     public String toString() {
-        return "Container{" +
+        return
                 "ID='" + ID + '\'' +
-                ", weight=" + weight +
-                '}';
+                ", weight=" + weight;
     }
 
     public String getID() {
@@ -47,5 +48,17 @@ public class Container implements Serializable {
 
     public void setWeight(double weight) {
         this.weight = weight;
+    }
+
+    public double getShipFuelConsumption() {
+        return 0.0; // Default value if not overridden in child classes
+    }
+
+    public double getTruckFuelConsumption() {
+        return 0.0; // Default value if not overridden in child classes
+    }
+
+    public double calculateFuelConsumption(Vehicle vehicle){
+        return containerImplement.calculateFuelConsumptionByWeightPerKm(vehicle);
     }
 }

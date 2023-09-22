@@ -19,6 +19,10 @@ public class PortManager extends User {
 
 
 
+    public PortManager(String ID, String username, String password, Port managingPort) {
+        super(ID, username, password);
+        this.managingPort = managingPort;
+    }
 
     public Map<Container, Double> calculateWeightOfContainersByType() {
         throw new UnsupportedOperationException("Not implemented");
