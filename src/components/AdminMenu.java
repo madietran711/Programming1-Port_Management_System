@@ -16,7 +16,6 @@ public class AdminMenu {
     public void displayMenu() {
         while (true) {
             System.out.println(">>>>>>>>>>>>>>>>>>>>> DISPLAYING [ADMIN] MENU <<<<<<<<<<<<<<<<<<<<<");
-            System.out.println("System Admin Menu:");
             System.out.println("1. Manage Ports");
             System.out.println("2. Manage Containers");
             System.out.println("3. Manage Trips");
@@ -26,6 +25,7 @@ public class AdminMenu {
             System.out.print("Enter your choice: ");
 
             int choice = scanner.nextInt();
+            scanner.nextLine(); // Consume newline
 
             switch (choice) {
                 case 1:

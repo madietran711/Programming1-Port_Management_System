@@ -1,13 +1,21 @@
 package components;
 
 import entities.container.Container;
+import entities.container.DryStorageContainer;
+import entities.container.LiquidContainer;
+import entities.container.OpenSideContainer;
+import entities.container.OpenTopContainer;
+import entities.container.RefridgeratedContainer;
 import entities.port.Port;
+import entities.trip.Trip;
 import entities.user.PortManager;
 import entities.user.SystemAdmin;
 import entities.user.User;
 import entities.vehicle.Vehicle;
 import utils.ClassCreation;
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -318,8 +326,48 @@ public class VehicleMenu {
                     case 13:
                         System.out.println(
                                 "---------------------CALCULATE FUEL COMSUMPTION ON SPECIFIED DATE---------------------");
-                        System.out.println("Enter the Date on which you want to calculate fuel usage: ");
-                        // Left for An
+                        System.out.println(
+                                "Enter the Date on which you want to calculate fuel usage (enters year, month, day of month separated by a comma): ");
+                        String[] trackingFuelDateInput = scanner.nextLine().split(",");
+                        LocalDate trackingFuelDate = LocalDate.of(Integer.parseInt(trackingFuelDateInput[0]),
+                                Integer.parseInt(trackingFuelDateInput[1]), Integer.parseInt(trackingFuelDateInput[2]));
+                        List<Trip> allTripList = systemAdmin.getAllTrips();
+                        double fuelUsage = 0.0;
+                        for (Trip trip : allTripList) {
+                            if (trip.getDepartureDate().isBefore(trackingFuelDate)
+                                    && trip.getArrivalDate().isAfter(trackingFuelDate)) {
+                                Vehicle trackingVehicle = trip.getTrackingVehicle();
+                                Port departurePort = trip.getDeparturePort();
+                                Port arrivalPort = trip.getArrivalPort();
+                                double portDistance = departurePort.calculateDistanceFromPort(arrivalPort);
+                                LocalDate departureDate = trip.getDepartureDate();
+                                LocalDate arrivalDate = trip.getArrivalDate();
+                                long daysBetween = ChronoUnit.DAYS.between(departureDate, arrivalDate);
+                                double travelDistance = portDistance / daysBetween;
+                                List<Container> trackingContainers = trackingVehicle.getContainerList();
+                                double dryContainersWeight = 0.0;
+                                double wetContainersWeight = 0.0;
+                                double oSideContainersWeight = 0.0;
+                                double oTopContainersWeight = 0.0;
+                                double coldContainersWeight = 0.0;
+                                for (Container container : trackingContainers) {
+                                    if (container instanceof DryStorageContainer) {
+                                        dryContainersWeight += container.getWeight();
+                                    } else if (container instanceof LiquidContainer) {
+                                        wetContainersWeight += container.getWeight();
+                                    } else if (container instanceof OpenSideContainer) {
+                                        oSideContainersWeight += container.getWeight();
+                                    } else if (container instanceof OpenTopContainer) {
+                                        oTopContainersWeight += container.getWeight();
+                                    } else if (container instanceof RefridgeratedContainer) {
+                                        coldContainersWeight += container.getWeight();
+                                    }
+                                }
+                                fuelUsage += portDistance;
+                            }
+                        }
+                        System.out.println("On the Date " + trackingFuelDate.toString() + " the total fuel usage is "
+                                + Double.toString(fuelUsage));
                         break;
 
                     case 14:

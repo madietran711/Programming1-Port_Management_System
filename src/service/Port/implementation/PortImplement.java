@@ -9,6 +9,8 @@ import service.CRUD.implementation.CRUDImplement;
 import service.Port.PortInterface;
 
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class PortImplement implements PortInterface, Serializable {
@@ -99,6 +101,17 @@ public class PortImplement implements PortInterface, Serializable {
 
     @Override
     public List<Trip> getTrafficRecord() {
-        return null;
+        List<Trip> portTrafficRecord = new ArrayList<Trip>();
+        List<Trip> portAllTrips = port.getTripList();
+        LocalDate today = LocalDate.now();
+        LocalDate cutoffDate = today.minusDays(7);
+        for (Trip trip : portAllTrips) {
+            if (trip.getArrivalDate().isBefore(cutoffDate)) {
+                continue;
+            } else {
+                portTrafficRecord.add(trip);
+            }
+        }
+        return portTrafficRecord;
     }
 }

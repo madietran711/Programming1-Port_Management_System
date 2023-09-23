@@ -40,7 +40,6 @@ public class UserImplement implements UserInterface, Serializable {
         return entity;
     }
 
-
     @Override
     public List<User> getAll() {
         return userRepository.getAll();
@@ -86,12 +85,14 @@ public class UserImplement implements UserInterface, Serializable {
         List<Trip> tripList = tripImplement.getAll();
         // filter tripList by date
         List<Trip> tripListOnDate = tripList.stream()
-                        // check if trip is completed and arrival date is equal to the input date
+                // check if trip is completed and arrival date is equal to the input date
                 .filter(trip -> (trip.getArrivalDate().equals(date) && trip.getStatus() == TripStatus.COMPLETED) ||
-                        // check if trip is on going and departure date is equal to the input date
+                // check if trip is on going and departure date is equal to the input date
                         (trip.getDepartureDate().equals(date) && trip.getStatus() == TripStatus.ON_GOING) ||
-                        // check if trip is on going and the input date is between departure date and arrival date
-                        (trip.getDepartureDate().isBefore(date) && trip.getArrivalDate().isAfter(date) && trip.getStatus() == TripStatus.ON_GOING))
+                        // check if trip is on going and the input date is between departure date and
+                        // arrival date
+                        (trip.getDepartureDate().isBefore(date) && trip.getArrivalDate().isAfter(date)
+                                && trip.getStatus() == TripStatus.ON_GOING))
                 .collect(Collectors.toList());
 
         return tripListOnDate;
@@ -105,11 +106,16 @@ public class UserImplement implements UserInterface, Serializable {
 
         List<Trip> tripsBetweenDates = tripList.stream()
                 // check if trip is completed and arrival date is between the input dates
-                .filter(trip -> (trip.getArrivalDate().isAfter(date1) && trip.getArrivalDate().isBefore(date2) && trip.getStatus() == TripStatus.COMPLETED) ||
-                        // check if trip is on going and departure date is between the input dates
-                        (trip.getDepartureDate().isAfter(date1) && trip.getDepartureDate().isBefore(date2) && trip.getStatus() == TripStatus.ON_GOING) ||
-                        // check if trip is on going and the input dates are between departure date and arrival date
-                        (trip.getDepartureDate().isBefore(date1) && trip.getArrivalDate().isAfter(date2) && trip.getStatus() == TripStatus.ON_GOING))
+                .filter(trip -> (trip.getArrivalDate().isAfter(date1) && trip.getArrivalDate().isBefore(date2)
+                        && trip.getStatus() == TripStatus.COMPLETED) ||
+                // check if trip is on going and departure date is between the input dates
+                        (trip.getDepartureDate().isAfter(date1) && trip.getDepartureDate().isBefore(date2)
+                                && trip.getStatus() == TripStatus.ON_GOING)
+                        ||
+                        // check if trip is on going and the input dates are between departure date and
+                        // arrival date
+                        (trip.getDepartureDate().isBefore(date1) && trip.getArrivalDate().isAfter(date2)
+                                && trip.getStatus() == TripStatus.ON_GOING))
                 .collect(Collectors.toList());
 
         return tripsBetweenDates;
@@ -151,7 +157,6 @@ public class UserImplement implements UserInterface, Serializable {
         return portImplement.delete(id);
     }
 
-
     @Override
     public List<Trip> getAllTrips() {
         TripImplement tripImplement = new TripImplement(new Trip());
@@ -183,7 +188,7 @@ public class UserImplement implements UserInterface, Serializable {
     }
 
     @Override
-    public List<Vehicle> getAllVehicles(){
+    public List<Vehicle> getAllVehicles() {
         VehicleImplement vehicleImplement = new VehicleImplement(new Vehicle());
         return vehicleImplement.getAll();
     }
@@ -226,20 +231,20 @@ public class UserImplement implements UserInterface, Serializable {
 
     @Override
     public Container updateContainer(Container entity) {
-            ContainerImplement containerImplement = new ContainerImplement(new Container());
-    return containerImplement.update(entity);}
+        ContainerImplement containerImplement = new ContainerImplement(new Container());
+        return containerImplement.update(entity);
+    }
 
     @Override
     public boolean deleteContainer(String id) {
-            ContainerImplement containerImplement = new ContainerImplement(new Container());
-    return containerImplement.delete(id);
-        }
+        ContainerImplement containerImplement = new ContainerImplement(new Container());
+        return containerImplement.delete(id);
+    }
 
     @Override
     public Container createContainer(Container entity) {
-            ContainerImplement containerImplement = new ContainerImplement(new Container());
-    return containerImplement.create(entity);
-        }
-
+        ContainerImplement containerImplement = new ContainerImplement(new Container());
+        return containerImplement.create(entity);
+    }
 
 }

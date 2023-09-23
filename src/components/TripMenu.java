@@ -7,6 +7,8 @@ import entities.user.SystemAdmin;
 import entities.user.User;
 import utils.ClassCreation;
 
+import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
 
@@ -16,6 +18,7 @@ public class TripMenu {
             System.out.println("Not authorized to access this menu.");
         } else if (systemAdmin instanceof SystemAdmin) {
             Scanner scanner = new Scanner(System.in);
+
             while (true) {
                 System.out.println(">>>>>>>>>>>>>>>>>>>>> DISPLAYING [TRIP] MANAGEMENT MENU <<<<<<<<<<<<<<<<<<<<<");
                 System.out.println("1. View All Trips");
@@ -32,6 +35,7 @@ public class TripMenu {
                 System.out.print("Enter your choice: ");
 
                 int choice = scanner.nextInt();
+                scanner.nextLine(); // Consume newline
 
                 switch (choice) {
                     case 1:
@@ -131,18 +135,65 @@ public class TripMenu {
                             break;
                         }
                         Trip tripViewStatus = systemAdmin.getTripById(tripIDViewStatus);
-                        System.out.println("Trip with ID " + tripIDViewStatus + " current status is : " + tripViewStatus.getStatus().toString());
+                        System.out.println("Trip with ID " + tripIDViewStatus + " current status is : "
+                                + tripViewStatus.getStatus().toString());
                         break;
 
                     case 9:
                         System.out.println("---------------------VIEW ALL TRIPS ON DATE---------------------");
-                        System.out.println("Enter the Date on which you want to view all running Trips: ");
+                        System.out.println(
+                                "Enter the Date on which you want to view all running Trips (enters year, month, day of month separated by a comma): ");
+                        String[] trackingDateInput = scanner.nextLine().split(",");
+                        LocalDate trackingDate = LocalDate.of(Integer.parseInt(trackingDateInput[0]),
+                                Integer.parseInt(trackingDateInput[1]), Integer.parseInt(trackingDateInput[2]));
+                        List<Trip> allTripList1 = systemAdmin.getAllTrips();
+                        System.out
+                                .println("On the Date " + trackingDate.toString() + " there are the following Trips :");
+                        for (Trip trip : allTripList1) {
+                            if (trip.getDepartureDate().isBefore(trackingDate)
+                                    && trip.getArrivalDate().isAfter(trackingDate)) {
+                                System.out.println(trip.getID());
+                            }
+                        }
                         break;
 
                     case 10:
                         System.out.println("---------------------VIEW ALL TRIPS BETWEEN DATES---------------------");
                         System.out.println(
-                                "Enter the period on which you want to view all running Trips (in put Dates, separated by a comma): ");
+                                "Enter the period on which you want to view all Trips progressing in (enters year, month, day of month separated by a comma).");
+                        System.out.println("Enter the starting Date : ");
+                        String[] trackingStartingDateInput = scanner.nextLine().split(",");
+                        LocalDate trackingStartingDate = LocalDate.of(Integer.parseInt(trackingStartingDateInput[0]),
+                                Integer.parseInt(trackingStartingDateInput[1]),
+                                Integer.parseInt(trackingStartingDateInput[2]));
+                        System.out.println("Enter the ending Date : ");
+                        String[] trackingEndingDateInput = scanner.nextLine().split(",");
+                        LocalDate trackingEndingDate = LocalDate.of(Integer.parseInt(trackingEndingDateInput[0]),
+                                Integer.parseInt(trackingEndingDateInput[1]),
+                                Integer.parseInt(trackingEndingDateInput[2]));
+                        if (trackingEndingDate.isBefore(trackingStartingDate)) {
+                            System.out.println(
+                                    "Input error: The tracking period's starting date must be before the ending date!");
+                            break;
+                        }
+                        List<Trip> allTripList2 = systemAdmin.getAllTrips();
+                        System.out
+                                .println("The time period between " + trackingStartingDate.toString() + " and "
+                                        + trackingEndingDate.toString() + " there are the following Trips :");
+                        for (Trip trip : allTripList2) {
+                            if ((trip.getDepartureDate().isAfter(trackingStartingDate)
+                                    && trip.getArrivalDate().isBefore(trackingEndingDate))
+                                    || (trip.getDepartureDate().isBefore(trackingStartingDate)
+                                            && trip.getArrivalDate().isAfter(trackingEndingDate))
+                                    || (trip.getDepartureDate().isBefore(trackingStartingDate)
+                                            && trip.getArrivalDate().isAfter(trackingStartingDate)
+                                            && trip.getArrivalDate().isBefore(trackingEndingDate))
+                                    || (trip.getDepartureDate().isAfter(trackingStartingDate)
+                                            && trip.getDepartureDate().isBefore(trackingEndingDate)
+                                            && trip.getArrivalDate().isAfter(trackingEndingDate))) {
+                                System.out.println(trip.getID());
+                            }
+                        }
                         break;
 
                     case 11:

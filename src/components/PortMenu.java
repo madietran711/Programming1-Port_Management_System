@@ -16,6 +16,7 @@ public class PortMenu {
         } else if (systemAdmin instanceof SystemAdmin) {
 
             Scanner scanner = new Scanner(System.in);
+
             while (true) {
                 System.out.println(">>>>>>>>>>>>>>>>>>>>> DISPLAYING [PORT] MANAGEMENT MENU <<<<<<<<<<<<<<<<<<<<<");
                 System.out.println("1. View All Ports");
