@@ -66,6 +66,8 @@ public class DatFileMethods implements Serializable {
     }
 
     public static void initDat() {
+        System.out.println("--------------------------------------------INITIATE SAMPLE TESTING DATA-------------------------------------------------------");
+
 
         SystemAdmin admin = new SystemAdmin("admin123", "admin", "password"); // Create a SystemAdmin instance
         // Write the SystemAdmin instance to the filesadadm
@@ -171,7 +173,7 @@ public class DatFileMethods implements Serializable {
         writeAllLines("Trip.dat", trips);
         admin.getAllTrips().forEach(System.out::println);
 
-        System.out.println("---------------------------------------------------------------------------------------------");
+        System.out.println("--------------------------------------------END OF SAMPLE TESTING DATA-------------------------------------------------------");
 
 
 
