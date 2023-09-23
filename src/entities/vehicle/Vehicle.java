@@ -106,7 +106,7 @@ return
         this.currentFuel = currentFuel;
     }
 
-    public double CarryingCapacity() {
+    public double getCarryingCapacity() {
         return carryingCapacity;
     }
 

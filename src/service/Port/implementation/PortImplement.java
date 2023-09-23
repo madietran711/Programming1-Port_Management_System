@@ -23,8 +23,6 @@ public class PortImplement implements PortInterface, Serializable {
         this.port = port;
     }
 
-
-
     @Override
     public Port create(Port entity) {
         portRepository.create(entity);
@@ -33,7 +31,7 @@ public class PortImplement implements PortInterface, Serializable {
 
     @Override
     public List<Port> getAll() {
-       return portRepository.getAll();
+        return portRepository.getAll();
 
     }
 
@@ -61,9 +59,8 @@ public class PortImplement implements PortInterface, Serializable {
     @Override
     public int getTotalVehicleCount() {
 
-        return   port.getVehicleList().size();
+        return port.getVehicleList().size();
     }
-
 
     @Override
     public int getTotalContainerCount() {

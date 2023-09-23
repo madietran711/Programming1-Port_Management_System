@@ -12,14 +12,10 @@ public interface PortInterface extends CRUDInterface<Port, String> {
 
     public int getTotalVehicleCount();
 
-
     public int getTotalContainerCount();
-
-
 
     // for the method above, are we supposed to count the containers that has yet
     // been unloaded from the vehicles docked in the current port
-    public double calculateDistanceFromPort(Port port);
 
     public void addVehicle(Vehicle vehicle);
 

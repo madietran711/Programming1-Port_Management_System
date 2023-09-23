@@ -33,10 +33,10 @@ public class VehicleMenu {
                 System.out.println("7. Unload containers from a Vehicle");
                 System.out.println("8. View the carrying capacity of a Vehicle");
                 System.out.println("9. View the fuel capacity of a Vehicle");
-                System.out.println("10. View all containers on vehicle");
-                System.out.println("");
-                System.out.println("");
-                System.out.println("12. Back to Main Menu");
+                System.out.println("10. View current containers on a Vehicle");
+                System.out.println("11. View current port of a Vehicle");
+                System.out.println("12. View the schedule of a Vehicle");
+                System.out.println("13. Back to Main Menu");
                 System.out.print("Enter your choice: ");
 
                 int choice = scanner.nextInt();
@@ -192,24 +192,62 @@ public class VehicleMenu {
                         System.out.println("Carrying capacity of vehicle with ID " + carryingCapacityVehicleID + " : "
                                 + Double.toString(carryingCapacityVehicle.getCarryingCapacity()));
                         break;
-                    case 10:
-                        System.out.println("---------------------VIEW ALL CONTAINERS ON VEHICLE---------------------");
-                        System.out.println("Enter the ID of the vehicle you want to view the containers of: ");
-                        String vehicleID = scanner.nextLine();
-                        Vehicle vehicle = systemAdmin.getVehicleById(vehicleID);
-                        if (vehicle == null) {
-                            System.out.println("Vehicle with ID " + vehicleID + " does not exist.");
+
+                    case 9:
+                        System.out.println("---------------------VIEW VEHICLE FUEL CAPACITY---------------------");
+                        System.out.println("Enter the ID of the vehicle you want to view its fuel capacity: ");
+                        String vehicleIDViewFuel = scanner.nextLine();
+                        if (systemAdmin.getVehicleById(vehicleIDViewFuel) == null) {
+                            System.out.println("Vehicle with ID " + vehicleIDViewFuel + " does not exist.");
                             break;
                         }
-                        List<Container> containerList = vehicle.getContainerList();
-                        containerList.forEach(System.out::println);
+                        Vehicle vehicleViewFuel = systemAdmin.getVehicleById(vehicleIDViewFuel);
+                        System.out.println("Vehicle with ID " + vehicleIDViewFuel + " is currently at "
+                                + vehicleViewFuel.getCurrentFuel()
+                                + " current fuel capacity with a maximum fuel capacity of "
+                                + vehicleViewFuel.getFuelTankCapacity() + ".");
+                        break;
+                    case 10:
+                        System.out.println("---------------------VIEW VEHICLE CURRENT CONTAINERS---------------------");
+                        System.out.println("Enter the ID of the vehicle you want to view its current containers: ");
+                        String vehicleIDViewContainers = scanner.nextLine();
+                        if (systemAdmin.getVehicleById(vehicleIDViewContainers) == null) {
+                            System.out.println("Vehicle with ID " + vehicleIDViewContainers + " does not exist.");
+                            break;
+                        }
+                        Vehicle vehicleViewContainers = systemAdmin.getVehicleById(vehicleIDViewContainers);
+                        System.out.println("Vehicle with ID " + vehicleIDViewContainers
+                                + " currently has these following containers :");
+                        vehicleViewContainers.getContainerList().forEach(System.out::println);
+                        break;
+                    case 11:
+                        System.out.println("---------------------VIEW VEHICLE CURRENT PORT---------------------");
+                        System.out.println("Enter the ID of the vehicle you want to view its current port: ");
+                        String vehicleIDViewPort = scanner.nextLine();
+                        if (systemAdmin.getVehicleById(vehicleIDViewPort) == null) {
+                            System.out.println("Vehicle with ID " + vehicleIDViewPort + " does not exist.");
+                            break;
+                        }
+                        Vehicle vehicleViewPort = systemAdmin.getVehicleById(vehicleIDViewPort);
+                        System.out.println("Vehicle with ID " + vehicleIDViewPort + " is currently at the port with ID "
+                                + vehicleViewPort.getCurrentPort().getID());
                         break;
                     case 12:
+                        System.out.println("---------------------VIEW VEHICLE SCHEDULES---------------------");
+                        System.out.println("Enter the ID of the vehicle you want to view its schedules: ");
+                        String vehicleIDViewSchedule = scanner.nextLine();
+                        if (systemAdmin.getVehicleById(vehicleIDViewSchedule) == null) {
+                            System.out.println("Vehicle with ID " + vehicleIDViewSchedule + " does not exist.");
+                            break;
+                        }
+                        Vehicle vehicleViewSchedule = systemAdmin.getVehicleById(vehicleIDViewSchedule);
+                        // Left for Phuong
+                        break;
+                    case 13:
                         return;
                     default:
                         System.out.println("Invalid choice. Please try again.");
                 }
-
             }
         }
     }
