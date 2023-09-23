@@ -101,6 +101,10 @@ public class TripMenu {
                             System.out.println("Trip with ID " + tripIDdaDate + " does not exist.");
                             break;
                         }
+                        Trip tripdaDate = systemAdmin.getTripById(tripIDdaDate);
+                        System.out.println("Trip with ID " + tripIDdaDate + " departs on "
+                                + tripdaDate.getDepartureDate().toString() + " and arrives on "
+                                + tripdaDate.getArrivalDate().toString());
                         break;
 
                     case 7:
@@ -112,6 +116,10 @@ public class TripMenu {
                             System.out.println("Trip with ID " + tripIDdaPort + " does not exist.");
                             break;
                         }
+                        Trip tripdaPort = systemAdmin.getTripById(tripIDdaPort);
+                        System.out.println("Trip with ID " + tripIDdaPort + " departs from "
+                                + tripdaPort.getDeparturePort().getName() + " port and arrives at "
+                                + tripdaPort.getArrivalPort().getName() + " port");
                         break;
 
                     case 8:
@@ -122,6 +130,8 @@ public class TripMenu {
                             System.out.println("Trip with ID " + tripIDViewStatus + " does not exist.");
                             break;
                         }
+                        Trip tripViewStatus = systemAdmin.getTripById(tripIDViewStatus);
+                        System.out.println("Trip with ID " + tripIDViewStatus + " current status is : " + tripViewStatus.getStatus().toString());
                         break;
 
                     case 9:
