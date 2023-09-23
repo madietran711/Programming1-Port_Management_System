@@ -6,6 +6,7 @@ import service.Container.ContainerInterface;
 import service.Container.implementation.ContainerImplement;
 
 import java.io.Serializable;
+import java.util.Scanner;
 
 public class Container implements Serializable {
     // @NotNull
@@ -15,6 +16,16 @@ public class Container implements Serializable {
 
 
     private final ContainerInterface containerImplement = new ContainerImplement(this);
+
+    public boolean validateIDFormat(String id) {
+        boolean isValid = id.matches("^c-\\d+$");
+        while (!isValid) {
+            System.out.println("Invalid ID format. Please enter the ID in the format 'c-number'");
+            id = new Scanner(System.in).nextLine();
+            isValid = id.matches("^c-\\d+$");
+        }
+        return isValid;
+    }
 
     public Container(String ID, double weight) {
         this.ID = ID;
@@ -39,6 +50,7 @@ public class Container implements Serializable {
     }
 
     public void setID(String ID) {
+        ID = validateIDFormat(ID) ? ID : "";
         this.ID = ID;
     }
 

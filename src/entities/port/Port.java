@@ -3,6 +3,7 @@ package entities.port;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 import entities.container.Container;
 import entities.trip.Trip;
@@ -27,14 +28,21 @@ public class Port implements Serializable {
     private List<Vehicle> vehicleList;
     private List<Container> containerList;
 
+    public boolean validateIDFormat(String id) {
+        boolean isValid = id.matches("^p-\\d+$");
+        while (!isValid) {
+            System.out.println("Invalid ID format. Please enter the ID in the format 'p-number'");
+            id = new Scanner(System.in).nextLine();
+            isValid = id.matches("^p-\\d+$");
+        }
+        return isValid;
+    }
+
     public Port() {
     }
 
     public Port(String ID, String name, double latitude, double longitude, String description, double currentCapacity,
-
                 double storingCapacity, boolean landingAbility) {
-
-
         this.ID = ID;
         this.name = name;
         this.latitude = latitude;
@@ -47,7 +55,6 @@ public class Port implements Serializable {
         this.vehicleList = new ArrayList<>();
         this.containerList = new ArrayList<>();
     }
-
 
     public Port(String ID, String name, double latitude, double longitude, String description, double currentCapacity,
             double storingCapacity, boolean landingAbility, List<Trip> tripList, List<Vehicle> vehicleList,
@@ -90,6 +97,7 @@ public class Port implements Serializable {
     }
 
     public void setID(String ID) {
+        ID = validateIDFormat(ID) ? ID : "";
         this.ID = ID;
     }
 
