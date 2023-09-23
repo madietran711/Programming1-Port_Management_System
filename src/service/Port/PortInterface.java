@@ -16,7 +16,7 @@ public interface PortInterface extends CRUDInterface<Port, String> {
 
     // for the method above, are we supposed to count the containers that has yet
     // been unloaded from the vehicles docked in the current port
-    public double calculateDistanceFromPort(Port port1, Port port2);
+    public static double calculateDistanceFromPort(Port port1, Port port2);
 
     public void addVehicle(Vehicle vehicle);
 

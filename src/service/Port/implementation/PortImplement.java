@@ -62,7 +62,7 @@ public class PortImplement implements PortInterface, Serializable {
     }
 
     @Override
-    public double calculateDistanceFromPort(Port port1, Port port2) {
+    public static double calculateDistanceFromPort(Port port1, Port port2) {
         double distanceBetweenPort = Math.pow((Math.pow((port1.getLatitude() - port2.getLatitude()), 2)
                 + Math.pow((port1.getLongitude() - port2.getLongitude()), 2)), 0.5);
         return distanceBetweenPort;

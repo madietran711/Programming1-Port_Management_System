@@ -32,8 +32,7 @@ public class Port implements Serializable {
 
     public Port(String ID, String name, double latitude, double longitude, String description, double currentCapacity,
 
-                double storingCapacity, boolean landingAbility) {
-
+            double storingCapacity, boolean landingAbility) {
 
         this.ID = ID;
         this.name = name;
@@ -47,7 +46,6 @@ public class Port implements Serializable {
         this.vehicleList = new ArrayList<>();
         this.containerList = new ArrayList<>();
     }
-
 
     public Port(String ID, String name, double latitude, double longitude, String description, double currentCapacity,
             double storingCapacity, boolean landingAbility, List<Trip> tripList, List<Vehicle> vehicleList,
@@ -173,19 +171,16 @@ public class Port implements Serializable {
         this.containerList = containerList;
     }
 
-
     public int getTotalVehicleCount() {
         return portImplement.getTotalVehicleCount();
     }
-
 
     public int getTotalContainerCount() {
         return portImplement.getTotalContainerCount();
     }
 
-
-    public double calculateDistanceFromPort(Port port) {
-        return portImplement.calculateDistanceFromPort(port);
+    public double calculateDistanceFromPort(Port port1, Port port2) {
+        return portImplement.calculateDistanceFromPort(port1, port2);
     }
 
     public void addVehicle(Vehicle vehicle) {
