@@ -15,6 +15,7 @@ public class AdminMenu {
 
     public void displayMenu() {
         while (true) {
+            System.out.println(">>>>>>>>>>>>>>>>>>>>> DISPLAYING [ADMIN] MENU <<<<<<<<<<<<<<<<<<<<<");
             System.out.println("System Admin Menu:");
             System.out.println("1. Manage Ports");
             System.out.println("2. Manage Containers");
@@ -30,21 +31,27 @@ public class AdminMenu {
                 case 1:
                     managePorts();
                     break;
+
                 case 2:
                     manageContainers();
                     break;
+
                 case 3:
                     manageTrips();
                     break;
+
                 case 4:
                     manageVehicles();
                     break;
+
                 case 5:
                     // View statistical data
                     break;
+
                 case 6:
                     System.out.println("Exiting...");
                     return;
+
                 default:
                     System.out.println("Invalid choice. Please try again.");
             }

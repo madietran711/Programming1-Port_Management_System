@@ -22,20 +22,21 @@ public class VehicleMenu {
             Scanner scanner = new Scanner(System.in);
 
             while (true) {
-                System.out.println("Manage Vehicle Menu:");
+                System.out.println(">>>>>>>>>>>>>>>>>>>>> DISPLAYING [VEHICLE] MANAGEMENT MENU <<<<<<<<<<<<<<<<<<<<<");
                 System.out.println("1. View All Vehicles");
                 System.out.println("2. Create a Vehicle");
                 System.out.println("3. Update a Vehicle");
                 System.out.println("4. Delete a Vehicle");
                 System.out.println("5. Refuel a Vehicle");
-                System.out.println("6. Load containers onto a Vehicle");
-                System.out.println("7. Unload containers from a Vehicle");
+                System.out.println("6. Load Containers onto a Vehicle");
+                System.out.println("7. Unload Containers from a Vehicle");
                 System.out.println("8. View the carrying capacity of a Vehicle");
                 System.out.println("9. View the fuel capacity of a Vehicle");
                 System.out.println("10. View current containers on a Vehicle");
                 System.out.println("11. View current port of a Vehicle");
                 System.out.println("12. View the schedule of a Vehicle");
-                System.out.println("13. Back to Main Menu");
+                System.out.println("13. Calculate how much fuel has been used in a day");
+                System.out.println("14. Back to Main Menu");
                 System.out.print("Enter your choice: ");
 
                 int choice = scanner.nextInt();
@@ -43,11 +44,12 @@ public class VehicleMenu {
 
                 switch (choice) {
                     case 1:
-                        System.out.println("---------------------VIEW ALL VEHICLES---------------------");
+                        System.out.println("---------------------VIEW ALL VEHICLES----------------------");
                         systemAdmin.getAllVehicles().forEach(System.out::println);
                         break;
+
                     case 2:
-                        System.out.println("---------------------CREATE A VEHICLE---------------------");
+                        System.out.println("---------------------CREATE A VEHICLE----------------------");
                         try {
                             Vehicle newVehicle = ClassCreation.createVehicleFromUserInput(Optional.empty());
                             systemAdmin.createVehicle(newVehicle);
@@ -55,8 +57,9 @@ public class VehicleMenu {
                             System.out.println("Error: " + e.getMessage());
                         }
                         break;
+
                     case 3:
-                        System.out.println("---------------------UPDATE A VEHICLE---------------------");
+                        System.out.println("---------------------UPDATE A VEHICLE----------------------");
                         System.out.println("Enter the ID of the vehicle you want to update: ");
                         String vehicleIDToUpdate = scanner.nextLine();
                         if (systemAdmin.getVehicleById(vehicleIDToUpdate) == null) {
@@ -74,8 +77,9 @@ public class VehicleMenu {
                             System.out.println("Error: " + e.getMessage());
                         }
                         break;
+
                     case 4:
-                        System.out.println("---------------------DELETE A VEHICLE--------------------");
+                        System.out.println("---------------------DELETE A VEHICLE---------------------");
                         System.out.println("Enter the ID of the vehicle you want to delete: ");
                         String deletingVehicleID = scanner.nextLine();
                         if (systemAdmin.deleteVehicle(deletingVehicleID)) {
@@ -84,8 +88,9 @@ public class VehicleMenu {
                             System.out.println("Delete failed.");
                         }
                         break;
+
                     case 5:
-                        System.out.println("---------------------REFUEL A VEHICLE--------------------");
+                        System.out.println("---------------------REFUEL A VEHICLE---------------------");
                         System.out.println("Enter the ID of the vehicle you want to refuel: ");
                         String refuelingVehicleID = scanner.nextLine();
                         if (systemAdmin.getVehicleById(refuelingVehicleID) == null) {
@@ -103,8 +108,9 @@ public class VehicleMenu {
                             System.out.println("Error: " + e.getMessage());
                         }
                         break;
+
                     case 6:
-                        System.out.println("---------------------LOAD A VEHICLE--------------------");
+                        System.out.println("---------------------LOAD A VEHICLE---------------------");
                         System.out.println("Enter the ID of the vehicle you want to load: ");
                         String loadingVehicleID = scanner.nextLine();
                         // Check if loading vehicle exists
@@ -169,8 +175,9 @@ public class VehicleMenu {
                             System.out.println("Error: " + e.getMessage());
                         }
                         break;
+
                     case 7:
-                        System.out.println("---------------------UNLOAD A VEHICLE--------------------");
+                        System.out.println("---------------------UNLOAD A VEHICLE---------------------");
                         System.out.println("Enter the ID of the vehicle you want to unload: ");
                         String unloadingVehicleID = scanner.nextLine();
                         // Check if unloading vehicle exists
@@ -238,6 +245,7 @@ public class VehicleMenu {
                             System.out.println("Error: " + e.getMessage());
                         }
                         break;
+
                     case 8:
                         System.out.println("---------------------VIEW VEHICLE CARRYING CAPACITY---------------------");
                         System.out.println("Enter the ID of the vehicle you want to view its carrying capacity: ");
@@ -252,6 +260,7 @@ public class VehicleMenu {
                                 + " current carrying capacity with a maximum carrying capacity of "
                                 + vehicleViewCapacity.getCarryingCapacity() + ".");
                         break;
+
                     case 9:
                         System.out.println("---------------------VIEW VEHICLE FUEL CAPACITY---------------------");
                         System.out.println("Enter the ID of the vehicle you want to view its fuel capacity: ");
@@ -266,6 +275,7 @@ public class VehicleMenu {
                                 + " current fuel capacity with a maximum fuel capacity of "
                                 + vehicleViewFuel.getFuelTankCapacity() + ".");
                         break;
+
                     case 10:
                         System.out.println("---------------------VIEW VEHICLE CURRENT CONTAINERS---------------------");
                         System.out.println("Enter the ID of the vehicle you want to view its current containers: ");
@@ -279,6 +289,7 @@ public class VehicleMenu {
                                 + " currently has these following containers :");
                         vehicleViewContainers.getContainerList().forEach(System.out::println);
                         break;
+
                     case 11:
                         System.out.println("---------------------VIEW VEHICLE CURRENT PORT---------------------");
                         System.out.println("Enter the ID of the vehicle you want to view its current port: ");
@@ -291,6 +302,7 @@ public class VehicleMenu {
                         System.out.println("Vehicle with ID " + vehicleIDViewPort + " is currently at the port with ID "
                                 + vehicleViewPort.getCurrentPort().getID());
                         break;
+
                     case 12:
                         System.out.println("---------------------VIEW VEHICLE SCHEDULES---------------------");
                         System.out.println("Enter the ID of the vehicle you want to view its schedules: ");
@@ -302,8 +314,17 @@ public class VehicleMenu {
                         Vehicle vehicleViewSchedule = systemAdmin.getVehicleById(vehicleIDViewSchedule);
                         // Left for Phuong
                         break;
+
                     case 13:
+                        System.out.println(
+                                "---------------------CALCULATE FUEL COMSUMPTION ON SPECIFIED DATE---------------------");
+                        System.out.println("Enter the Date on which you want to calculate fuel usage: ");
+                        // Left for An
+                        break;
+
+                    case 14:
                         return;
+
                     default:
                         System.out.println("Invalid choice. Please try again.");
                 }

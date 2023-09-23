@@ -16,7 +16,7 @@ public class ManagerMenu {
 
     public void displayMenu() {
         while (true) {
-            System.out.println("Port Manager Menu:");
+            System.out.println(">>>>>>>>>>>>>>>>>>>>> DISPLAYING [PORT MANAGEMER] MENU <<<<<<<<<<<<<<<<<<<<<");
             System.out.println("1. Manage Containers");
             System.out.println("5. Exit");
             System.out.print("Enter your choice: ");

@@ -2,6 +2,7 @@ package entities.vehicle;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Objects;
 
 import entities.port.Port;
 import entities.container.Container;
@@ -120,5 +121,20 @@ public class Vehicle implements Serializable {
 
     public void setContainerList(ArrayList<Container> containerList) {
         this.containerList = containerList;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+        Vehicle vehicle = (Vehicle) o;
+        return Objects.equals(ID, vehicle.ID);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(ID);
     }
 }

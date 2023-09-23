@@ -17,19 +17,19 @@ public class PortMenu {
 
             Scanner scanner = new Scanner(System.in);
             while (true) {
-                System.out.println("Manage Ports Menu:");
+                System.out.println(">>>>>>>>>>>>>>>>>>>>> DISPLAYING [PORT] MANAGEMENT MENU <<<<<<<<<<<<<<<<<<<<<");
                 System.out.println("1. View All Ports");
                 System.out.println("2. Create a Port");
                 System.out.println("3. Update a Port");
                 System.out.println("4. Delete a Port");
                 System.out.println("5. View the location of a Port");
                 System.out.println("6. View the capacity of a Port");
-                System.out.println("7. View the current trips in a Port");
-                System.out.println("8. View the current vehicles in a Port");
-                System.out.println("9. View the current containers in a Port");
-                System.out.println("10. Get total vehicles in a Port");
-                System.out.println("11. Get total containers in a Port");
-                System.out.println("12. Calculate the distance between two ports");
+                System.out.println("7. View the current Trips in a Port");
+                System.out.println("8. View the current Vehicles in a Port");
+                System.out.println("9. View the current Containers in a Port");
+                System.out.println("10. Get total Vehicles in a Port");
+                System.out.println("11. Get total Vontainers in a Port");
+                System.out.println("12. Calculate the distance between two Ports");
                 System.out.println("13. View the traffic record of a Port");
                 System.out.println("14. Back to Main Menu");
                 System.out.print("Enter your choice: ");
@@ -43,6 +43,7 @@ public class PortMenu {
                         // View all ports
                         systemAdmin.getAllPorts().forEach(System.out::println);
                         break;
+
                     case 2:
                         // Create a new port
                         System.out.println("---------------------CREATE A PORT---------------------");
@@ -53,6 +54,7 @@ public class PortMenu {
                             System.out.println("Error: " + e.getMessage());
                         }
                         break;
+
                     case 3:
                         // Update a port
                         System.out.println("---------------------UPDATE A PORT---------------------");
@@ -71,6 +73,7 @@ public class PortMenu {
                             System.out.println("Error: " + e.getMessage());
                         }
                         break;
+
                     case 4:
                         // Delete a port
                         System.out.println("---------------------DELETE A PORT---------------------");
@@ -82,6 +85,7 @@ public class PortMenu {
                             System.out.println("Delete failed.");
                         }
                         break;
+
                     case 5:
                         System.out.println("---------------------VIEW PORT LOCATION---------------------");
                         System.out.println("Enter the ID of the port you want to view its location: ");
@@ -95,9 +99,10 @@ public class PortMenu {
                                 + portViewLocation.getLatitude() + " and the longitude "
                                 + portViewLocation.getLongitude() + ".");
                         break;
+
                     case 6:
                         System.out.println("---------------------VIEW PORT CAPACITY---------------------");
-                        System.out.println("Enter the ID of the port you want to view its : ");
+                        System.out.println("Enter the ID of the port you want to view its storage capacity: ");
                         String portIDViewCapacity = scanner.nextLine();
                         if (systemAdmin.getPortById(portIDViewCapacity) == null) {
                             System.out.println("Port with ID " + portIDViewCapacity + " does not exist.");
@@ -109,9 +114,10 @@ public class PortMenu {
                                 + " current capacity with a maximum capacity of "
                                 + portViewCapacity.getStoringCapacity() + ".");
                         break;
+
                     case 7:
                         System.out.println("---------------------VIEW PORT CURRENT TRIPS---------------------");
-                        System.out.println("Enter the ID of the port you want to view its : ");
+                        System.out.println("Enter the ID of the port you want to view its current trips: ");
                         String portIDViewTrips = scanner.nextLine();
                         if (systemAdmin.getPortById(portIDViewTrips) == null) {
                             System.out.println("Port with ID " + portIDViewTrips + " does not exist.");
@@ -122,9 +128,10 @@ public class PortMenu {
                                 .println("Port with ID " + portIDViewTrips + " currently has these following trips :");
                         portViewTrips.getTripList().forEach(System.out::println);
                         break;
+
                     case 8:
                         System.out.println("---------------------VIEW PORT CURRENT VEHICLES---------------------");
-                        System.out.println("Enter the ID of the port you want to view its : ");
+                        System.out.println("Enter the ID of the port you want to view its current vehicles: ");
                         String portIDViewVehicles = scanner.nextLine();
                         if (systemAdmin.getPortById(portIDViewVehicles) == null) {
                             System.out.println("Port with ID " + portIDViewVehicles + " does not exist.");
@@ -135,9 +142,10 @@ public class PortMenu {
                                 "Port with ID " + portIDViewVehicles + " currently has these following vehicles :");
                         portViewVehicles.getTripList().forEach(System.out::println);
                         break;
+
                     case 9:
                         System.out.println("---------------------VIEW PORT CURRENT CONTAINERS---------------------");
-                        System.out.println("Enter the ID of the port you want to view its : ");
+                        System.out.println("Enter the ID of the port you want to view its current containers: ");
                         String portIDViewContainers = scanner.nextLine();
                         if (systemAdmin.getPortById(portIDViewContainers) == null) {
                             System.out.println("Port with ID " + portIDViewContainers + " does not exist.");
@@ -148,6 +156,7 @@ public class PortMenu {
                                 "Port with ID " + portIDViewContainers + " currently has these following containers :");
                         portViewContainers.getContainerList().forEach(System.out::println);
                         break;
+
                     case 10:
                         System.out.println("---------------------COUNT PORT TOTAL VEHICLES---------------------");
                         System.out.println("Enter the ID of the port you want to count its total vehicles: ");
@@ -160,6 +169,7 @@ public class PortMenu {
                         System.out.println("Port with ID " + portIDTotalVehicles + " has a total vehicle count of "
                                 + Integer.toString(portTotalVehicels.getTotalVehicleCount()) + ".");
                         break;
+
                     case 11:
                         System.out.println("---------------------COUNT PORT TOTAL CONTAINERS---------------------");
                         System.out.println("Enter the ID of the port you want to count its total containers: ");
@@ -172,6 +182,7 @@ public class PortMenu {
                         System.out.println("Port with ID " + portIDTotalContainers + " has a total vehicle count of "
                                 + Integer.toString(portTotalContainers.getTotalContainerCount()) + ".");
                         break;
+
                     case 12:
                         System.out.println("---------------------CALCULATE PORTS DISTANCE---------------------");
                         System.out.println(
@@ -190,6 +201,7 @@ public class PortMenu {
                         System.out.println("Distance between port with ID " + port1.getID() + " and port "
                                 + port2.getID() + " is : " + distanceBetweenPorts);
                         break;
+
                     case 13:
                         System.out.println("---------------------VIEW PORT TRAFFIC RECORD---------------------");
                         System.out.println("Enter the ID of the port you want to view its : ");
@@ -203,8 +215,10 @@ public class PortMenu {
                                 "Port with ID " + portIDViewTrafficRecord + " has the following traffic records : ");
                         portViewTrafficRecord.getTrafficRecord().forEach(System.out::println);
                         break;
+
                     case 14:
                         return;
+
                     default:
                         System.out.println("Invalid choice. Please try again.");
                 }

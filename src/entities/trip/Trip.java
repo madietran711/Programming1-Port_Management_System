@@ -10,6 +10,7 @@ import service.Trip.implementation.TripImplement;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.Objects;
 
 public class Trip implements Serializable {
 
@@ -117,4 +118,18 @@ public class Trip implements Serializable {
         this.status = TripStatus.valueOf(status.toUpperCase());
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+        Trip trip = (Trip) o;
+        return Objects.equals(ID, trip.ID);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(ID);
+    }
 }

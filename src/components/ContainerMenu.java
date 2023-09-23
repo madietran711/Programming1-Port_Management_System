@@ -11,14 +11,15 @@ public class ContainerMenu {
     public static void displayMenu(User user) {
         Scanner scanner = new Scanner(System.in);
         while (true) {
+            System.out.println(">>>>>>>>>>>>>>>>>>>>> DISPLAYING [CONTAINER] MANAGEMENT MENU <<<<<<<<<<<<<<<<<<<<<");
             System.out.println("Manage Containers Menu:");
             System.out.println("1. View All Containers");
             System.out.println("2. Create a Container");
             System.out.println("3. Update a Container");
             System.out.println("4. Delete a Container");
             System.out.println();
-            System.out.println();
-            System.out.println("5. Back to Main Menu");
+            System.out.println("5. Calculate how much weight of each type of all containers");
+            System.out.println("6. Back to Main Menu");
             System.out.print("Enter your choice: ");
 
             int choice = scanner.nextInt();
@@ -29,6 +30,7 @@ public class ContainerMenu {
                     System.out.println("---------------------VIEW ALL CONTAINERS---------------------");
                     user.getAllContainers().forEach(System.out::println);
                     break;
+
                 case 2:
                     System.out.println("---------------------CREATE A CONTAINER---------------------");
                     try {
@@ -38,8 +40,8 @@ public class ContainerMenu {
                         System.out.println("Error: " + e.getMessage());
                     }
                     break;
-                case 3:
 
+                case 3:
                     System.out.println("---------------------UPDATE A CONTAINER---------------------");
                     System.out.println("Enter the ID of the container you want to update: ");
                     String containerIDToUpdate = scanner.nextLine();
@@ -58,8 +60,8 @@ public class ContainerMenu {
                         System.out.println("Error: " + e.getMessage());
                     }
                     break;
-                case 4:
 
+                case 4:
                     System.out.println("---------------------DELETE A CONTAINERS---------------------");
                     System.out.println("Enter the ID of the container you want to delete: ");
                     String containerID = scanner.nextLine();
@@ -71,7 +73,13 @@ public class ContainerMenu {
                     break;
 
                 case 5:
+                    System.out.println("---------------------CALCULATE TOTAL CONTAINER BY TYPES---------------------");
+                    // Left for An
+                    break;
+
+                case 6:
                     return;
+
                 default:
                     System.out.println("Invalid choice. Please try again.");
             }
