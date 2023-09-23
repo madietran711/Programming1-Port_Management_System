@@ -2,15 +2,17 @@ package service.Vehicle.implementation;
 
 import entities.container.Container;
 import entities.port.Port;
+import entities.trip.Trip;
 import entities.vehicle.Truck;
 import entities.vehicle.Vehicle;
 import service.CRUD.CRUDInterface;
 import service.CRUD.implementation.CRUDImplement;
 import service.Port.implementation.PortImplement;
+import service.Trip.implementation.TripImplement;
 import service.Vehicle.VehicleInterface;
 
 import java.io.Serializable;
-import java.util.Collections;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -71,7 +73,35 @@ public class VehicleImplement implements VehicleInterface, Serializable {
     }
 
     @Override
-    public boolean move() {
+    public boolean move(Trip trip) {
+        TripImplement tripImplement = new TripImplement(trip);
+        // check if current fuel is enough to move to port with distance
+        if (!canMoveToPortWithCurrentLoad(trip.getArrivalPort())) {
+            System.out.println("Trip cannot be carried out");
+            return false;
+        }
+        // check trip date and move vehicle to port accordingly
+        if (LocalDate.now().equals(trip.getDepartureDate())) {
+            System.out.println("Vehicle is departing from Port: "+ trip.getDeparturePort().getName() +". Destination: " + trip.getArrivalPort().getName() +". Trip is on going");
+            this.vehicle.setCurrentPort(trip.getDeparturePort());
+            tripImplement.updateTripStatus();
+        }
+        else if (LocalDate.now().equals(trip.getArrivalDate())) {
+            System.out.println("Vehicle is arriving at Port: "+ trip.getArrivalPort().getName() +". Trip is completed");
+            this.vehicle.setCurrentPort(trip.getArrivalPort());
+            tripImplement.updateTripStatus();
+        }
+        else if (LocalDate.now().isBefore(trip.getDepartureDate())){
+            System.out.println("Vehicle is waiting at Port: "+ trip.getDeparturePort().getName() +". Destination: " + trip.getArrivalPort().getName() +". Trip is pending");
+            this.vehicle.setCurrentPort(trip.getDeparturePort());
+            tripImplement.updateTripStatus();
+        }
+        else {
+            System.out.println("Vehicle is moving. Departure Port: "+ trip.getDeparturePort().getName() +". Destination: " + trip.getArrivalPort().getName() + ". Trip is on going");
+            this.vehicle.setCurrentPort(null);
+            tripImplement.updateTripStatus();
+        }
+
         return false;
 
     }

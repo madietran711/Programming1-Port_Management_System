@@ -167,7 +167,7 @@ public class DatFileMethods implements Serializable {
         System.out.println("Test delete method");
         admin.deleteVehicle("1");
         admin.deleteVehicle("2");
-        admin.deleteVehicle("3");
+
         admin.getAllVehicles().forEach(System.out::println);
 
 

@@ -1,6 +1,7 @@
 package service.Vehicle;
 
 import entities.port.Port;
+import entities.trip.Trip;
 import entities.vehicle.Vehicle;
 import entities.container.Container;
 import service.CRUD.CRUDInterface;
@@ -14,7 +15,7 @@ public interface VehicleInterface extends CRUDInterface<Vehicle, String> {
 
     public boolean unloadContainer();
 
-    public boolean move();
+    public boolean move(Trip trip);
 
     public boolean refuel();
 public double calculateTotalWeight();

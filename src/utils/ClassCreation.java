@@ -125,8 +125,38 @@ public class ClassCreation {
         }
 
 
-        System.out.println("Enter Vehicle ID for Tracking: ");
-        String vehicleID = scanner.nextLine();
+        String vehicleID;
+        String departurePortID;
+        String arrivalPortID;
+        PortImplement portImplement = new PortImplement(new Port());
+        VehicleImplement vehicleImplement = new VehicleImplement(new Vehicle());
+
+        // Create a do-while loop for entering Vehicle ID
+        do {
+            System.out.println("Enter Vehicle ID for Tracking: ");
+            vehicleID = scanner.nextLine();
+            if (vehicleImplement.getById(vehicleID) == null) {
+                System.out.println("Vehicle with ID " + vehicleID + " does not exist. Please try again.");
+            }
+        } while (vehicleImplement.getById(vehicleID) == null);
+
+        // Create a do-while loop for entering Departure Port ID
+        do {
+            System.out.println("Enter Departure Por==t ID: ");
+            departurePortID = scanner.nextLine();
+            if (portImplement.getById(departurePortID) == null) {
+                System.out.println("Port with ID " + departurePortID + " does not exist. Please try again.");
+            }
+        } while (portImplement.getById(departurePortID) == null);
+
+        // Create a do-while loop for entering Arrival Port ID
+        do {
+            System.out.println("Enter Arrival Port ID: ");
+            arrivalPortID = scanner.nextLine();
+            if (portImplement.getById(arrivalPortID) == null) {
+                System.out.println("Port with ID " + arrivalPortID + " does not exist. Please try again.");
+            }
+        } while (portImplement.getById(arrivalPortID) == null);
 
         // Assuming departure and arrival dates are entered in the format yyyy-MM-dd
         System.out.println("Enter Departure Date (yyyy-MM-dd): ");
@@ -137,22 +167,14 @@ public class ClassCreation {
         String arrivalDateString = scanner.nextLine();
         LocalDate arrivalDate = LocalDate.parse(arrivalDateString);
 
-        System.out.println("Enter Departure Port ID: ");
-        String departurePortID = scanner.nextLine();
-
-        System.out.println("Enter Arrival Port ID: ");
-        String arrivalPortID = scanner.nextLine();
-
         System.out.println("Enter Trip Status (PENDING, ON_GOING, COMPLETED): ");
         String statusString = scanner.nextLine();
         TripStatus status = TripStatus.valueOf(statusString.toUpperCase());
 
-        // You need to retrieve the corresponding Port and Vehicle objects based on their IDs
-        PortImplement portImplement = new PortImplement(new Port());
+        Vehicle trackingVehicle = vehicleImplement.getById(vehicleID);
         Port departurePort = portImplement.getById(departurePortID);
         Port arrivalPort = portImplement.getById(arrivalPortID);
-        VehicleImplement vehicleImplement = new VehicleImplement(new Vehicle());
-        Vehicle trackingVehicle = vehicleImplement.getById(vehicleID);
+
 
         // Create and return the Trip object
         return new Trip(ID, trackingVehicle, departureDate, arrivalDate, departurePort, arrivalPort, status);

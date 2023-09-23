@@ -24,16 +24,15 @@ public class Vehicle implements Serializable {
 
     @Override
     public String toString() {
-        return "Vehicle{" +
+        return
 
-                ", ID='" + ID + '\'' +
+                "ID='" + ID + '\'' +
                 ", name='" + name + '\'' +
                 ", currentFuel=" +currentFuel +
                 ", fuelCapacity= "+ fuelTankCapacity +
                 ", carryingCapacity=" + carryingCapacity +
                 ", currentPort=" + getCurrentPort().getName() +
-                ", containerList=" + containerList +
-                '}';
+                ", containerList=" + containerList;
     }
 
     public Vehicle() {

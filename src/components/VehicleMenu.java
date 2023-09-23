@@ -31,7 +31,7 @@ public class VehicleMenu {
                 switch (choice) {
                     case 1:
                         System.out.println("---------------------VIEW ALL VEHICLES---------------------");
-
+                        systemAdmin.getAllVehicles().forEach(System.out::println);
                         break;
                     case 2:
 

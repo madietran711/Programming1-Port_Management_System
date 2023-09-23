@@ -26,6 +26,7 @@ public class TripMenu {
             System.out.print("Enter your choice: ");
 
             int choice = scanner.nextInt();
+            scanner.nextLine();
 
             switch (choice) {
                 case 1:
