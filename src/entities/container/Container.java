@@ -8,6 +8,7 @@ import service.Container.ContainerInterface;
 import service.Container.implementation.ContainerImplement;
 import service.Port.implementation.PortImplement;
 import service.Vehicle.implementation.VehicleImplement;
+import utils.Validation;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -39,6 +40,10 @@ public class Container implements Serializable {
 
     }
 
+    public void setID(String ID) {
+        ID = Validation.validateContainerIDFormat(ID) ? ID : "";
+        this.ID = ID;
+    }
     @Override
     public String toString() {
         return
@@ -50,9 +55,7 @@ public class Container implements Serializable {
         return ID;
     }
 
-    public void setID(String ID) {
-        this.ID = ID;
-    }
+
 
     public double getWeight() {
         return weight;

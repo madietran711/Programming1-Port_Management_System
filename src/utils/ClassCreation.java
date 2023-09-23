@@ -30,6 +30,7 @@ public class ClassCreation {
     }
 
     public static Port createPortFromUserInput(Optional<String> portID) {
+        Port port = new Port();
         Scanner scanner = new Scanner(System.in);
         String ID = portID.orElse("");
         if (portID.isPresent()) {
@@ -37,6 +38,8 @@ public class ClassCreation {
         } else {
             System.out.println("Enter Port ID: ");
             ID = scanner.nextLine();
+            port.setID(ID);
+
         }
 
         System.out.println("Enter Port Name: ");
@@ -64,7 +67,7 @@ public class ClassCreation {
 
 
         // Create a new Port object with user-entered values
-        return new Port(ID, name, latitude, longitude, description, currentCapacity, storingCapacity, landingAbility);
+        return new Port(port.getID(), name, latitude, longitude, description, currentCapacity, storingCapacity, landingAbility);
     }
 
     public static Container createContainerFromUserInput(Optional<Container> existingContainer) {

@@ -9,6 +9,8 @@ import entities.trip.Trip;
 import entities.vehicle.Vehicle;
 import service.Port.PortInterface;
 import service.Port.implementation.PortImplement;
+import utils.Validation;
+
 import java.util.Objects;
 
 
@@ -90,6 +92,7 @@ public class Port implements Serializable {
     }
 
     public void setID(String ID) {
+        ID = Validation.validatePortIDFormat(ID) ? ID : "";
         this.ID = ID;
     }
 

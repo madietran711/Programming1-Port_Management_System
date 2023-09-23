@@ -3,6 +3,7 @@ package service.User.implementation;
 import entities.container.Container;
 import entities.port.Port;
 import entities.trip.Trip;
+import entities.user.SystemAdmin;
 import entities.user.User;
 import entities.vehicle.Vehicle;
 import enums.TripStatus;
@@ -67,8 +68,16 @@ public class UserImplement implements UserInterface, Serializable {
     }
 
     @Override
-    public boolean userLogin(String username, String password) {
-        return false;
+    public User userLogin(String username, String password) {
+
+        // check password and username match
+        List<User> users = userRepository.getAll();
+        for (User user : users) {
+            if (user.getUsername().equals(username) && user.getPassword().equals(password)) {
+                return user;
+            }
+        }
+        return null;
     }
 
     @Override
@@ -279,6 +288,8 @@ public class UserImplement implements UserInterface, Serializable {
         portImplement.viewPortActivities();
 
     }
+
+
 
 
 }

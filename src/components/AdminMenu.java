@@ -15,14 +15,17 @@ public class AdminMenu {
 
     public void displayMenu() {
         while (true) {
-            System.out.println("System Admin Menu:");
-            System.out.println("1. Manage Ports");
-            System.out.println("2. Manage Containers");
-            System.out.println("3. Manage Trips");
-            System.out.println("4. Manage Vehicles");
-            System.out.println("5. View statistical data");
-            System.out.println("6. Exit");
+            System.out.println("--------------------------------------------------------------");
+            System.out.println("| System Admin Menu:                                          |");
+            System.out.println("| 1. Manage Ports                                             |");
+            System.out.println("| 2. Manage Containers                                        |");
+            System.out.println("| 3. Manage Trips                                            |");
+            System.out.println("| 4. Manage Vehicles                                         |");
+            System.out.println("| 5. View statistical data                                   |");
+            System.out.println("| 6. Exit                                                    |");
+            System.out.println("--------------------------------------------------------------");
             System.out.print("Enter your choice: ");
+
 
             int choice = scanner.nextInt();
 

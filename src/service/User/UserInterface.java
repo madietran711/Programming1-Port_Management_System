@@ -23,7 +23,7 @@ public interface UserInterface extends CRUDInterface<User, String> {
     // + calculateFuelUsageOnDate(date : Date): double
     // + calculateWeightOfContainersByType(): Map<ContainerType, Double>
 
-    boolean userLogin(String username, String password);
+    User userLogin(String username, String password);
 
     boolean resetPassword(String username, String oldPassword, String newPassword);
 
@@ -80,5 +80,7 @@ public interface UserInterface extends CRUDInterface<User, String> {
     boolean removeAllContainers();
     boolean removeAllPorts();
     void viewPortActivities(Port port);
+
+
 
 }

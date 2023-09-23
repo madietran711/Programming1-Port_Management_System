@@ -17,5 +17,10 @@ public class SystemAdmin extends User {
     public SystemAdmin(String ID, String username, String password) {
         super(ID, username, password);
     }
+
+    @Override
+    public String toString() {
+        return "SystemAdmin{} " + super.toString();
+    }
 }
 

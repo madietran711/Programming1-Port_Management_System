@@ -2,6 +2,7 @@ package entities.user;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Scanner;
 
 import entities.container.Container;
 import entities.port.Port;
@@ -26,7 +27,21 @@ public class User implements Serializable {
         this.password = password;
     }
 
+    public String getUsername() {
+        return username;
+    }
 
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     @Override
     public String toString() {
@@ -113,4 +128,8 @@ public  boolean removeAllVehicles(){return userImplement.removeAllVehicles();}
 public  boolean removeAllContainers(){return userImplement.removeAllContainers();}
     public boolean removeAllPorts(){return userImplement.removeAllPorts();}
     public void viewPortActivities(Port port){userImplement.viewPortActivities(port);}
-}
+    public User userLogin(String username, String password) {
+        return userImplement.userLogin(username, password);
+    }
+
+    }

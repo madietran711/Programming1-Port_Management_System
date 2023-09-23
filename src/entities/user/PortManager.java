@@ -13,6 +13,14 @@ public class PortManager extends User {
     private Port managingPort;
 
 
+    public Port getManagingPort() {
+        return managingPort;
+    }
+
+    public void setManagingPort(Port managingPort) {
+        this.managingPort = managingPort;
+    }
+
     public double calculateFuelUsageOnDate(Date date) {
         throw new UnsupportedOperationException("Not implemented");
     };
@@ -46,5 +54,10 @@ public class PortManager extends User {
         return userImplement.createContainer(entity);
     }
 
-
+    @Override
+    public String toString() {
+        return "PortManager{" +
+                "managingPort=" + managingPort.getName() +
+                "} " + super.toString();
+    }
 }

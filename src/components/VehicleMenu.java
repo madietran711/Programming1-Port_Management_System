@@ -23,21 +23,25 @@ public class VehicleMenu {
             Scanner scanner = new Scanner(System.in);
 
             while (true) {
-                System.out.println("Manage Vehicle Menu:");
-                System.out.println("1. View All Vehicles");
-                System.out.println("2. Create a Vehicle");
-                System.out.println("3. Update a Vehicle");
-                System.out.println("4. Delete a Vehicle");
-                System.out.println("5. Refuel a Vehicle");
-                System.out.println("6. Load containers onto a Vehicle");
-                System.out.println("7. Unload containers from a Vehicle");
-                System.out.println("8. View the carrying capacity of a Vehicle");
-                System.out.println("9. View the fuel capacity of a Vehicle");
-                System.out.println("10. View current containers on a Vehicle");
-                System.out.println("11. View current port of a Vehicle");
-                System.out.println("12. View the schedule of a Vehicle");
-                System.out.println("13. Back to Main Menu");
+                System.out.println("--------------------------------------------------------------");
+                System.out.println("| Manage Vehicle Menu:                                        |");
+                System.out.println("| 1. View All Vehicles                                         |");
+                System.out.println("| 2. Create a Vehicle                                          |");
+                System.out.println("| 3. Update a Vehicle                                          |");
+                System.out.println("| 4. Delete a Vehicle                                          |");
+                System.out.println("| 5. Refuel a Vehicle                                          |");
+                System.out.println("| 6. Load containers onto a Vehicle                            |");
+                System.out.println("| 7. Unload containers from a Vehicle                          |");
+                System.out.println("| 8. View the carrying capacity of a Vehicle                   |");
+                System.out.println("| 9. View the fuel capacity of a Vehicle                       |");
+                System.out.println("| 10. View current containers on a Vehicle                     |");
+                System.out.println("| 11. View current port of a Vehicle                           |");
+                System.out.println("| 12. View the schedule of a Vehicle                           |");
+                System.out.println("| 13. Check if vehicle can move to a port                      |");
+                System.out.println("| 14. Back to Main Menu                                       |");
+                System.out.println("--------------------------------------------------------------");
                 System.out.print("Enter your choice: ");
+
 
                 int choice = scanner.nextInt();
                 scanner.nextLine();
@@ -149,6 +153,7 @@ public class VehicleMenu {
                                         loadingContainer.setLocation(loadingVehicleID);
                                         systemAdmin.updateContainer(loadingContainer);
                                         systemAdmin.updatePort(loadingPort);
+                                        systemAdmin.updateVehicle(loadingVehicle);
                                         System.out.println("Container with ID " + loadingContainerID +
                                                 " has been loaded onto the vehicle with ID " + loadingVehicleID + ".");
                                         // Display the current container list of the vehicle
@@ -244,7 +249,24 @@ public class VehicleMenu {
                         // Left for Phuong
                         break;
                     case 13:
+                        System.out.println("---------------------CHECK IF VEHICLE CAN MOVE TO A PORT---------------------");
+                        System.out.println("Enter the ID of the vehicle you want to check if it can move to a port: ");
+                        String vehicleIDCheckMove = scanner.nextLine();
+                        if (systemAdmin.getVehicleById(vehicleIDCheckMove) == null) {
+                            System.out.println("Vehicle with ID " + vehicleIDCheckMove + " does not exist.");
+                            break;
+                        }
+                        System.out.println("Enter the ID of the port you want to check if the vehicle can move to: ");
+                        String portIDCheckMove = scanner.nextLine();
+                        if (systemAdmin.getPortById(portIDCheckMove) == null) {
+                            System.out.println("Port with ID " + portIDCheckMove + " does not exist.");
+                            break;
+                        }
+                        Vehicle vehicleCheckMove = systemAdmin.getVehicleById(vehicleIDCheckMove);
+                        vehicleCheckMove.canMoveToPortWithCurrentLoad(systemAdmin.getPortById(portIDCheckMove));
                         return;
+                    case 14:
+                            return;
                     default:
                         System.out.println("Invalid choice. Please try again.");
                 }

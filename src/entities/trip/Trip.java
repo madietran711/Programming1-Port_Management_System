@@ -7,6 +7,7 @@ import enums.TripStatus;
 import service.Trip.TripInterface;
 import service.Trip.implementation.TripImplement;
 import service.Vehicle.implementation.VehicleImplement;
+import utils.Validation;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -44,9 +45,20 @@ public class Trip implements Serializable {
 
     @Override
     public String toString() {
+        if(trackingVehicle!=null){
+            return "Trip{" +
+                    "ID='" + ID + '\'' +
+                    ", trackingVehicle=" + trackingVehicle.getName() +
+                    ", departureDate=" + departureDate +
+                    ", arrivalDate=" + arrivalDate +
+                    ", arrivalPort=" + arrivalPort.getName() +
+                    ", departurePort=" + departurePort.getName() +
+                    ", status=" + status + '\'' +
+                    '}';
+        }
         return "Trip{" +
                 "ID='" + ID + '\'' +
-                ", trackingVehicle=" + trackingVehicle +
+                ", trackingVehicle= null"+
                 ", departureDate=" + departureDate +
                 ", arrivalDate=" + arrivalDate +
                 ", arrivalPort=" + arrivalPort.getName() +
@@ -60,8 +72,9 @@ public class Trip implements Serializable {
         return ID;
     }
 
-    public void setID(String iD) {
-        ID = iD;
+    public void setID(String ID) {
+        this.ID = Validation.validateTripIDFormat(ID) ? ID : "";
+        this.ID = ID;
     }
 
     public Vehicle getTrackingVehicle() {

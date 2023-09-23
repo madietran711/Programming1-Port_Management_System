@@ -17,25 +17,28 @@ public class PortMenu {
 
             Scanner scanner = new Scanner(System.in);
             while (true) {
-                System.out.println("Manage Ports Menu:");
-                System.out.println("1. View All Ports");
-                System.out.println("2. Create a Port");
-                System.out.println("3. Update a Port");
-                System.out.println("4. Delete a Port");
-                System.out.println("5. View the location of a Port");
-                System.out.println("6. View the capacity of a Port");
-                System.out.println("7. View the current trips in a Port");
-                System.out.println("8. View the current vehicles in a Port");
-                System.out.println("9. View the current containers in a Port");
-                System.out.println("10. Get total vehicles in a Port");
-                System.out.println("11. Get total containers in a Port");
-                System.out.println("12. Calculate the distance between two ports");
-                System.out.println("13. View the traffic record of a Port");
-                System.out.println("14. View Port Activities");
-                System.out.println("15. Back to Main Menu");
+                System.out.println("--------------------------------------------------------------");
+                System.out.println("| Manage Ports Menu:                                          |");
+                System.out.println("| 1. View All Ports                                           |");
+                System.out.println("| 2. Create a Port                                            |");
+                System.out.println("| 3. Update a Port                                            |");
+                System.out.println("| 4. Delete a Port                                            |");
+                System.out.println("| 5. View the location of a Port                              |");
+                System.out.println("| 6. View the capacity of a Port                              |");
+                System.out.println("| 7. View the current trips in a Port                         |");
+                System.out.println("| 8. View the current vehicles in a Port                      |");
+                System.out.println("| 9. View the current containers in a Port                    |");
+                System.out.println("| 10. Get total vehicles in a Port                            |");
+                System.out.println("| 11. Get total containers in a Port                          |");
+                System.out.println("| 12. Calculate the distance between two ports                 |");
+                System.out.println("| 13. View the traffic record of a Port                        |");
+                System.out.println("| 14. View Port Activities                                     |");
+                System.out.println("| 15. Back to Main Menu                                       |");
+                System.out.println("--------------------------------------------------------------");
                 System.out.print("Enter your choice: ");
 
-            int choice = scanner.nextInt();
+
+                int choice = scanner.nextInt();
             scanner.nextLine(); // Consume newline
 
                 switch (choice) {

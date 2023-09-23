@@ -141,7 +141,7 @@ public class VehicleImplement implements VehicleInterface, Serializable {
         TripImplement tripImplement = new TripImplement(trip);
         // check if current fuel is enough to move to port with distance
         if (!canMoveToPortWithCurrentLoad(trip.getArrivalPort())) {
-            System.out.println("Trip cannot be carried out");
+            System.out.println("Trip cannot be carried out!");
             return false;
         }
         // check trip date and move vehicle to port accordingly
@@ -180,7 +180,7 @@ public class VehicleImplement implements VehicleInterface, Serializable {
 
     @Override
     public double calculateTotalWeight() {
-        List<Container> containerList = this.vehicle.getContainerList();
+        List<Container> containerList = getById(this.vehicle.getID()).getContainerList();
         // calculate weight of all container in containerList
         return containerList.stream()
                 .mapToDouble(Container::getWeight)
@@ -211,15 +211,23 @@ public class VehicleImplement implements VehicleInterface, Serializable {
 
     @Override
     public boolean canMoveToPortWithCurrentLoad(Port port) {
+
         // check if port can receive this vehicle
+
+        System.out.println("Basic Info: ");
+        System.out.println("Current port: " + this.vehicle.getCurrentPort().getName());
+        System.out.println("Vehicle is moving to port: " + port.getName() + " with current load"+ this.vehicle.getCurrentCapacity());
+        System.out.println("Result: ");
         if (this.vehicle instanceof Truck && !port.isLandingAbility()) {
-            System.out.println("This port cannot receive truck");
+            System.out.println("This port cannot receive truck. Try another port");
             return false;
         }
         // check if currentLoad < carryingCapacity
         if (this.vehicle.getCurrentCapacity() > this.vehicle.getCarryingCapacity()) {
+            System.out.println("Vehicle current load: " + this.vehicle.getCurrentCapacity());
+            System.out.println("Vehicle carrying capacity: " + this.vehicle.getCarryingCapacity());
             // check if port can receive this vehicle
-            System.out.println("Vehicle is overload");
+            System.out.println("Vehicle is overload. Unload some containers to move to port");
         }
         // check if current fuel is enough to move to port with distance
         // calculate fuel needed to move to port
@@ -230,9 +238,12 @@ public class VehicleImplement implements VehicleInterface, Serializable {
         double distance = this.vehicle.getCurrentPort().calculateDistanceFromPort( port);
         double fuelNeeded = totalFuelConsumptionPerKm * distance;
         if (this.vehicle.getCurrentFuel() < fuelNeeded) {
-            System.out.println("Not enough fuel");
+            System.out.println("Vehicle current fuel: " + this.vehicle.getCurrentFuel());
+            System.out.println("Vehicle fuel needed: " + fuelNeeded);
+            System.out.println("Not enough fuel. Refuel to move to port");
             return false;
         }
+        System.out.println("Vehicle can move to port with current load");
         return true;
     }
 

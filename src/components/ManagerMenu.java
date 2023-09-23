@@ -16,10 +16,14 @@ public class ManagerMenu {
 
     public void displayMenu() {
         while (true) {
-            System.out.println("Port Manager Menu:");
-            System.out.println("1. Manage Containers");
-            System.out.println("5. Exit");
+            System.out.println("+--------------------------------+");
+            System.out.println("|   Port Manager Menu: "+portManager.getManagingPort().getName()+"     |");
+            System.out.println("|---------------------------------|");
+            System.out.println("| 1. Manage Containers            |");
+            System.out.println("| 5. Exit                         |");
+            System.out.println("+--------------------------------+");
             System.out.print("Enter your choice: ");
+
 
             int choice = scanner.nextInt();
 

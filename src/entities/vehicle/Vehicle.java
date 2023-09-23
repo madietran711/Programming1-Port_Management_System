@@ -124,6 +124,16 @@ return
         }
     }
 
+    public boolean canMoveToPortWithCurrentLoad(Port port) {
+        if (this.getCurrentPort() == null ) {
+            System.out.println("Vehicle is not on any port. Method can only calculate vehicle is not on sail !");
+        }
+        if (port != null) {
+            return vehicleImplement.canMoveToPortWithCurrentLoad(port);
+        }
+
+        return false;
+    }
     public double getCarryingCapacity() {
         return carryingCapacity;
     }
@@ -141,7 +151,7 @@ public boolean unloadContainer(Container container) {
 }
 
     public ArrayList<Container> getContainerList() {
-        return this.containerList;
+        return containerList;
     }
 
     public void setContainerList(ArrayList<Container> containerList) {

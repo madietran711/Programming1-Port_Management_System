@@ -11,14 +11,16 @@ public class ContainerMenu {
     public static void displayMenu(User user) {
         Scanner scanner = new Scanner(System.in);
         while (true) {
-            System.out.println("Manage Containers Menu:");
-            System.out.println("1. View All Containers");
-            System.out.println("2. Create a Container");
-            System.out.println("3. Update a Container");
-            System.out.println("4. Delete a Container");
-            System.out.println();
-            System.out.println();
-            System.out.println("5. Back to Main Menu");
+            System.out.println("--------------------------------------------------------------");
+            System.out.println("|Manage Containers Menu:                                      |");
+            System.out.println("|1. View All Containers                                       |");
+            System.out.println("|2. Create a Container                                        |");
+            System.out.println("|3. Update a Container                                        |");
+            System.out.println("|4. Delete a Container                                        |");
+            System.out.println("");
+            System.out.println("");
+            System.out.println("|5. Back to Main Menu                                         |");
+            System.out.println("--------------------------------------------------------------");
             System.out.print("Enter your choice: ");
 
             int choice = scanner.nextInt();
