@@ -71,7 +71,7 @@ public class AdminMenu {
         SystemAdmin systemAdmin = new SystemAdmin("admin123", "admin", "password"); // Create a SystemAdmin instance
         AdminMenu adminMenu = new AdminMenu(systemAdmin);
 
-        // Display the System Admin menu
+         // Display the System Admin menu
         adminMenu.displayMenu();
     }
 }
