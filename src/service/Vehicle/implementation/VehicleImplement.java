@@ -56,6 +56,11 @@ public class VehicleImplement implements VehicleInterface, Serializable {
     }
 
     @Override
+    public boolean deleteAll() {
+        return vehicleRepository.deleteAll();
+    }
+
+    @Override
     public boolean loadContainer(List<Container> containerList) {
         List<Container> currentList = this.vehicle.getContainerList();
         // check if currentList + newList < carryingCapacity

@@ -63,142 +63,150 @@ public class DatFileMethods implements Serializable {
     }
 
     public static void main(String[] args) {
-        List<Port> ports = new ArrayList<>();
-        ports.add(new Port("1", "Port 1", 1, 1, "Port 1", 1, 1, true, new ArrayList<>(),new ArrayList<>(), Collections.emptyList()));
-        ports.add(new Port("2", "Port 2", 2, 2, "Port 2", 2, 2, true,new ArrayList<>(),new ArrayList<>(),new ArrayList<>()));
-        writeAllLines("Port.dat", ports);
         SystemAdmin admin = new SystemAdmin("1", "admin", "admin");
-
-
-        System.out.println(
-                "---------------------------------------------------------------------------------------------");
-        System.out.println("Test get All method");
-        admin.getAllPorts().forEach(System.out::println);
-
-
-        System.out.println(
-                "---------------------------------------------------------------------------------------------");
-        System.out.println("Test create method");
-        Port newPort = new Port("3", "Port 3", 3, 3, "Port 3", 3, 3, true, new ArrayList<>(), new ArrayList<>(),
-                new ArrayList<>());
-        admin.createPort(newPort);
-        ports = admin.getAllPorts();
-        Vehicle newVehicle = new Vehicle("1", "Vehicle 1", 1, 1, 1, ports.get(1), new ArrayList<>());
-       // admin.updatePort(ports.get(1));
-        admin.getAllPorts().forEach(System.out::println);
+        if (admin.removeAllTrips() && admin.removeAllContainers()  &&  admin.removeAllVehicles() && admin.removeAllPorts()
+               ) {
+            System.out.println("All data removed successfully");
+            List<Port> ports = new ArrayList<>();
+            ports.add(new Port("1", "Port 1", 1, 1, "Port 1", 1, 1, true, new ArrayList<>(),new ArrayList<>(), Collections.emptyList()));
+            ports.add(new Port("2", "Port 2", 2, 2, "Port 2", 2, 2, true,new ArrayList<>(),new ArrayList<>(),new ArrayList<>()));
+            writeAllLines("Port.dat", ports);
 
 
 
-        System.out.println(
-                "---------------------------------------------------------------------------------------------");
-        System.out.println("Test update method");
-
-        Port updatePort = new Port("3", "Port 3 Updated", 3, 3, "Port 3", 3, 3, true, new ArrayList<>(),
-                new ArrayList<>(), new ArrayList<>());
-        admin.updatePort(updatePort);
-        admin.getAllPorts().forEach(System.out::println);
-
-        System.out.println(
-                "---------------------------------------------------------------------------------------------");
-        System.out.println("Test delete method");
-        admin.deletePort("3");
-        admin.getAllPorts().forEach(System.out::println);
+            System.out.println(
+                    "---------------------------------------------------------------------------------------------");
+            System.out.println("Test get All method");
+            admin.getAllPorts().forEach(System.out::println);
 
 
-        // Trip
-        System.out.println(
-                "---------------------------------------------------------------------------------------------");
-        List<Trip> trips = new ArrayList<Trip>();
-        trips.add(new Trip("1", null, LocalDate.of(2023, 9, 10), LocalDate.of(2023, 9, 15), admin.getAllPorts().get(0),
-                admin.getAllPorts().get(1),
-                TripStatus.ON_GOING));
-        trips.add(new Trip("2", null, LocalDate.of(2023, 9, 20), LocalDate.of(2023, 9, 27), admin.getAllPorts().get(1),
-                admin.getAllPorts().get(0),
-                TripStatus.COMPLETED));
-        writeAllLines("Trip.dat", trips);
-
-        System.out.println("Test Trip methods");
-        System.out.println("Test get all method");
-        admin.getAllTrips().forEach(System.out::println);
-
-        System.out.println("\nTest create method");
-        Trip newTrip = new Trip("3", newVehicle, LocalDate.of(2023, 9, 1), LocalDate.of(2023, 9, 29), admin.getAllPorts().get(0),
-                admin.getAllPorts().get(1), TripStatus.ON_GOING);
-        admin.createTrip(newTrip);
-        trips = admin.getAllTrips();
-        admin.getAllTrips().forEach(System.out::println);
-
-        System.out.println("\nTest update method");
-        Trip updateTrip = new Trip("3", newVehicle, LocalDate.of(2023, 8, 1), LocalDate.of(2023, 10, 29),
-                admin.getAllPorts().get(1),
-                admin.getAllPorts().get(0), TripStatus.ON_GOING);
-        admin.updateTrip(updateTrip);
-        admin.getAllTrips().forEach(System.out::println);
-
-        System.out.println("\nTest delete method");
-        admin.deleteTrip("3");
-        admin.getAllTrips().forEach(System.out::println);
+            System.out.println(
+                    "---------------------------------------------------------------------------------------------");
+            System.out.println("Test create method");
+            Port newPort = new Port("3", "Port 3", 3, 3, "Port 3", 3, 3, true, new ArrayList<>(), new ArrayList<>(),
+                    new ArrayList<>());
+            admin.createPort(newPort);
+            ports = admin.getAllPorts();
+            Vehicle newVehicle = new Vehicle("1", "Vehicle 1", 1, 1, 1, ports.get(1), new ArrayList<>());
+            // admin.updatePort(ports.get(1));
+            admin.getAllPorts().forEach(System.out::println);
 
 
-        // Vehicle
-        List<Vehicle> vehicles = new ArrayList<>();
-        vehicles.add(new Vehicle("1", "Vehicle 1", 1, 1, 1, ports.get(0), new ArrayList<>()));
-        vehicles.add(new Vehicle("2", "Vehicle 2", 2, 2, 2, ports.get(0), new ArrayList<>()));
-        writeAllLines("Vehicle.dat", vehicles);
 
-        System.out.println("---------------------------------------------------------------------------------------------");
-        System.out.println("Test get All method");
-        admin.getAllVehicles().forEach(System.out::println);
+            System.out.println(
+                    "---------------------------------------------------------------------------------------------");
+            System.out.println("Test update method");
 
-        System.out.println("---------------------------------------------------------------------------------------------");
-        System.out.println("Test create method");
-        Vehicle newVehicle1 = new Vehicle("3", "Vehicle 3", 3, 3, 3, ports.get(1), new ArrayList<>());
-        admin.createVehicle(newVehicle1);
-        admin.getAllVehicles().forEach(System.out::println);
+            Port updatePort = new Port("3", "Port 3 Updated", 3, 3, "Port 3", 3, 3, true, new ArrayList<>(),
+                    new ArrayList<>(), new ArrayList<>());
+            admin.updatePort(updatePort);
+            admin.getAllPorts().forEach(System.out::println);
 
-        System.out.println("---------------------------------------------------------------------------------------------");
-        System.out.println("Test update method");
-        Vehicle updateVehicle = new Vehicle("3", "Vehicle 3 Updated", 3, 3, 3, ports.get(1), new ArrayList<>());
-        admin.updateVehicle(updateVehicle);
-        admin.getAllVehicles().forEach(System.out::println);
-        admin.getAllPorts().forEach(System.out::println);
-
-        System.out.println("---------------------------------------------------------------------------------------------");
-        System.out.println("Test delete method");
-        admin.deleteVehicle("1");
-        admin.deleteVehicle("2");
-
-        admin.getAllVehicles().forEach(System.out::println);
+            System.out.println(
+                    "---------------------------------------------------------------------------------------------");
+            System.out.println("Test delete method");
+            admin.deletePort("3");
+            admin.getAllPorts().forEach(System.out::println);
 
 
-        // Container
-        List<Container> containers = new ArrayList<>();
-        containers.add(new Container("1", 1.0));
-        containers.add(new Container("2", 2.0));
-        writeAllLines("Container.dat", containers);
+            // Trip
+            System.out.println(
+                    "---------------------------------------------------------------------------------------------");
+            List<Trip> trips = new ArrayList<Trip>();
+            trips.add(new Trip("1", null, LocalDate.of(2023, 9, 10), LocalDate.of(2023, 9, 15), admin.getAllPorts().get(0),
+                    admin.getAllPorts().get(1),
+                    TripStatus.ON_GOING));
+            trips.add(new Trip("2", null, LocalDate.of(2023, 9, 20), LocalDate.of(2023, 9, 27), admin.getAllPorts().get(1),
+                    admin.getAllPorts().get(0),
+                    TripStatus.COMPLETED));
+            writeAllLines("Trip.dat", trips);
 
-        System.out.println("---------------------------------------------------------------------------------------------");
-        System.out.println("Test get All method");
-        admin.getAllContainers().forEach(System.out::println);
+            System.out.println("Test Trip methods");
+            System.out.println("Test get all method");
+            admin.getAllTrips().forEach(System.out::println);
 
-        System.out.println("---------------------------------------------------------------------------------------------");
-        System.out.println("Test create method");
-        Container newContainer = new Container("3", 6.0);
-        admin.createContainer(newContainer);
-        admin.getAllContainers().forEach(System.out::println);
+            System.out.println("\nTest create method");
+            Trip newTrip = new Trip("3", newVehicle, LocalDate.of(2023, 9, 1), LocalDate.of(2023, 9, 29), admin.getAllPorts().get(0),
+                    admin.getAllPorts().get(1), TripStatus.ON_GOING);
+            admin.createTrip(newTrip);
+            trips = admin.getAllTrips();
+            admin.getAllTrips().forEach(System.out::println);
 
-        System.out.println("---------------------------------------------------------------------------------------------");
-        System.out.println("Test update method");
-        Container updateContainer = new Container("1", 7.0);
-        admin.updateContainer(updateContainer);
-        admin.getAllContainers().forEach(System.out::println);
+            System.out.println("\nTest update method");
+            Trip updateTrip = new Trip("3", newVehicle, LocalDate.of(2023, 8, 1), LocalDate.of(2023, 10, 29),
+                    admin.getAllPorts().get(1),
+                    admin.getAllPorts().get(0), TripStatus.ON_GOING);
+            admin.updateTrip(updateTrip);
+            admin.getAllTrips().forEach(System.out::println);
+
+            System.out.println("\nTest delete method");
+            admin.deleteTrip("3");
+            admin.getAllTrips().forEach(System.out::println);
 
 
-        System.out.println("---------------------------------------------------------------------------------------------");
-        System.out.println("Test delete method");
-        admin.deleteContainer("1");
-        admin.deleteContainer("2");
-        admin.getAllContainers().forEach(System.out::println);
+            // Vehicle
+            List<Vehicle> vehicles = new ArrayList<>();
+            vehicles.add(new Vehicle("1", "Vehicle 1", 1, 1, 1, ports.get(0), new ArrayList<>()));
+            vehicles.add(new Vehicle("2", "Vehicle 2", 2, 2, 2, ports.get(0), new ArrayList<>()));
+            writeAllLines("Vehicle.dat", vehicles);
+
+            System.out.println("---------------------------------------------------------------------------------------------");
+            System.out.println("Test get All method");
+            admin.getAllVehicles().forEach(System.out::println);
+
+            System.out.println("---------------------------------------------------------------------------------------------");
+            System.out.println("Test create method");
+            Vehicle newVehicle1 = new Vehicle("3", "Vehicle 3", 3, 3, 3, ports.get(1), new ArrayList<>());
+            admin.createVehicle(newVehicle1);
+            admin.getAllVehicles().forEach(System.out::println);
+
+            System.out.println("---------------------------------------------------------------------------------------------");
+            System.out.println("Test update method");
+            Vehicle updateVehicle = new Vehicle("3", "Vehicle 3 Updated", 3, 3, 3, ports.get(1), new ArrayList<>());
+            admin.updateVehicle(updateVehicle);
+            admin.getAllVehicles().forEach(System.out::println);
+            admin.getAllPorts().forEach(System.out::println);
+
+            System.out.println("---------------------------------------------------------------------------------------------");
+            System.out.println("Test delete method");
+            admin.deleteVehicle("1");
+            admin.deleteVehicle("2");
+
+            admin.getAllVehicles().forEach(System.out::println);
+
+
+            // Container
+            List<Container> containers = new ArrayList<>();
+            containers.add(new Container("1", 1.0));
+            containers.add(new Container("2", 2.0));
+            writeAllLines("Container.dat", containers);
+
+            System.out.println("---------------------------------------------------------------------------------------------");
+            System.out.println("Test get All method");
+            admin.getAllContainers().forEach(System.out::println);
+
+            System.out.println("---------------------------------------------------------------------------------------------");
+            System.out.println("Test create method");
+            Container newContainer = new Container("3", 6.0);
+            admin.createContainer(newContainer);
+            admin.getAllContainers().forEach(System.out::println);
+
+            System.out.println("---------------------------------------------------------------------------------------------");
+            System.out.println("Test update method");
+            Container updateContainer = new Container("1", 7.0);
+            admin.updateContainer(updateContainer);
+            admin.getAllContainers().forEach(System.out::println);
+
+
+            System.out.println("---------------------------------------------------------------------------------------------");
+            System.out.println("Test delete method");
+            admin.deleteContainer("1");
+            admin.deleteContainer("2");
+            admin.getAllContainers().forEach(System.out::println);
+
+        } else {
+            System.out.println("Error removing data");
+        }
 
 
     }

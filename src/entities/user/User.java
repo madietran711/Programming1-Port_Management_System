@@ -108,5 +108,8 @@ public class User implements Serializable {
         return userImplement.deleteVehicle(id);
     }
 
-
+public  boolean removeAllTrips(){return userImplement.removeAllTrips();}
+public  boolean removeAllVehicles(){return userImplement.removeAllVehicles();}
+public  boolean removeAllContainers(){return userImplement.removeAllContainers();}
+    public boolean removeAllPorts(){return userImplement.removeAllPorts();}
 }

@@ -62,6 +62,11 @@ public class UserImplement implements UserInterface, Serializable {
     }
 
     @Override
+    public boolean deleteAll() {
+        return  userRepository.deleteAll();
+    }
+
+    @Override
     public boolean userLogin(String username, String password) {
         return false;
     }
@@ -240,6 +245,33 @@ public class UserImplement implements UserInterface, Serializable {
             ContainerImplement containerImplement = new ContainerImplement(new Container());
     return containerImplement.create(entity);
         }
+
+    @Override
+    public boolean removeAllTrips() {
+        TripImplement tripImplement = new TripImplement(new Trip());
+        return tripImplement.deleteAll();
+    }
+
+    @Override
+    public boolean removeAllVehicles() {
+        VehicleImplement vehicleImplement = new VehicleImplement(new Vehicle());
+        return vehicleImplement.deleteAll();
+
+    }
+
+    @Override
+    public boolean removeAllContainers() {
+        ContainerImplement containerImplement = new ContainerImplement(new Container());
+        return containerImplement.deleteAll();
+
+    }
+
+    @Override
+    public boolean removeAllPorts() {
+        PortImplement portImplement = new PortImplement(new Port());
+        return portImplement.deleteAll();
+
+    }
 
 
 }

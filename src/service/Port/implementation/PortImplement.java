@@ -52,6 +52,11 @@ public class PortImplement implements PortInterface, Serializable {
         return portRepository.delete(id);
     }
 
+    @Override
+    public boolean deleteAll() {
+        return portRepository.deleteAll();
+    }
+
 
     @Override
     public int getTotalVehicleCount() {

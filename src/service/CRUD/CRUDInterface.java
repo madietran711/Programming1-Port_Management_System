@@ -40,4 +40,6 @@ public interface CRUDInterface<T, ID> {
      * @param id The unique identifier of the object to be deleted.
      */
     boolean delete(ID id);
+
+    boolean deleteAll();
 }

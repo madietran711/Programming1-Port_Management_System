@@ -75,4 +75,9 @@ public interface UserInterface extends CRUDInterface<User, String> {
 
     Container createContainer(Container entity);
 
+    boolean removeAllTrips();
+    boolean removeAllVehicles();
+    boolean removeAllContainers();
+    boolean removeAllPorts();
+
 }

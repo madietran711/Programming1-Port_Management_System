@@ -87,4 +87,17 @@ public class CRUDImplement<T, ID> implements CRUDInterface<T, ID> {
         }
         return false;
     }
+
+    @Override
+    public boolean deleteAll() {
+        try {
+            List<T> entities = getAll();
+            entities.clear();
+            DatFileMethods.writeAllLines(fileName, entities);
+            return getAll().isEmpty();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return false;
+    }
 }

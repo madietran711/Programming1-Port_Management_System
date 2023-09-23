@@ -49,6 +49,11 @@ containerRepository.create(entity);
     }
 
     @Override
+    public boolean deleteAll() {
+        return containerRepository.deleteAll();
+    }
+
+    @Override
     public double calculateFuelConsumptionByWeightPerKm(Vehicle vehicle) {
         // check if container is on truck or ship
         // if on truck, calculate fuel need for container per km

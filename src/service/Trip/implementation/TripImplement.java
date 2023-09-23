@@ -54,6 +54,11 @@ public class TripImplement implements TripInterface, Serializable {
     }
 
     @Override
+    public boolean deleteAll() {
+        return tripRepository.deleteAll();
+    }
+
+    @Override
     public boolean updateTripStatus() {
         LocalDate currentDate = LocalDate.now();
         LocalDate departureDate = this.trip.getDepartureDate();
