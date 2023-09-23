@@ -3,7 +3,6 @@ package components;
 import entities.port.Port;
 import entities.user.PortManager;
 
-
 import java.util.Scanner;
 
 public class ManagerMenu {
@@ -14,7 +13,6 @@ public class ManagerMenu {
         this.portManager = portManager;
         this.scanner = new Scanner(System.in);
     }
-
 
     public void displayMenu() {
         while (true) {
@@ -43,7 +41,7 @@ public class ManagerMenu {
     }
 
     public static void main(String[] args) {
-        PortManager portManager = new PortManager("1","Manager1","123456",new Port());
+        PortManager portManager = new PortManager("1", "Manager1", "123456", new Port());
         ManagerMenu managerMenu = new ManagerMenu(portManager);
         managerMenu.displayMenu();
     }

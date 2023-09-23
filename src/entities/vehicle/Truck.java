@@ -1,5 +1,13 @@
 package entities.vehicle;
 
-public class Truck extends Vehicle {
+import java.util.ArrayList;
 
+import entities.container.Container;
+import entities.port.Port;
+
+public class Truck extends Vehicle {
+    public Truck(String ID, String name, double fuelTankCapacity, double currentFuel, double carryingCapacity,
+            Port currentPort, ArrayList<Container> containerList) {
+        super(ID, name, fuelTankCapacity, currentFuel, carryingCapacity, currentPort, containerList);
+    }
 }

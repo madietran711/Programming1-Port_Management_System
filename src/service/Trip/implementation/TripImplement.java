@@ -1,11 +1,12 @@
 package service.Trip.implementation;
 
+import entities.port.Port;
 import entities.trip.Trip;
 import enums.TripStatus;
 import service.CRUD.CRUDInterface;
 import service.CRUD.implementation.CRUDImplement;
+import service.Port.implementation.PortImplement;
 import service.Trip.TripInterface;
-
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -18,13 +19,11 @@ public class TripImplement implements TripInterface, Serializable {
         tripRepository = new CRUDImplement<Trip, String>("Trip.dat", Trip.class);
     }
 
-
     private Trip trip; // Add an instance variable to store the Trip instance.
 
     public TripImplement(Trip trip) {
         this.trip = trip;
     }
-
 
     @Override
     public Trip create(Trip entity) {
@@ -36,7 +35,6 @@ public class TripImplement implements TripInterface, Serializable {
     public List<Trip> getAll() {
 
         return tripRepository.getAll();
-
 
     }
 
@@ -55,14 +53,13 @@ public class TripImplement implements TripInterface, Serializable {
         return tripRepository.delete(id);
     }
 
-
     @Override
     public boolean updateTripStatus() {
         LocalDate currentDate = LocalDate.now();
         LocalDate departureDate = this.trip.getDepartureDate();
         LocalDate arrivalDate = this.trip.getArrivalDate();
         // before the departure date
-        if (currentDate.isBefore(departureDate) ){
+        if (currentDate.isBefore(departureDate)) {
             this.trip.setStatus(String.valueOf(TripStatus.PENDING));
             return true;
         }
@@ -77,5 +74,17 @@ public class TripImplement implements TripInterface, Serializable {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public void addTripToArricalPort(Port arrivalPort) {
+        PortImplement portImplement = new PortImplement(arrivalPort);
+        portImplement.addTrip(trip);
+    }
+
+    @Override
+    public void addTripToDeparturePort(Port departurePort) {
+        PortImplement portImplement = new PortImplement(departurePort);
+        portImplement.addTrip(trip);
     }
 }

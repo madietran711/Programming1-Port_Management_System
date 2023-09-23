@@ -24,7 +24,6 @@ public class Trip implements Serializable {
     private Port arrivalPort;
     private TripStatus status;
 
-
     public Trip() {
     }
 
@@ -36,6 +35,8 @@ public class Trip implements Serializable {
         this.arrivalDate = arrivalDate;
         this.departurePort = departurePort;
         this.arrivalPort = arrivalPort;
+        setDeparturePort(departurePort);
+        setArrivalPort(arrivalPort);
         this.status = status;
     }
 
@@ -51,7 +52,6 @@ public class Trip implements Serializable {
                 ", status=" + status + '\'' +
                 '}';
     }
-
 
     // Getters and setters
     public String getID() {
@@ -91,7 +91,10 @@ public class Trip implements Serializable {
     }
 
     public void setDeparturePort(Port departurePort) {
-        this.departurePort = departurePort;
+        if (departurePort != null) {
+            this.departurePort = departurePort;
+            tripImplement.addTripToArricalPort(departurePort);
+        }
     }
 
     public Port getArrivalPort() {
@@ -99,7 +102,10 @@ public class Trip implements Serializable {
     }
 
     public void setArrivalPort(Port arrivalPort) {
-        this.arrivalPort = arrivalPort;
+        if (arrivalPort != null) {
+            this.arrivalPort = arrivalPort;
+            tripImplement.addTripToArricalPort(arrivalPort);
+        }
     }
 
     public TripStatus getStatus() {
@@ -108,7 +114,7 @@ public class Trip implements Serializable {
 
     public void setStatus(String status) {
 
-        this.status = TripStatus.valueOf( status.toUpperCase());
+        this.status = TripStatus.valueOf(status.toUpperCase());
     }
 
 }

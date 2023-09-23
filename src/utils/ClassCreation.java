@@ -3,12 +3,14 @@ package utils;
 import entities.container.*;
 import entities.port.Port;
 import entities.trip.Trip;
-import entities.vehicle.Vehicle;
+import entities.vehicle.*;
 import enums.TripStatus;
+import service.Container.implementation.ContainerImplement;
 import service.Port.implementation.PortImplement;
 import service.Vehicle.implementation.VehicleImplement;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -17,7 +19,7 @@ import java.util.Scanner;
 public class ClassCreation {
 
     private static Map<Class<? extends Container>, Integer> containerTypeToChoice = new HashMap<>();
-     static {
+    static {
 
         // Initialize the mapping
         containerTypeToChoice.put(DryStorageContainer.class, 1);
@@ -26,6 +28,7 @@ public class ClassCreation {
         containerTypeToChoice.put(OpenTopContainer.class, 4);
         containerTypeToChoice.put(RefridgeratedContainer.class, 5);
     }
+
     public static Port createPortFromUserInput(Optional<String> portID) {
         Scanner scanner = new Scanner(System.in);
         String ID = portID.orElse("");
@@ -59,14 +62,14 @@ public class ClassCreation {
         System.out.println("Does the port have landing ability? (true/false): ");
         boolean landingAbility = scanner.nextBoolean();
 
-
         // Create a new Port object with user-entered values
         return new Port(ID, name, latitude, longitude, description, currentCapacity, storingCapacity, landingAbility);
     }
-    public static Container createContainerFromUserInput(Optional<Container> existingContainer ) {
+
+    public static Container createContainerFromUserInput(Optional<Container> existingContainer) {
         String id = "";
         Scanner scanner = new Scanner(System.in);
-        int choice=0;
+        int choice = 0;
         if (existingContainer.isPresent()) {
             // match container type with number in hashmap
 
@@ -89,9 +92,6 @@ public class ClassCreation {
             scanner.nextLine(); // Consume newline
         }
 
-
-
-
         System.out.println("Enter Container Weight: ");
         double weight = scanner.nextDouble();
 
@@ -109,7 +109,7 @@ public class ClassCreation {
                 return new RefridgeratedContainer(id, weight);
             default:
                 System.out.println("Invalid choice.");
-               break;
+                break;
         }
         return null;
     }
@@ -123,7 +123,6 @@ public class ClassCreation {
             System.out.println("Enter Trip ID: ");
             ID = scanner.nextLine();
         }
-
 
         System.out.println("Enter Vehicle ID for Tracking: ");
         String vehicleID = scanner.nextLine();
@@ -147,7 +146,8 @@ public class ClassCreation {
         String statusString = scanner.nextLine();
         TripStatus status = TripStatus.valueOf(statusString.toUpperCase());
 
-        // You need to retrieve the corresponding Port and Vehicle objects based on their IDs
+        // You need to retrieve the corresponding Port and Vehicle objects based on
+        // their IDs
         PortImplement portImplement = new PortImplement(new Port());
         Port departurePort = portImplement.getById(departurePortID);
         Port arrivalPort = portImplement.getById(arrivalPortID);
@@ -156,6 +156,78 @@ public class ClassCreation {
 
         // Create and return the Trip object
         return new Trip(ID, trackingVehicle, departureDate, arrivalDate, departurePort, arrivalPort, status);
+    }
+
+    public static Vehicle createVehicleFromUserInput(Optional<String> vehicleID) {
+        Scanner scanner = new Scanner(System.in);
+        String ID = vehicleID.orElse("");
+        if (vehicleID.isPresent()) {
+            System.out.println("Enter information to update Vehicle with ID " + vehicleID.get() + ":");
+        } else {
+            System.out.println("Enter Vehicle ID: ");
+            ID = scanner.nextLine();
+        }
+
+        System.out.println("Enter Vehicle Name: ");
+        String name = scanner.nextLine();
+
+        System.out.println("Enter Vehicle Fuel Tank Capacity: ");
+        double fuelTankCapacity = scanner.nextDouble();
+
+        System.out.println("Enter Vehicle Current Fuel: ");
+        double currentFuel = scanner.nextDouble();
+
+        System.out.println("Enter Vehicle Carrying Capacity: ");
+        double carryingCapacity = scanner.nextDouble();
+
+        System.out.println("Enter Vehicle Current Port ID: ");
+        String portID = scanner.nextLine();
+
+        System.out.println("Enter Vehicle's currently carrying container IDs (separated by a comma): ");
+        String containerIDsInput = scanner.nextLine();
+
+        // You need to retrieve the corresponding Port and Container objects based on
+        // their IDs
+        PortImplement portImplement = new PortImplement(new Port());
+        Port currentPort = portImplement.getById(portID);
+        ArrayList<Container> containerList = new ArrayList<Container>();
+        String[] containerIDs = containerIDsInput.split(",");
+        ContainerImplement containerImplement = new ContainerImplement(new Container());
+        for (String containerID : containerIDs) {
+            Container container = containerImplement.getById(containerID);
+            containerList.add(container);
+        }
+
+        int choice = 0;
+        System.out.println("Choose the type of Vehicle to create:");
+        System.out.println("1. Ship");
+        System.out.println("2. Basic Truck");
+        System.out.println("3. Reefer Truck");
+        System.out.println("4. Tanker Truck");
+        System.out.print("Enter your choice: ");
+
+        choice = scanner.nextInt();
+        scanner.nextLine(); // Consume newline
+
+        // Create and return the corresponding container type based on user choice
+        switch (choice) {
+            case 1:
+                return new Ship(ID, name, fuelTankCapacity, currentFuel, carryingCapacity, currentPort, containerList);
+            case 2:
+                return new BasicTruck(ID, name, fuelTankCapacity, currentFuel, carryingCapacity, currentPort,
+                        containerList);
+            case 3:
+                return new ReeferTruck(ID, name, fuelTankCapacity, currentFuel, carryingCapacity, currentPort,
+                        containerList);
+            case 4:
+                return new TankerTruck(ID, name, fuelTankCapacity, currentFuel, carryingCapacity, currentPort,
+                        containerList);
+            default:
+                System.out.println("Invalid choice.");
+                break;
+        }
+        return null;
+
     }
 
 }
