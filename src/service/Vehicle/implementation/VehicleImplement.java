@@ -24,9 +24,11 @@ public class VehicleImplement implements VehicleInterface, Serializable {
     }
 
     private Vehicle vehicle; // Add an instance variable to store the Vehicle instance.
+
     public VehicleImplement(Vehicle vehicle) {
         this.vehicle = vehicle;
     }
+
     @Override
     public Vehicle create(Vehicle entity) {
         vehicleRepository.create(entity);
@@ -58,7 +60,7 @@ public class VehicleImplement implements VehicleInterface, Serializable {
         List<Container> currentList = this.vehicle.getContainerList();
         // check if currentList + newList < carryingCapacity
         // if yes, add all container in containerList to currentList
-        if (currentList.size() + containerList.size() <= this.vehicle.getCarryingCapacity()){
+        if (currentList.size() + containerList.size() <= this.vehicle.getCarryingCapacity()) {
             currentList.addAll(containerList);
             return true;
         }
@@ -82,22 +84,23 @@ public class VehicleImplement implements VehicleInterface, Serializable {
         }
         // check trip date and move vehicle to port accordingly
         if (LocalDate.now().equals(trip.getDepartureDate())) {
-            System.out.println("Vehicle is departing from Port: "+ trip.getDeparturePort().getName() +". Destination: " + trip.getArrivalPort().getName() +". Trip is on going");
+            System.out.println("Vehicle is departing from Port: " + trip.getDeparturePort().getName()
+                    + ". Destination: " + trip.getArrivalPort().getName() + ". Trip is on going");
             this.vehicle.setCurrentPort(trip.getDeparturePort());
             tripImplement.updateTripStatus();
-        }
-        else if (LocalDate.now().equals(trip.getArrivalDate())) {
-            System.out.println("Vehicle is arriving at Port: "+ trip.getArrivalPort().getName() +". Trip is completed");
+        } else if (LocalDate.now().equals(trip.getArrivalDate())) {
+            System.out
+                    .println("Vehicle is arriving at Port: " + trip.getArrivalPort().getName() + ". Trip is completed");
             this.vehicle.setCurrentPort(trip.getArrivalPort());
             tripImplement.updateTripStatus();
-        }
-        else if (LocalDate.now().isBefore(trip.getDepartureDate())){
-            System.out.println("Vehicle is waiting at Port: "+ trip.getDeparturePort().getName() +". Destination: " + trip.getArrivalPort().getName() +". Trip is pending");
+        } else if (LocalDate.now().isBefore(trip.getDepartureDate())) {
+            System.out.println("Vehicle is waiting at Port: " + trip.getDeparturePort().getName() + ". Destination: "
+                    + trip.getArrivalPort().getName() + ". Trip is pending");
             this.vehicle.setCurrentPort(trip.getDeparturePort());
             tripImplement.updateTripStatus();
-        }
-        else {
-            System.out.println("Vehicle is moving. Departure Port: "+ trip.getDeparturePort().getName() +". Destination: " + trip.getArrivalPort().getName() + ". Trip is on going");
+        } else {
+            System.out.println("Vehicle is moving. Departure Port: " + trip.getDeparturePort().getName()
+                    + ". Destination: " + trip.getArrivalPort().getName() + ". Trip is on going");
             this.vehicle.setCurrentPort(null);
             tripImplement.updateTripStatus();
         }
@@ -164,7 +167,7 @@ public class VehicleImplement implements VehicleInterface, Serializable {
                 .sum();
         double distance = this.vehicle.getCurrentPort().calculateDistanceFromPort(port);
         double fuelNeeded = totalFuelConsumptionPerKm * distance;
-        if (this.vehicle.getCurrentFuel()< fuelNeeded) {
+        if (this.vehicle.getCurrentFuel() < fuelNeeded) {
             System.out.println("Not enough fuel");
             return false;
         }

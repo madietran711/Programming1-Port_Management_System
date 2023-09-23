@@ -16,6 +16,8 @@ public class ContainerMenu {
             System.out.println("2. Create a Container");
             System.out.println("3. Update a Container");
             System.out.println("4. Delete a Container");
+            System.out.println();
+            System.out.println();
             System.out.println("5. Back to Main Menu");
             System.out.print("Enter your choice: ");
 
@@ -50,7 +52,8 @@ public class ContainerMenu {
                         Container updatedContainer = ClassCreation.createContainerFromUserInput(Optional.of(container));
                         user.updateContainer(updatedContainer);
                         System.out.println("Container with ID " + containerIDToUpdate + " has been updated.");
-                        System.out.println("Updated container information: " +user.getByContainerId(containerIDToUpdate));
+                        System.out.println(
+                                "Updated container information: " + user.getByContainerId(containerIDToUpdate));
                     } catch (Exception e) {
                         System.out.println("Error: " + e.getMessage());
                     }
@@ -72,6 +75,7 @@ public class ContainerMenu {
                 default:
                     System.out.println("Invalid choice. Please try again.");
             }
+            scanner.close();
         }
     }
 }
