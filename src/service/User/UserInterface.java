@@ -79,5 +79,6 @@ public interface UserInterface extends CRUDInterface<User, String> {
     boolean removeAllVehicles();
     boolean removeAllContainers();
     boolean removeAllPorts();
+    void viewPortActivities(Port port);
 
 }

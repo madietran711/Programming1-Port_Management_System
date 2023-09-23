@@ -273,5 +273,12 @@ public class UserImplement implements UserInterface, Serializable {
 
     }
 
+    @Override
+    public void viewPortActivities(Port port) {
+        PortImplement portImplement = new PortImplement(port);
+        portImplement.viewPortActivities();
+
+    }
+
 
 }

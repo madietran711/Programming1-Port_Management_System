@@ -7,6 +7,7 @@ import entities.vehicle.Vehicle;
 import service.CRUD.CRUDInterface;
 import service.CRUD.implementation.CRUDImplement;
 import service.Port.PortInterface;
+import service.Trip.implementation.TripImplement;
 
 import java.io.Serializable;
 import java.util.List;
@@ -74,6 +75,27 @@ public class PortImplement implements PortInterface, Serializable {
         double distanceBetweenPort = Math.pow((Math.pow((this.port.getLatitude() - port.getLatitude()), 2)
                 + Math.pow((this.port.getLongitude() - port.getLongitude()), 2)), 0.5);
         return distanceBetweenPort;
+    }
+
+    @Override
+    public void viewPortActivities() {
+        // get all trips that have this port as destination or origin
+        TripImplement tripImplement = new TripImplement(new Trip());
+        List<Trip> portDepartureTrips = tripImplement.getAll().stream().filter(trip -> trip.getDeparturePort().equals(this.port)).toList();
+        List<Trip> portArrivalTrips = tripImplement.getAll().stream().filter(trip -> trip.getArrivalPort().equals(this.port)).toList();
+        // get all trips that about to arrive but not yet arrived
+        List<Trip> portArrivalTripsNotYetArrived = portArrivalTrips.stream().filter(trip -> trip.getStatus().equals("ON_GOING")).toList();
+        System.out.println("Port " + this.port.getName() + " is about to arrive " + portArrivalTripsNotYetArrived.size() + " trips");
+        // get all trips that about to depart
+        List<Trip> portDepartureTripsNotYetDeparted = portDepartureTrips.stream().filter(trip -> trip.getStatus().equals("PENDING")).toList();
+        System.out.println("Port " + this.port.getName() + " is about to depart " + portDepartureTripsNotYetDeparted.size() + " trips");
+        portArrivalTripsNotYetArrived.forEach(System.out::println);
+        System.out.println("Please load the containers to the vehicles docked at this port if needed");
+        // get all trips that have arrived
+        List<Trip> portArrivalTripsArrived = portArrivalTrips.stream().filter(trip -> trip.getStatus().equals("COMPLETED")).toList();
+        System.out.println("Port " + this.port.getName() + " has arrived " + portArrivalTripsArrived.size() + " trips");
+        portArrivalTripsArrived.forEach(System.out::println);
+        System.out.println("Please unload the following containers from the vehicles docked at this port if needed");
     }
 
     @Override

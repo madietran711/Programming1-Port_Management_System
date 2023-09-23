@@ -31,7 +31,8 @@ public class PortMenu {
                 System.out.println("11. Get total containers in a Port");
                 System.out.println("12. Calculate the distance between two ports");
                 System.out.println("13. View the traffic record of a Port");
-                System.out.println("14. Back to Main Menu");
+                System.out.println("14. View Port Activities");
+                System.out.println("15. Back to Main Menu");
                 System.out.print("Enter your choice: ");
 
             int choice = scanner.nextInt();
@@ -203,11 +204,25 @@ public class PortMenu {
                             break;
                         }
                         Port portViewTrafficRecord = systemAdmin.getPortById(portIDViewTrafficRecord);
+                        if (portViewTrafficRecord.getTrafficRecord().isEmpty()) {
+                            System.out.println("Port with ID " + portIDViewTrafficRecord + " has no traffic records.");
+                            break;
+                        }
                         System.out.println(
                                 "Port with ID " + portIDViewTrafficRecord + " has the following traffic records : ");
                         portViewTrafficRecord.getTrafficRecord().forEach(System.out::println);
                         break;
                     case 14:
+                        System.out.println("---------------------VIEW PORT ACTIVITIES---------------------");
+                        System.out.println("Enter the ID of the port you want to view its activities: ");
+                        String portIDViewActivities = scanner.nextLine();
+                        if (systemAdmin.getPortById(portIDViewActivities) == null) {
+                            System.out.println("Port with ID " + portIDViewActivities + " does not exist.");
+                            break;
+                        }
+                        systemAdmin.viewPortActivities(systemAdmin.getPortById(portIDViewActivities));
+                        break;
+                    case 15:
                         return;
                     default:
                         System.out.println("Invalid choice. Please try again.");

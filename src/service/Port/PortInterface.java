@@ -32,4 +32,6 @@ public interface PortInterface extends CRUDInterface<Port, String> {
     // for the adder and remover methods, probably should return a boolean to
     // indicate if it was carried out correctly or not
     public List<Trip> getTrafficRecord();
+    public double calculateDistanceFromPort(Port port);
+    public void viewPortActivities();
 }

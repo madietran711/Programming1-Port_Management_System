@@ -42,7 +42,7 @@ public class AdminMenu {
                 case 5:
                     // View statistical data
                     break;
-                case 6:
+                case 61:
                     System.out.println("Exiting...");
                     return;
                 default:
