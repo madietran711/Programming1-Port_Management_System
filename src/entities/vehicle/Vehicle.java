@@ -24,15 +24,24 @@ public class Vehicle implements Serializable {
 
     @Override
     public String toString() {
+        if (currentPort != null) {
+            return
+                    "ID='" + ID + '\'' +
+                            ", name='" + name + '\'' +
+                            ", currentFuel=" + currentFuel +
+                            ", fuelCapacity= " + fuelTankCapacity +
+                            ", carryingCapacity=" + carryingCapacity +
+                            ", currentPort=" + getCurrentPort().getName() +
+                            ", containerList=" + containerList;
+        }
         return
-
                 "ID='" + ID + '\'' +
-                ", name='" + name + '\'' +
-                ", currentFuel=" + currentFuel +
-                ", fuelCapacity= " + fuelTankCapacity +
-                ", carryingCapacity=" + carryingCapacity +
-                ", currentPort=" + getCurrentPort().getName() +
-                ", containerList=" + containerList;
+                        ", name='" + name + '\'' +
+                        ", currentFuel=" + currentFuel +
+                        ", fuelCapacity= " + fuelTankCapacity +
+                        ", carryingCapacity=" + carryingCapacity +
+                        ", currentPort=null"  +
+                        ", containerList=" + containerList;
     }
 
     public Vehicle() {
