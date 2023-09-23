@@ -9,6 +9,22 @@ import java.util.List;
 import java.util.Map;
 
 public class PortManager extends User {
+
+    private String[] usernames;
+    private String[] passwords;
+
+    public PortManager(String[] usernames, String[] passwords) {
+        this.usernames = usernames;
+        this.passwords = passwords;
+    }
+
+    public String[] getUsernames() {
+        return usernames;
+    }
+
+    public String[] getPasswords() {
+        return passwords;
+    }
     private final UserImplement userImplement = new UserImplement(this);
     private Port managingPort;
 

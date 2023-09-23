@@ -6,7 +6,11 @@ import java.util.Scanner;
 public class AdminMenu {
 
         private SystemAdmin systemAdmin;
+
         private Scanner scanner;
+
+        public AdminMenu() {
+        }
 
         public AdminMenu(SystemAdmin systemAdmin) {
             this.systemAdmin = systemAdmin;
@@ -15,6 +19,7 @@ public class AdminMenu {
 
         public void displayMenu() {
             while (true) {
+                Scanner scanner = new Scanner(System.in);
                 System.out.println("System Admin Menu:");
                 System.out.println("1. Manage Ports");
                 System.out.println("2. Manage Containers");

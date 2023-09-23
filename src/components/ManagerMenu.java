@@ -10,6 +10,9 @@ public class ManagerMenu {
     private PortManager portManager;
     private Scanner scanner;
 
+    public ManagerMenu() {
+    }
+
     public ManagerMenu(PortManager portManager) {
         this.portManager = portManager;
         this.scanner = new Scanner(System.in);
@@ -18,6 +21,7 @@ public class ManagerMenu {
 
     public void displayMenu() {
         while (true) {
+            Scanner scanner = new Scanner(System.in);
             System.out.println("Port Manager Menu:");
             System.out.println("1. Manage Containers");
             System.out.println("5. Exit");
