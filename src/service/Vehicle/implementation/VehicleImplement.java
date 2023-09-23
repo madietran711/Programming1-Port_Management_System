@@ -22,9 +22,11 @@ public class VehicleImplement implements VehicleInterface, Serializable {
     }
 
     private Vehicle vehicle; // Add an instance variable to store the Vehicle instance.
+
     public VehicleImplement(Vehicle vehicle) {
         this.vehicle = vehicle;
     }
+
     @Override
     public Vehicle create(Vehicle entity) {
         vehicleRepository.create(entity);
@@ -56,7 +58,7 @@ public class VehicleImplement implements VehicleInterface, Serializable {
         List<Container> currentList = this.vehicle.getContainerList();
         // check if currentList + newList < carryingCapacity
         // if yes, add all container in containerList to currentList
-        if (currentList.size() + containerList.size() <= this.vehicle.getCarryingCapacity()){
+        if (currentList.size() + containerList.size() <= this.vehicle.getCarryingCapacity()) {
             currentList.addAll(containerList);
             return true;
         }
@@ -134,7 +136,7 @@ public class VehicleImplement implements VehicleInterface, Serializable {
                 .sum();
         double distance = this.vehicle.getCurrentPort().calculateDistanceFromPort(port);
         double fuelNeeded = totalFuelConsumptionPerKm * distance;
-        if (this.vehicle.getCurrentFuel()< fuelNeeded) {
+        if (this.vehicle.getCurrentFuel() < fuelNeeded) {
             System.out.println("Not enough fuel");
             return false;
         }

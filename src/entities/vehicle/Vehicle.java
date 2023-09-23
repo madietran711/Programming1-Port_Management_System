@@ -95,7 +95,7 @@ public class Vehicle implements Serializable {
         this.currentFuel = currentFuel;
     }
 
-    public double CarryingCapacity() {
+    public double getCarryingCapacity() {
         return carryingCapacity;
     }
 
