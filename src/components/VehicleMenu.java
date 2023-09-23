@@ -32,13 +32,14 @@ public class VehicleMenu {
                 System.out.println("7. Unload containers from a Vehicle");
                 System.out.println("8. View the carrying capacity of a Vehicle");
                 System.out.println("9. View the fuel capacity of a Vehicle");
-                System.out.println("");
-                System.out.println("");
-                System.out.println("");
-                System.out.println("8. Back to Main Menu");
+                System.out.println("10. View the list of containers of a Vehicle");
+                System.out.println("11. View current port of a Vehicle");
+                System.out.println("13. View the schedule of a Vehicle");
+                System.out.println("14. Back to Main Menu");
                 System.out.print("Enter your choice: ");
 
                 int choice = scanner.nextInt();
+                scanner.nextLine();
 
                 switch (choice) {
                     case 1:
@@ -222,12 +223,12 @@ public class VehicleMenu {
                                 Container unloadingContainer = systemAdmin.getByContainerId(unloadingContainerID);
                                 unloadingVehicleContainerList.remove(unloadingContainer);
                                 unloadingPortContainerList.add(unloadingContainer);
-                                unloadingPort.setContainerList(unloadingPortContainerList);
-                                systemAdmin.updatePort(unloadingPort);
                             }
                             // Update unloading vehicle and port with new container list
                             unloadingVehicle.setContainerList(unloadingVehicleContainerList);
                             systemAdmin.updateVehicle(unloadingVehicle);
+                            unloadingPort.setContainerList(unloadingPortContainerList);
+                            systemAdmin.updatePort(unloadingPort);
                             System.out.println(
                                     "Vehicle with ID " + unloadingVehicleID + " has been loaded with new containers.");
                             System.out
@@ -237,12 +238,12 @@ public class VehicleMenu {
                             System.out.println("Error: " + e.getMessage());
                         }
                         break;
-                    case 8:
+                    
+                    case 14:
                         return;
                     default:
                         System.out.println("Invalid choice. Please try again.");
                 }
-                scanner.close();
             }
         }
     }
