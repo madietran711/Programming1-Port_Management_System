@@ -6,6 +6,7 @@ import entities.user.PortManager;
 import entities.user.SystemAdmin;
 import entities.user.User;
 import entities.vehicle.Vehicle;
+import service.Vehicle.implementation.VehicleImplement;
 import utils.ClassCreation;
 
 import java.util.ArrayList;
@@ -32,13 +33,14 @@ public class VehicleMenu {
                 System.out.println("7. Unload containers from a Vehicle");
                 System.out.println("8. View the carrying capacity of a Vehicle");
                 System.out.println("9. View the fuel capacity of a Vehicle");
+                System.out.println("10. View all containers on vehicle");
                 System.out.println("");
                 System.out.println("");
-                System.out.println("");
-                System.out.println("8. Back to Main Menu");
+                System.out.println("12. Back to Main Menu");
                 System.out.print("Enter your choice: ");
 
                 int choice = scanner.nextInt();
+                scanner.nextLine();
 
                 switch (choice) {
                     case 1:
@@ -78,7 +80,7 @@ public class VehicleMenu {
                         System.out.println("Enter the ID of the vehicle you want to delete: ");
                         String deletingVehicleID = scanner.nextLine();
                         if (systemAdmin.deleteVehicle(deletingVehicleID)) {
-                            System.out.println("Vehilve with ID " + deletingVehicleID + " has been deleted.");
+                            System.out.println("Vehicle with ID " + deletingVehicleID + " has been deleted.");
                         } else {
                             System.out.println("Delete failed.");
                         }
@@ -106,68 +108,60 @@ public class VehicleMenu {
                         System.out.println("---------------------LOAD A VEHICLE--------------------");
                         System.out.println("Enter the ID of the vehicle you want to load: ");
                         String loadingVehicleID = scanner.nextLine();
-                        // Check if loading vehicle exists
-                        if (systemAdmin.getVehicleById(loadingVehicleID) == null) {
-                            System.out.println("Vehicle with ID " + loadingVehicleID + " does not exist.");
-                            break;
-                        }
+
+// Check if loading vehicle exists
                         Vehicle loadingVehicle = systemAdmin.getVehicleById(loadingVehicleID);
-                        Port loadingPort = loadingVehicle.getCurrentPort();
-                        List<Container> loadingPortContainerList = loadingPort.getContainerList();
-                        System.out.println("Enter the IDs of the container you want to load (separated by a comma): ");
-                        String loadingContainerIDsInput = scanner.nextLine();
-                        String[] loadingContainerIDs = loadingContainerIDsInput.split(",");
-                        // Check if loading container IDs are valid
-                        for (String loadingContainerID : loadingContainerIDs) {
-                            if (systemAdmin.getByContainerId(loadingContainerID) == null) {
-                                System.out.println("Container with ID " + loadingContainerID + " does not exist.");
-                                break;
-                            }
-                        }
-                        // Check if loading containers are already on loading vehicle
-                        for (String loadingContainerID : loadingContainerIDs) {
-                            Container loadingContainer = systemAdmin.getByContainerId(loadingContainerID);
-                            if (loadingVehicle.getContainerList().contains(loadingContainer)) {
-                                System.out.println("Container with ID " + loadingContainerID
-                                        + " is already on the loading vehicle.");
-                                break;
-                            } else {
-                                continue;
-                            }
-                        }
-                        // Check if loading containers are available at the vehicle's current port
-                        for (String loadingContainerID : loadingContainerIDs) {
-                            Container loadingContainer = systemAdmin.getByContainerId(loadingContainerID);
-                            if (loadingPortContainerList.contains(loadingContainer)) {
-                                continue;
-                            } else {
-                                System.out.println("The  loading container with ID " + loadingContainerID
-                                        + " is not available at the " + loadingPort.getName()
-                                        + " port which the vehicle with ID " + loadingVehicleID + " is currently on.");
-                                break;
-                            }
-                        }
-                        // Loading containers on to vehicle
-                        try {
-                            ArrayList<Container> loadingVehicleContainerList = loadingVehicle.getContainerList();
-                            for (String loadingContainerID : loadingContainerIDs) {
+                        if (loadingVehicle == null) {
+                            System.out.println("Vehicle with ID " + loadingVehicleID + " does not exist.");
+                        } else {
+                            Port loadingPort = loadingVehicle.getCurrentPort();
+                            List<Container> loadingPortContainerList = loadingPort.getContainerList();
+
+                            while (true) {
+                                System.out.println("List of containers on Port with ID "+ loadingPort.getName());
+                                loadingPortContainerList.forEach(System.out::println);
+                                System.out.println("Enter the ID of the container you want to load (or 'done' to finish): ");
+                                String loadingContainerID = scanner.nextLine();
+
+                                if (loadingContainerID.equalsIgnoreCase("done")) {
+                                    break; // Exit the loop if the user is done loading containers
+                                }
+
+                                // Check if loading container ID is valid
                                 Container loadingContainer = systemAdmin.getByContainerId(loadingContainerID);
-                                loadingVehicleContainerList.add(loadingContainer);
-                                loadingPortContainerList.remove(loadingContainer);
+                                if (loadingContainer == null) {
+                                    System.out.println("Container with ID " + loadingContainerID + " does not exist.");
+
+                                } else if (loadingVehicle.getContainerList().contains(loadingContainer)) {
+                                    System.out.println("Container with ID " + loadingContainerID +
+                                            " is already on the loading vehicle.");
+
+                                } else if (!loadingPortContainerList.contains(loadingContainer)) {
+                                    System.out.println("The loading container with ID " + loadingContainerID +
+                                            " is not available at the " + loadingPort.getName() +
+                                            " port which the vehicle with ID " + loadingVehicleID + " is currently on.");
+
+                                } else {
+                                    // Attempt to load the container onto the vehicle
+                                    if (loadingVehicle.loadContainer(loadingContainer)) {
+                                        // Update the container lists
+                                        loadingPortContainerList.remove(loadingContainer);
+                                        loadingContainer.setLocation(loadingVehicleID);
+                                        systemAdmin.updateContainer(loadingContainer);
+                                        systemAdmin.updatePort(loadingPort);
+                                        System.out.println("Container with ID " + loadingContainerID +
+                                                " has been loaded onto the vehicle with ID " + loadingVehicleID + ".");
+                                        // Display the current container list of the vehicle
+                                        System.out.println("Current containers list of vehicle with ID " + loadingVehicleID + " :");
+                                        loadingVehicle.getContainerList().forEach(System.out::println);
+                                        break;
+                                    } else {
+                                        System.out.println("Error loading container with ID " + loadingContainerID + ".");
+                                    }
+                                }
                             }
-                            // Update loading vehicle and port with new container list
-                            loadingVehicle.setContainerList(loadingVehicleContainerList);
-                            systemAdmin.updateVehicle(loadingVehicle);
-                            loadingPort.setContainerList(loadingPortContainerList);
-                            systemAdmin.updatePort(loadingPort);
-                            System.out.println(
-                                    "Vehicle with ID " + loadingVehicleID + " has been loaded with new containers.");
-                            System.out.println("Current conatiners list of vehicle with ID " + loadingVehicleID + " :");
-                            loadingVehicle.getContainerList().forEach(System.out::println);
-                        } catch (Exception e) {
-                            System.out.println("Error: " + e.getMessage());
                         }
-                        break;
+
                     case 7:
                         System.out.println("---------------------UNLOAD A VEHICLE--------------------");
                         System.out.println("Enter the ID of the vehicle you want to unload: ");
@@ -178,71 +172,44 @@ public class VehicleMenu {
                             break;
                         }
                         Vehicle unloadingVehicle = systemAdmin.getVehicleById(unloadingVehicleID);
-                        Port unloadingPort = unloadingVehicle.getCurrentPort();
-                        List<Container> unloadingPortContainerList = unloadingPort.getContainerList();
-                        System.out
-                                .println("Enter the IDs of the container you want to unload (separated by a comma): ");
-                        String unloadingContainerIDsInput = scanner.nextLine();
-                        String[] unloadingContainerIDs = unloadingContainerIDsInput.split(",");
-                        // Check if unloading container IDs are valid
-                        for (String unloadingContainerID : unloadingContainerIDs) {
-                            if (systemAdmin.getByContainerId(unloadingContainerID) == null) {
-                                System.out.println("Container with ID " + unloadingContainerID + " does not exist.");
-                                break;
-                            }
+                        VehicleImplement vehicleImplement = new VehicleImplement(unloadingVehicle);
+                        if (vehicleImplement.unloadContainer()) {
+                            System.out.println("All containers have been unloaded from the vehicle with ID " + unloadingVehicleID + ". The vehicle is now empty. All containers have been moved to the port "+ unloadingVehicle.getCurrentPort().getName() + ".");
+                        } else {
+                            System.out.println("Error unloading containers from the vehicle with ID " + unloadingVehicleID + ".");
                         }
-                        // Check if unloading containers are actually on the unloading vehicle
-                        for (String unloadingContainerID : unloadingContainerIDs) {
-                            Container unloadingContainer = systemAdmin.getByContainerId(unloadingContainerID);
-                            if (unloadingVehicle.getContainerList().contains(unloadingContainer)) {
-                                continue;
-                            } else {
-                                System.out.println("Container with ID " + unloadingContainerID
-                                        + " is not on the unloading vehicle.");
-                                break;
-                            }
-                        }
-                        // Check if unloading containers already existed at the vehicle's current port
-                        for (String unloadingContainerID : unloadingContainerIDs) {
-                            Container unloadingContainer = systemAdmin.getByContainerId(unloadingContainerID);
-                            if (unloadingPortContainerList.contains(unloadingContainer)) {
-                                System.out.println("The  unloading container with ID " + unloadingContainerID
-                                        + " already exists at the " + unloadingPort.getName()
-                                        + " port which the vehicle with ID " + unloadingVehicleID
-                                        + " is currently on.");
-                                break;
-                            } else {
-                                continue;
-                            }
-                        }
-                        // Unloading containers off of vehicle
-                        try {
-                            ArrayList<Container> unloadingVehicleContainerList = unloadingVehicle.getContainerList();
-                            for (String unloadingContainerID : unloadingContainerIDs) {
-                                Container unloadingContainer = systemAdmin.getByContainerId(unloadingContainerID);
-                                unloadingVehicleContainerList.remove(unloadingContainer);
-                                unloadingPortContainerList.add(unloadingContainer);
-                                unloadingPort.setContainerList(unloadingPortContainerList);
-                                systemAdmin.updatePort(unloadingPort);
-                            }
-                            // Update unloading vehicle and port with new container list
-                            unloadingVehicle.setContainerList(unloadingVehicleContainerList);
-                            systemAdmin.updateVehicle(unloadingVehicle);
-                            System.out.println(
-                                    "Vehicle with ID " + unloadingVehicleID + " has been loaded with new containers.");
-                            System.out
-                                    .println("Current conatiners list of vehicle with ID " + unloadingVehicleID + " :");
-                            unloadingVehicle.getContainerList().forEach(System.out::println);
-                        } catch (Exception e) {
-                            System.out.println("Error: " + e.getMessage());
-                        }
+
                         break;
                     case 8:
+                        System.out.println("---------------------VIEW THE CARRYING CAPACITY OF A VEHICLE---------------------");
+                        System.out.println("Enter the ID of the vehicle you want to view the carrying capacity of: ");
+                        String carryingCapacityVehicleID = scanner.nextLine();
+                        Vehicle carryingCapacityVehicle = systemAdmin.getVehicleById(carryingCapacityVehicleID);
+                        if (carryingCapacityVehicle == null) {
+                            System.out.println("Vehicle with ID " + carryingCapacityVehicleID + " does not exist.");
+                            break;
+                        }
+                        System.out.println("Carrying capacity of vehicle with ID " + carryingCapacityVehicleID + " : "
+                                + Double.toString(carryingCapacityVehicle.getCarryingCapacity()));
+                        break;
+                    case 10:
+                        System.out.println("---------------------VIEW ALL CONTAINERS ON VEHICLE---------------------");
+                        System.out.println("Enter the ID of the vehicle you want to view the containers of: ");
+                        String vehicleID = scanner.nextLine();
+                        Vehicle vehicle = systemAdmin.getVehicleById(vehicleID);
+                        if (vehicle == null) {
+                            System.out.println("Vehicle with ID " + vehicleID + " does not exist.");
+                            break;
+                        }
+                        List<Container> containerList = vehicle.getContainerList();
+                        containerList.forEach(System.out::println);
+                        break;
+                    case 12:
                         return;
                     default:
                         System.out.println("Invalid choice. Please try again.");
                 }
-                scanner.close();
+
             }
         }
     }

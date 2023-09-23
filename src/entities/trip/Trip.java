@@ -6,10 +6,12 @@ import entities.vehicle.Vehicle;
 import enums.TripStatus;
 import service.Trip.TripInterface;
 import service.Trip.implementation.TripImplement;
+import service.Vehicle.implementation.VehicleImplement;
 
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.Objects;
 
 public class Trip implements Serializable {
 
@@ -63,11 +65,17 @@ public class Trip implements Serializable {
     }
 
     public Vehicle getTrackingVehicle() {
-        return trackingVehicle;
+
+        VehicleImplement vehicleImplement = new VehicleImplement(trackingVehicle);
+        return vehicleImplement.getById(trackingVehicle.getID());
     }
 
     public void setTrackingVehicle(Vehicle trackingVehicle) {
-        this.trackingVehicle = trackingVehicle;
+
+        VehicleImplement vehicleImplement = new VehicleImplement(trackingVehicle);
+        Vehicle vehicle =  vehicleImplement.getById(trackingVehicle.getID());
+
+        this.trackingVehicle = vehicle;
     }
 
     public LocalDate getDepartureDate() {
@@ -115,6 +123,18 @@ public class Trip implements Serializable {
     public void setStatus(String status) {
 
         this.status = TripStatus.valueOf(status.toUpperCase());
+    }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Trip trip = (Trip) o;
+        return Objects.equals(ID, trip.ID);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(ID);
     }
 
 }

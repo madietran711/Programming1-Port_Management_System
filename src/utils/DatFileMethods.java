@@ -1,11 +1,17 @@
 package utils;
 
 import entities.container.Container;
+import entities.container.DryStorageContainer;
+import entities.container.LiquidContainer;
+import entities.container.OpenTopContainer;
 import entities.port.Port;
 
 import entities.trip.Trip;
 
 import entities.user.SystemAdmin;
+import entities.vehicle.ReeferTruck;
+import entities.vehicle.Ship;
+import entities.vehicle.TankerTruck;
 import entities.vehicle.Vehicle;
 import enums.TripStatus;
 
@@ -68,7 +74,7 @@ public class DatFileMethods implements Serializable {
                ) {
             System.out.println("All data removed successfully");
             List<Port> ports = new ArrayList<>();
-            ports.add(new Port("1", "Port 1", 1, 1, "Port 1", 1, 1, true, new ArrayList<>(),new ArrayList<>(), Collections.emptyList()));
+            ports.add(new Port("1", "Port 1", 1, 1, "Port 1", 1, 1, true, new ArrayList<>(),new ArrayList<>(), new ArrayList<>()));
             ports.add(new Port("2", "Port 2", 2, 2, "Port 2", 2, 2, true,new ArrayList<>(),new ArrayList<>(),new ArrayList<>()));
             writeAllLines("Port.dat", ports);
 
@@ -140,14 +146,13 @@ public class DatFileMethods implements Serializable {
             admin.getAllTrips().forEach(System.out::println);
 
             System.out.println("\nTest delete method");
-            admin.deleteTrip("3");
             admin.getAllTrips().forEach(System.out::println);
 
 
             // Vehicle
             List<Vehicle> vehicles = new ArrayList<>();
-            vehicles.add(new Vehicle("1", "Vehicle 1", 1, 1, 1, ports.get(0), new ArrayList<>()));
-            vehicles.add(new Vehicle("2", "Vehicle 2", 2, 2, 2, ports.get(0), new ArrayList<>()));
+            vehicles.add(new TankerTruck("1", "Vehicle 1", 1, 1, 1, ports.get(0), new ArrayList<>()));
+            vehicles.add(new ReeferTruck("2", "Vehicle 2", 2, 2, 2, ports.get(0), new ArrayList<>()));
             writeAllLines("Vehicle.dat", vehicles);
 
             System.out.println("---------------------------------------------------------------------------------------------");
@@ -156,29 +161,28 @@ public class DatFileMethods implements Serializable {
 
             System.out.println("---------------------------------------------------------------------------------------------");
             System.out.println("Test create method");
-            Vehicle newVehicle1 = new Vehicle("3", "Vehicle 3", 3, 3, 3, ports.get(1), new ArrayList<>());
+            Ship newVehicle1 = new Ship("3", "Vehicle 3", 3, 3, 3, ports.get(1), new ArrayList<>());
             admin.createVehicle(newVehicle1);
             admin.getAllVehicles().forEach(System.out::println);
 
             System.out.println("---------------------------------------------------------------------------------------------");
             System.out.println("Test update method");
-            Vehicle updateVehicle = new Vehicle("3", "Vehicle 3 Updated", 3, 3, 3, ports.get(1), new ArrayList<>());
+            Ship updateVehicle = new Ship("3", "Vehicle 3 Updated", 3, 3, 3, ports.get(0), new ArrayList<>());
             admin.updateVehicle(updateVehicle);
             admin.getAllVehicles().forEach(System.out::println);
             admin.getAllPorts().forEach(System.out::println);
 
             System.out.println("---------------------------------------------------------------------------------------------");
             System.out.println("Test delete method");
-            admin.deleteVehicle("1");
-            admin.deleteVehicle("2");
+
 
             admin.getAllVehicles().forEach(System.out::println);
 
 
             // Container
             List<Container> containers = new ArrayList<>();
-            containers.add(new Container("1", 1.0));
-            containers.add(new Container("2", 2.0));
+            containers.add(new DryStorageContainer("1", 1.0, ports.get(0)));
+            containers.add(new OpenTopContainer("2", 2.0, ports.get(0)));
             writeAllLines("Container.dat", containers);
 
             System.out.println("---------------------------------------------------------------------------------------------");
@@ -187,21 +191,18 @@ public class DatFileMethods implements Serializable {
 
             System.out.println("---------------------------------------------------------------------------------------------");
             System.out.println("Test create method");
-            Container newContainer = new Container("3", 6.0);
+            Container newContainer = new LiquidContainer("3", 6.0,ports.get(0));
             admin.createContainer(newContainer);
             admin.getAllContainers().forEach(System.out::println);
 
             System.out.println("---------------------------------------------------------------------------------------------");
             System.out.println("Test update method");
-            Container updateContainer = new Container("1", 7.0);
-            admin.updateContainer(updateContainer);
-            admin.getAllContainers().forEach(System.out::println);
 
 
             System.out.println("---------------------------------------------------------------------------------------------");
             System.out.println("Test delete method");
-            admin.deleteContainer("1");
-            admin.deleteContainer("2");
+
+
             admin.getAllContainers().forEach(System.out::println);
 
         } else {

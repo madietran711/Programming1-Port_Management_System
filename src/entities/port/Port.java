@@ -9,6 +9,8 @@ import entities.trip.Trip;
 import entities.vehicle.Vehicle;
 import service.Port.PortInterface;
 import service.Port.implementation.PortImplement;
+import java.util.Objects;
+
 
 public class Port implements Serializable {
 
@@ -150,15 +152,15 @@ public class Port implements Serializable {
     }
 
     public List<Vehicle> getVehicleList() {
-        return vehicleList;
+        return this.vehicleList;
     }
 
     public List<Trip> getTripList() {
-        return tripList;
+        return this.tripList;
     }
 
     public List<Container> getContainerList() {
-        return containerList;
+        return this.containerList;
     }
 
     public void setTripList(List<Trip> tripList) {
@@ -214,5 +216,17 @@ public class Port implements Serializable {
 
     public List<Trip> getTrafficRecord() {
         return portImplement.getTrafficRecord();
+    }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Port port = (Port) o;
+        return Objects.equals(ID, port.ID);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(ID);
     }
 }

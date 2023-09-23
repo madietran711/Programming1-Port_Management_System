@@ -12,6 +12,10 @@ public class DryStorageContainer  extends Container  implements Serializable{
         super(ID, weight);
     }
 
+    public DryStorageContainer(String ID, double weight, Object location) {
+        super(ID, weight, location);
+    }
+
     @Override
     public String toString() {
         return "DryStorageContainer{" + super.toString() + "}";

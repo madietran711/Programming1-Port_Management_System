@@ -6,12 +6,11 @@ import entities.vehicle.Vehicle;
 import entities.container.Container;
 import service.CRUD.CRUDInterface;
 
-import java.util.List;
 import java.util.Map;
 
 public interface VehicleInterface extends CRUDInterface<Vehicle, String> {
 
-    public boolean loadContainer(List<Container> containerList);
+    public boolean loadContainer(Container container);
 
     public boolean unloadContainer();
 

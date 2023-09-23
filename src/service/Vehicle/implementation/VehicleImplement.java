@@ -1,10 +1,11 @@
 package service.Vehicle.implementation;
 
 import entities.container.Container;
+import entities.container.LiquidContainer;
+import entities.container.RefridgeratedContainer;
 import entities.port.Port;
 import entities.trip.Trip;
-import entities.vehicle.Truck;
-import entities.vehicle.Vehicle;
+import entities.vehicle.*;
 import service.CRUD.CRUDInterface;
 import service.CRUD.implementation.CRUDImplement;
 import service.Port.implementation.PortImplement;
@@ -61,21 +62,77 @@ public class VehicleImplement implements VehicleInterface, Serializable {
     }
 
     @Override
-    public boolean loadContainer(List<Container> containerList) {
-        List<Container> currentList = this.vehicle.getContainerList();
+    public boolean loadContainer(Container container) {
         // check if currentList + newList < carryingCapacity
         // if yes, add all container in containerList to currentList
-        if (currentList.size() + containerList.size() <= this.vehicle.getCarryingCapacity()) {
-            currentList.addAll(containerList);
-            return true;
+        List<Container> currentList = this.vehicle.getContainerList();
+        if (this.vehicle.getCurrentCapacity() == this.vehicle.getCarryingCapacity()) {
+            System.out.println("Vehicle is overload");
+            return false;
         }
-        return false;
+
+        // check type of container and type of vehicle
+        // RULE:
+        // BasicTruck - DRY STORAGE, OPENSIDE, OPENTOP
+        // ReeferTruck - REFRIDGERATED
+        // TankTruck - LIQUID
+        // Ship - ALL
+        if (this.vehicle instanceof Ship) {
+            this.vehicle.getContainerList().add(container);
+            return  true;
+
+        } else if (this.vehicle instanceof ReeferTruck) {
+            if (container instanceof RefridgeratedContainer) {
+                this.vehicle.getContainerList().add(container);
+                update(this.vehicle);
+                return  true;
+            } else {
+                System.out.println("This truck cannot load this type of container. Reefer truck can only load refridgerated container");
+                return false;
+            }
+        } else if (this.vehicle instanceof TankerTruck) {
+            if (container instanceof LiquidContainer) {
+                this.vehicle.getContainerList().add(container);
+                update(this.vehicle);
+                return  true;
+            } else {
+                System.out.println("This truck cannot load this type of container. Tanker truck can only load liquid container");
+
+                return false;
+            }
+        }
+        else {
+            if (container instanceof RefridgeratedContainer || container instanceof LiquidContainer) {
+                System.out.println("This truck cannot load this type of container. Basic truck can only load dry storage, openside and opentop container");
+                return false;
+            } else {
+                this.vehicle.getContainerList().add(container);
+                update(this.vehicle);
+                return true;
+            }
+        }
+
     }
 
     @Override
     public boolean unloadContainer() {
         // remove all container in currentList and return true if list is empty
+        if (this.vehicle.getContainerList().size() == 0) {
+            System.out.println("Vehicle is empty");
+            return false;
+        }
+        List<Container> currentList = this.vehicle.getContainerList();
+        Port currentPort = this.vehicle.getCurrentPort();
+        if (currentPort == null) {
+            System.out.println("Vehicle is not at any port");
+            return false;
+        }
+        PortImplement portImplement = new PortImplement(currentPort);
+        for (Container container : currentList) {
+            portImplement.addContainer(container);
+        }
         this.vehicle.getContainerList().clear();
+        update(this.vehicle);
         return this.vehicle.getContainerList().size() == 0;
     }
 
@@ -170,7 +227,7 @@ public class VehicleImplement implements VehicleInterface, Serializable {
                 .stream()
                 .mapToDouble(container -> container.calculateFuelConsumption(this.vehicle))
                 .sum();
-        double distance = this.vehicle.getCurrentPort().calculateDistanceFromPort(port);
+        double distance = this.vehicle.getCurrentPort().calculateDistanceFromPort( port);
         double fuelNeeded = totalFuelConsumptionPerKm * distance;
         if (this.vehicle.getCurrentFuel() < fuelNeeded) {
             System.out.println("Not enough fuel");

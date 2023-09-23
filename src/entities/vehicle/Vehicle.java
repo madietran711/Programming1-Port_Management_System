@@ -2,9 +2,12 @@ package entities.vehicle;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 import entities.port.Port;
 import entities.container.Container;
+import service.Port.implementation.PortImplement;
 import service.Vehicle.VehicleInterface;
 import service.Vehicle.implementation.VehicleImplement;
 
@@ -24,8 +27,8 @@ public class Vehicle implements Serializable {
 
     @Override
     public String toString() {
-        return
-
+        if (currentPort != null) {
+return
                 "ID='" + ID + '\'' +
                 ", name='" + name + '\'' +
                 ", currentFuel=" + currentFuel +
@@ -33,6 +36,15 @@ public class Vehicle implements Serializable {
                 ", carryingCapacity=" + carryingCapacity +
                 ", currentPort=" + getCurrentPort().getName() +
                 ", containerList=" + containerList;
+    }
+        return
+                "ID='" + ID + '\'' +
+                        ", name='" + name + '\'' +
+                        ", currentFuel=" + currentFuel +
+                        ", fuelCapacity= " + fuelTankCapacity +
+                        ", carryingCapacity=" + carryingCapacity +
+                        ", currentPort= null"  +
+                        ", containerList=" + containerList;
     }
 
     public Vehicle() {
@@ -103,7 +115,8 @@ public class Vehicle implements Serializable {
     }
 
     public Port getCurrentPort() {
-        return currentPort;
+        PortImplement portImplement = new PortImplement(this.currentPort);
+        return portImplement.getById(this.currentPort.getID());
     }
 
     public void setCurrentPort(Port currentPort) {
@@ -116,12 +129,38 @@ public class Vehicle implements Serializable {
     public double getCarryingCapacity() {
         return carryingCapacity;
     }
+public boolean loadContainer(Container container) {
+        if (container != null) {
+            return vehicleImplement.loadContainer(container);
+        }
+    return false;
+}
+public boolean unloadContainer(Container container) {
+    if (container != null) {
+        return vehicleImplement.unloadContainer();
+    }
+    return false;
+}
 
     public ArrayList<Container> getContainerList() {
-        return containerList;
+        return this.containerList;
     }
 
     public void setContainerList(ArrayList<Container> containerList) {
         this.containerList = containerList;
     }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Vehicle vehicle = (Vehicle) o;
+        return Objects.equals(ID, vehicle.ID);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(ID);
+    }
 }
+
+

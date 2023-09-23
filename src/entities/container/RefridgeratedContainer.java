@@ -17,6 +17,10 @@ public class RefridgeratedContainer extends Container implements Serializable {
         return "RefridgeratedContainer{" + super.toString() + "}";
     }
 
+    public RefridgeratedContainer(String ID, double weight, Object location) {
+        super(ID, weight, location);
+    }
+
     @Override
     public double getShipFuelConsumption() {
         return SHIP_FUEL_CONSUMPTION;

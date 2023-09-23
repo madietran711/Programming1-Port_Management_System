@@ -12,6 +12,10 @@ public class OpenSideContainer extends Container implements Serializable {
         super(ID, weight);
     }
 
+    public OpenSideContainer(String ID, double weight, Object location) {
+        super(ID, weight, location);
+    }
+
     @Override
     public String toString() {
         return "OpenSideContainer{" + super.toString() + "}";

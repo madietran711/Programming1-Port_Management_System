@@ -12,6 +12,10 @@ public class LiquidContainer extends Container implements Serializable {
         super(ID, weight);
     }
 
+    public LiquidContainer(String ID, double weight, Object location) {
+        super(ID, weight, location);
+    }
+
     @Override
     public String toString() {
         return "LiquidContainer{ " + super.toString() + "}";

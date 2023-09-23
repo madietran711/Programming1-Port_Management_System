@@ -133,7 +133,7 @@ public class PortMenu {
                         Port portViewVehicles = systemAdmin.getPortById(portIDViewVehicles);
                         System.out.println(
                                 "Port with ID " + portIDViewVehicles + " currently has these following vehicles :");
-                        portViewVehicles.getTripList().forEach(System.out::println);
+                        portViewVehicles.getVehicleList().forEach(System.out::println);
                         break;
                     case 9:
                         System.out.println("---------------------VIEW PORT CURRENT CONTAINERS---------------------");
@@ -177,6 +177,7 @@ public class PortMenu {
                         System.out.println(
                                 "Enter the IDs of the two ports you want to calculate the distance between (separated by a coma): ");
                         String portIDsCalDistanceInput = scanner.nextLine();
+
                         String[] portIDsCalculateDistance = portIDsCalDistanceInput.split(",");
                         for (String portIDCalDistance : portIDsCalculateDistance) {
                             if (systemAdmin.getPortById(portIDCalDistance) == null) {
@@ -184,6 +185,14 @@ public class PortMenu {
                                 break;
                             }
                         }
+                        if (systemAdmin.getPortById(portIDsCalculateDistance[0]) != null
+                                && systemAdmin.getPortById(portIDsCalculateDistance[1]) != null) {
+                            Port port1 = systemAdmin.getPortById(portIDsCalculateDistance[0]);
+                            Port port2 = systemAdmin.getPortById(portIDsCalculateDistance[1]);
+                            System.out.println("The distance between port " + portIDsCalculateDistance[0] + " and port "
+                                    + portIDsCalculateDistance[1] + " is "
+                                    + Double.toString(port1.calculateDistanceFromPort(port2)) + ".");
+                    }
                         break;
                     case 13:
                         System.out.println("---------------------VIEW PORT TRAFFIC RECORD---------------------");

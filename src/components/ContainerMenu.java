@@ -75,7 +75,7 @@ public class ContainerMenu {
                 default:
                     System.out.println("Invalid choice. Please try again.");
             }
-            scanner.close();
+
         }
     }
 }

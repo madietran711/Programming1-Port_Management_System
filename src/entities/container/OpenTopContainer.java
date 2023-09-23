@@ -12,6 +12,10 @@ public class OpenTopContainer extends Container implements Serializable {
         super(ID, weight);
     }
 
+    public OpenTopContainer(String ID, double weight, Object location) {
+        super(ID, weight, location);
+    }
+
     @Override
     public String toString() {
         return "OpenTopContainer{" + super.toString() + "}";
