@@ -1,6 +1,7 @@
 package components;
 
 import entities.container.*;
+import entities.port.Port;
 import entities.user.User;
 import utils.ClassCreation;
 
@@ -77,7 +78,14 @@ public class ContainerMenu {
 
                 case 5:
                     System.out.println("---------------------VIEW CONTAINER BY TYPES---------------------");
-                    List<Container> containers1 = user.getAllContainers();
+                    System.out.println("Enter the ID of the Port you want to view its Containers by type : ");
+                    String portIDViewContainersbyType = scanner.nextLine();
+                    if (user.getPortById(portIDViewContainersbyType) == null) {
+                        System.out.println("Port with ID " + portIDViewContainersbyType + " does not exist.");
+                        break;
+                    }
+                    Port portViewContainersbyType = user.getPortById(portIDViewContainersbyType);
+                    List<Container> containers1 = portViewContainersbyType.getContainerList();
                     List<Container> dryContainers = new ArrayList<Container>();
                     List<Container> wetContainers = new ArrayList<Container>();
                     List<Container> oSideContainers = new ArrayList<Container>();
@@ -96,6 +104,8 @@ public class ContainerMenu {
                             coldContainers.add((RefridgeratedContainer) container);
                         }
                     }
+                    System.out.println("The Port with ID " + portIDViewContainersbyType
+                            + " has the following lists of containers :");
                     System.out.println("List of Dry Storage Containers : ");
                     dryContainers.forEach(System.out::println);
                     System.out.println("List of Liquid Storage Containers : ");
@@ -110,7 +120,15 @@ public class ContainerMenu {
 
                 case 6:
                     System.out.println("---------------------CALCULATE TOTAL CONTAINER BY TYPES---------------------");
-                    List<Container> containers2 = user.getAllContainers();
+                    System.out
+                            .println("Enter the ID of the Port you want to view calcuate Container weight by type : ");
+                    String portIDCalculateContainersWeight = scanner.nextLine();
+                    if (user.getPortById(portIDCalculateContainersWeight) == null) {
+                        System.out.println("Port with ID " + portIDCalculateContainersWeight + " does not exist.");
+                        break;
+                    }
+                    Port portCalculateContainersWeight = user.getPortById(portIDCalculateContainersWeight);
+                    List<Container> containers2 = portCalculateContainersWeight.getContainerList();
                     double dryContainersWeight = 0.0;
                     double wetContainersWeight = 0.0;
                     double oSideContainersWeight = 0.0;
@@ -129,6 +147,8 @@ public class ContainerMenu {
                             coldContainersWeight += container.getWeight();
                         }
                     }
+                    System.out.println("The Port with ID " + portIDCalculateContainersWeight
+                            + " has the folowing Container weight by type: ");
                     System.out.println("Total Dry Storage Containers weight : " + Double.toString(dryContainersWeight));
                     System.out.println(
                             "Total Liquid Storage Containers weight : " + Double.toString(wetContainersWeight));
