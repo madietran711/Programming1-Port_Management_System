@@ -179,8 +179,10 @@ public class Port implements Serializable {
         return portImplement.getTotalContainerCount();
     }
 
-    public double calculateDistanceFromPort(Port port1, Port port2) {
-        return portImplement.calculateDistanceFromPort(port1, port2);
+    public double calculateDistanceFromPort(Port port) {
+        double distanceBetweenPort = Math.pow((Math.pow((this.getLatitude() - port.getLatitude()), 2)
+                + Math.pow((this.getLongitude() - port.getLongitude()), 2)), 0.5);
+        return distanceBetweenPort;
     }
 
     public void addVehicle(Vehicle vehicle) {

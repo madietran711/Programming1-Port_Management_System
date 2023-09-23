@@ -186,7 +186,7 @@ public class PortMenu {
                         }
                         Port port1 = systemAdmin.getPortById(portIDsCalculateDistance[0]);
                         Port port2 = systemAdmin.getPortById(portIDsCalculateDistance[1]);
-                        double distanceBetweenPorts = port1.calculateDistanceFromPort(port1, port2);
+                        double distanceBetweenPorts = port1.calculateDistanceFromPort(port2);
                         System.out.println("Distance between port with ID " + port1.getID() + " and port "
                                 + port2.getID() + " is : " + distanceBetweenPorts);
                         break;
