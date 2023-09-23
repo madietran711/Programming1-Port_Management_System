@@ -10,6 +10,7 @@ import service.Trip.implementation.TripImplement;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.Scanner;
 
 public class Trip implements Serializable {
 
@@ -23,6 +24,16 @@ public class Trip implements Serializable {
     private Port departurePort;
     private Port arrivalPort;
     private TripStatus status;
+
+    public boolean validateIDFormat(String id) {
+        boolean isValid = id.matches("^t-\\d+$");
+        while (!isValid) {
+            System.out.println("Invalid ID format. Please enter the ID in the format 't-number'");
+            id = new Scanner(System.in).nextLine();
+            isValid = id.matches("^t-\\d+$");
+        }
+        return isValid;
+    }
 
 
     public Trip() {
@@ -59,6 +70,7 @@ public class Trip implements Serializable {
     }
 
     public void setID(String iD) {
+        iD = validateIDFormat(iD) ? iD : "";
         ID = iD;
     }
 
