@@ -23,8 +23,6 @@ public class PortImplement implements PortInterface, Serializable {
         this.port = port;
     }
 
-
-
     @Override
     public Port create(Port entity) {
         portRepository.create(entity);
@@ -33,7 +31,7 @@ public class PortImplement implements PortInterface, Serializable {
 
     @Override
     public List<Port> getAll() {
-       return portRepository.getAll();
+        return portRepository.getAll();
 
     }
 
@@ -52,58 +50,58 @@ public class PortImplement implements PortInterface, Serializable {
         return portRepository.delete(id);
     }
 
-
     @Override
     public int getTotalVehicleCount() {
 
-        return   port.getVehicleList().size();
+        return port.getVehicleList().size();
     }
-
 
     @Override
     public int getTotalContainerCount() {
         return port.getContainerList().size();
     }
 
-
-
     @Override
-    public double calculateDistanceFromPort(Port port) {
-        return 0;
+    public double calculateDistanceFromPort(Port port1, Port port2) {
+        double distanceBetweenPort = Math.pow((Math.pow((port1.getLatitude() - port2.getLatitude()), 2)
+                + Math.pow((port1.getLongitude() - port2.getLongitude()), 2)), 0.5);
+        return distanceBetweenPort;
     }
 
     @Override
     public void addVehicle(Vehicle vehicle) {
-
-    port.getVehicleList().add(vehicle);
-    portRepository.update(port);
-
-
+        port.getVehicleList().add(vehicle);
+        portRepository.update(port);
     }
 
     @Override
     public void removeVehicle(Vehicle vehicle) {
-
+        port.getVehicleList().remove(vehicle);
+        portRepository.update(port);
     }
 
     @Override
     public void addContainer(Container container) {
-
+        port.getContainerList().add(container);
+        portRepository.update(port);
     }
 
     @Override
     public void removeContainer(Container container) {
-
+        port.getContainerList().remove(container);
+        portRepository.update(port);
     }
 
     @Override
     public void addTrip(Trip trip) {
-
+        port.getTripList().add(trip);
+        portRepository.update(port);
     }
 
     @Override
     public void removeTrip(Trip trip) {
-
+        port.getTripList().remove(trip);
+        portRepository.update(port);
     }
 
     @Override
