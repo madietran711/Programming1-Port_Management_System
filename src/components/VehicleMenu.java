@@ -1,7 +1,13 @@
 package components;
 
 import entities.container.Container;
+import entities.container.DryStorageContainer;
+import entities.container.LiquidContainer;
+import entities.container.OpenSideContainer;
+import entities.container.OpenTopContainer;
+import entities.container.RefridgeratedContainer;
 import entities.port.Port;
+import entities.trip.Trip;
 import entities.user.PortManager;
 import entities.user.SystemAdmin;
 import entities.user.User;
@@ -9,6 +15,8 @@ import entities.vehicle.Vehicle;
 import service.Vehicle.implementation.VehicleImplement;
 import utils.ClassCreation;
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -101,7 +109,8 @@ public class VehicleMenu {
                             Vehicle refuelingVehicle = systemAdmin.getVehicleById(refuelingVehicleID);
                             refuelingVehicle.setCurrentFuel(refuelingVehicle.getFuelTankCapacity());
                             systemAdmin.updateVehicle(refuelingVehicle);
-                            System.out.println("Vehicle with ID " + refuelingVehicleID + " has been updated.");
+                            System.out.println(
+                                    "Vehicle with ID " + refuelingVehicleID + " has been refuled and updated.");
                             System.out.println("Current fuel level for vehicle with ID " + refuelingVehicleID + " : "
                                     + Double.toString(refuelingVehicle.getCurrentFuel()));
                         } catch (Exception e) {
@@ -256,8 +265,34 @@ public class VehicleMenu {
                     case 13:
                         System.out.println(
                                 "---------------------CALCULATE FUEL COMSUMPTION ON SPECIFIED DATE---------------------");
-                        System.out.println("Enter the Date on which you want to calculate fuel usage: ");
-                        // Left for An
+                        System.out.println(
+                                "Enter the Date on which you want to calculate fuel usage (enters year, month, day of month separated by a comma): ");
+                        String[] trackingFuelDateInput = scanner.nextLine().split(",");
+                        LocalDate trackingFuelDate = LocalDate.of(Integer.parseInt(trackingFuelDateInput[0]),
+                                Integer.parseInt(trackingFuelDateInput[1]), Integer.parseInt(trackingFuelDateInput[2]));
+                        List<Trip> allTripList = systemAdmin.getAllTrips();
+
+                        double fuelUsage = 0.0;
+                        for (Trip trip : allTripList) {
+                            if (trip.getDepartureDate().isBefore(trackingFuelDate)
+                                    && trip.getArrivalDate().isAfter(trackingFuelDate)) {
+                                Vehicle trackingVehicle = trip.getTrackingVehicle();
+                                Port departurePort = trip.getDeparturePort();
+                                Port arrivalPort = trip.getArrivalPort();
+                                double portDistance = departurePort.calculateDistanceFromPort(arrivalPort);
+                                LocalDate departureDate = trip.getDepartureDate();
+                                LocalDate arrivalDate = trip.getArrivalDate();
+                                long daysBetween = ChronoUnit.DAYS.between(departureDate, arrivalDate);
+                                double travelDistance = portDistance / daysBetween;
+                                double totalFuelConsumptionPerKm = trackingVehicle.getContainerList().stream()
+                                        .mapToDouble(container -> container.calculateFuelConsumption(trackingVehicle))
+                                        .sum();
+                                // How to get fuel consumption
+                                fuelUsage += travelDistance * totalFuelConsumptionPerKm;
+                            }
+                        }
+                        System.out.println("On the Date " + trackingFuelDate.toString() + " the total fuel usage is "
+                                + Double.toString(fuelUsage));
                         break;
                     case 14:
                         System.out.println("---------------------CHECK IF VEHICLE CAN MOVE TO A PORT---------------------");

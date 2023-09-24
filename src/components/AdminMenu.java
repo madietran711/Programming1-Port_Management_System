@@ -28,6 +28,8 @@ public class AdminMenu {
 
 
             int choice = scanner.nextInt();
+            scanner.nextLine();
+            scanner.nextLine(); // Consume newline
 
             switch (choice) {
                 case 1:
@@ -37,9 +39,11 @@ public class AdminMenu {
                 case 2:
                     manageContainers();
                     break;
+
                 case 3:
                     manageTrips();
                     break;
+
                 case 4:
                     manageVehicles();
                     break;

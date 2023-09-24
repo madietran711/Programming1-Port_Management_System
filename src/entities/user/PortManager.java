@@ -32,13 +32,16 @@ public class PortManager extends User {
         this.managingPort = managingPort;
     }
 
-    public Map<Container, Double> calculateWeightOfContainersByType() {
+    public double calculateFuelUsageOnDate(Date date) {
         throw new UnsupportedOperationException("Not implemented");
-    }
+    };
+
+
 
     public List<Container> getAllContainers() {
         return userImplement.getAllContainers();
     }
+
     public Container getContainerById(String id) {
         return userImplement.getContainerById(id);
     }
