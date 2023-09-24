@@ -16,9 +16,10 @@ public class ContainerImplement implements ContainerInterface, Serializable {
     static {
         containerRepository = new CRUDImplement<Container, String>("Container.dat", Container.class);
     }
+
     @Override
     public Container create(Container entity) {
-containerRepository.create(entity);
+        containerRepository.create(entity);
         return entity;
     }
 
@@ -55,7 +56,7 @@ containerRepository.create(entity);
         if (vehicle instanceof Truck) {
             return this.container.getWeight() * this.container.getTruckFuelConsumption();
         }
-        // if on ship,  calculate fuel need for container per km
+        // if on ship, calculate fuel need for container per km
         if (vehicle instanceof Ship) {
             return this.container.getWeight() * this.container.getShipFuelConsumption();
         }

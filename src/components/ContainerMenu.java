@@ -40,6 +40,7 @@ public class ContainerMenu {
                     try {
                         Container newContainer = ClassCreation.createContainerFromUserInput(Optional.empty());
                         user.createContainer(newContainer);
+
                     } catch (Exception e) {
                         System.out.println("Error: " + e.getMessage());
                     }
