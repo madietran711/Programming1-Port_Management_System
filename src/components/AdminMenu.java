@@ -19,10 +19,9 @@ public class AdminMenu {
             System.out.println("| System Admin Menu:                                          |");
             System.out.println("| 1. Manage Ports                                             |");
             System.out.println("| 2. Manage Containers                                        |");
-            System.out.println("| 3. Manage Trips                                            |");
-            System.out.println("| 4. Manage Vehicles                                         |");
-            System.out.println("| 5. View statistical data                                   |");
-            System.out.println("| 6. Exit                                                    |");
+            System.out.println("| 3. Manage Trips                                             |");
+            System.out.println("| 4. Manage Vehicles                                          |");
+            System.out.println("| 5. Exit                                                     |");
             System.out.println("--------------------------------------------------------------");
             System.out.print("Enter your choice: ");
 
@@ -48,11 +47,9 @@ public class AdminMenu {
                     manageVehicles();
                     break;
 
-                case 5:
-                    // View statistical data
-                    break;
 
-                case 6:
+
+                case 5:
                     System.out.println("Exiting...");
                     return;
 

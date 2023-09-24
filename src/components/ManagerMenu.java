@@ -1,6 +1,7 @@
 package components;
 
 import entities.port.Port;
+import entities.trip.Trip;
 import entities.user.PortManager;
 import entities.vehicle.Vehicle;
 

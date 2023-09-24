@@ -32,9 +32,7 @@ public class PortManager extends User {
         this.managingPort = managingPort;
     }
 
-    public double calculateFuelUsageOnDate(Date date) {
-        throw new UnsupportedOperationException("Not implemented");
-    };
+
 
 
 
