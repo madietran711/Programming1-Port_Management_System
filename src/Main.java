@@ -13,9 +13,9 @@ public class Main {
         String groupName = "Coffee Addicts";
         String[] studentNames = {
                 "s3979638, Tran Ha Phuong",
-                "sXXXXXXX, Tran Nguyen Quoc An",
-                "sXXXXXXX, Pham Trong Nghia",
-                "sXXXXXXX, Dang Minh Triet",
+                "s3959931, Tran Nguyen Quoc An",
+                "s3974975, Pham Trong Nghia",
+                "s4022878, Dang Minh Triet",
         };
 
         printHeader(groupName, studentNames);
