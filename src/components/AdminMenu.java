@@ -33,6 +33,7 @@ public class AdminMenu {
                 case 1:
                     managePorts();
                     break;
+
                 case 2:
                     manageContainers();
                     break;
@@ -42,12 +43,15 @@ public class AdminMenu {
                 case 4:
                     manageVehicles();
                     break;
+
                 case 5:
                     // View statistical data
                     break;
-                case 61:
+
+                case 6:
                     System.out.println("Exiting...");
                     return;
+
                 default:
                     System.out.println("Invalid choice. Please try again.");
             }

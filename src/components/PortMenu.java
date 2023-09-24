@@ -25,11 +25,11 @@ public class PortMenu {
                 System.out.println("| 4. Delete a Port                                            |");
                 System.out.println("| 5. View the location of a Port                              |");
                 System.out.println("| 6. View the capacity of a Port                              |");
-                System.out.println("| 7. View the current trips in a Port                         |");
-                System.out.println("| 8. View the current vehicles in a Port                      |");
-                System.out.println("| 9. View the current containers in a Port                    |");
-                System.out.println("| 10. Get total vehicles in a Port                            |");
-                System.out.println("| 11. Get total containers in a Port                          |");
+                System.out.println("| 7. View the current Trips in a Port                         |");
+                System.out.println("| 8. View the current Vehicles in a Port                      |");
+                System.out.println("| 9. View the current Containers in a Port                    |");
+                System.out.println("| 10. Get total Vehicles in a Port                            |");
+                System.out.println("| 11. Get total Containers in a Port                          |");
                 System.out.println("| 12. Calculate the distance between two ports                 |");
                 System.out.println("| 13. View the traffic record of a Port                        |");
                 System.out.println("| 14. View Port Activities                                     |");
@@ -181,7 +181,6 @@ public class PortMenu {
                         System.out.println(
                                 "Enter the IDs of the two ports you want to calculate the distance between (separated by a coma): ");
                         String portIDsCalDistanceInput = scanner.nextLine();
-
                         String[] portIDsCalculateDistance = portIDsCalDistanceInput.split(",");
                         for (String portIDCalDistance : portIDsCalculateDistance) {
                             if (systemAdmin.getPortById(portIDCalDistance) == null) {
@@ -230,7 +229,6 @@ public class PortMenu {
                     default:
                         System.out.println("Invalid choice. Please try again.");
                 }
-
             }
         }
     }

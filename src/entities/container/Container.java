@@ -36,6 +36,7 @@ public class Container implements Serializable {
         setLocation(location);
     }
 
+
     public Container() {
 
     }
@@ -46,8 +47,7 @@ public class Container implements Serializable {
     }
     @Override
     public String toString() {
-        return
-                "ID='" + ID + '\'' +
+        return "ID='" + ID + '\'' +
                 ", weight=" + weight ;
     }
 
