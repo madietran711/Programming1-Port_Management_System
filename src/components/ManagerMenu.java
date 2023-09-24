@@ -314,7 +314,7 @@ public class ManagerMenu {
                     System.out.println(
                             "---------------------CALCULATE FUEL COMSUMPTION ON SPECIFIED DATE---------------------");
                     System.out.println(
-                            "Enter the Date on which you want to calculate fuel usage (enters year, month, day of month separated by a comma): ");
+                            "Enter the Date on which you want to calculate fuel usage (enters year, day, month separated by a comma): ");
                     String[] trackingFuelDateInput = scanner.nextLine().split(",");
                     LocalDate trackingFuelDate = LocalDate.of(Integer.parseInt(trackingFuelDateInput[0]),
                             Integer.parseInt(trackingFuelDateInput[1]), Integer.parseInt(trackingFuelDateInput[2]));

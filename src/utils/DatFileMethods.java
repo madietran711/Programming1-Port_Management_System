@@ -125,7 +125,7 @@ public class DatFileMethods implements Serializable {
         Vehicle truck7 = new BasicTruck("tr-7", "Basic truck 7", 15, 0, 200, null, new ArrayList<>());
         Vehicle truck8 = new BasicTruck("tr-8", "Basic truck 8", 30, 19, 100, port5, new ArrayList<>());
 
-        Vehicle reefer1 = new ReeferTruck("tr-9", "Reefer truck 1", 12, 11, 100, port5, new ArrayList<>());
+        Vehicle reefer1 = new ReeferTruck("tr-9", "Reefer truck 1", 12, 11, 100, port1, new ArrayList<>());
         Vehicle reefer2 = new ReeferTruck("tr-10", "Reefer truck 2", 12, 8, 200, port1, new ArrayList<>());
         Vehicle reefer3 = new ReeferTruck("tr-11", "Reefer truck 3", 12, 12, 40, null, new ArrayList<>());
         Vehicle reefer4 = new ReeferTruck("tr-12", "Reefer truck 4", 24, 17, 40, port4, new ArrayList<>());
@@ -183,26 +183,26 @@ public class DatFileMethods implements Serializable {
         admin.getAllVehicles().forEach(System.out::println);
 
 // Create Containers
-        Container container1 = new DryStorageContainer("c-1", 3.5, port1);
-        Container container2 = new DryStorageContainer("c-2", 3.5, port1);
-        Container container3 = new DryStorageContainer("c-3", 3.5, port1);
-        Container container4 = new DryStorageContainer("c-4", 4.6, port1);
-        Container container5 = new DryStorageContainer("c-5", 4.6, port2);
-        Container container6 = new DryStorageContainer("c-6", 4.6, port2);
-        Container container7 = new DryStorageContainer("c-7", 3.2, port2);
-        Container container8 = new DryStorageContainer("c-8", 3.2, port2);
-        Container container9 = new DryStorageContainer("c-9", 3.2, port3);
-        Container container10 = new DryStorageContainer("c-10", 4.5, port3);
-        Container container11 = new DryStorageContainer("c-11", 4.5, port3);
-        Container container12 = new DryStorageContainer("c-12", 4.5, port3);
-        Container container13 = new DryStorageContainer("c-13", 3.8, port4);
-        Container container14 = new DryStorageContainer("c-14", 3.8, port4);
-        Container container15 = new DryStorageContainer("c-15", 3.8, ship4);
-        Container container16 = new DryStorageContainer("c-16", 4.9, ship3);
-        Container container17 = new DryStorageContainer("c-17", 4.9, port5);
-        Container container18 = new DryStorageContainer("c-18", 4.6, port5);
-        Container container19 = new DryStorageContainer("c-19", 4.6, ship2);
-        Container container20 = new DryStorageContainer("c-20", 4.6, ship1);
+        DryStorageContainer container1 = new DryStorageContainer("c-1", 3.5, port1);
+        DryStorageContainer container2 = new DryStorageContainer("c-2", 3.5, port1);
+        DryStorageContainer container3 = new DryStorageContainer("c-3", 3.5, port1);
+        RefridgeratedContainer container4 = new RefridgeratedContainer("c-4", 4.6, port1);
+        RefridgeratedContainer container5 = new RefridgeratedContainer("c-5", 4.6, port2);
+        RefridgeratedContainer container6 = new RefridgeratedContainer("c-6", 4.6, reefer1);
+        RefridgeratedContainer container7 = new RefridgeratedContainer("c-7", 3.2, port2);
+        RefridgeratedContainer container8 = new RefridgeratedContainer("c-8", 3.2, reefer1);
+        DryStorageContainer container9 = new DryStorageContainer("c-9", 3.2, ship2);
+        DryStorageContainer container10 = new DryStorageContainer("c-10", 4.5, port3);
+        DryStorageContainer container11 = new DryStorageContainer("c-11", 4.5, ship2);
+        DryStorageContainer container12 = new DryStorageContainer("c-12", 4.5, port3);
+        LiquidContainer container13 = new LiquidContainer("c-13", 3.8, port4);
+        DryStorageContainer container14 = new DryStorageContainer("c-14", 3.8, ship2);
+        LiquidContainer container15 = new LiquidContainer("c-15", 3.8, ship4);
+        DryStorageContainer container16 = new DryStorageContainer("c-16", 4.9, ship3);
+        OpenTopContainer container17 = new OpenTopContainer("c-17", 4.9, port5);
+        DryStorageContainer container18 = new DryStorageContainer("c-18", 4.6, port5);
+        OpenTopContainer container19 = new OpenTopContainer("c-19", 4.6, ship2);
+        RefridgeratedContainer container20 = new RefridgeratedContainer("c-20", 4.6, reefer1);
 
 // ... Create other containers in a similar manner
 

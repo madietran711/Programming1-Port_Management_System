@@ -47,9 +47,20 @@ public class Container implements Serializable {
     }
     @Override
     public String toString() {
-        return "ID='" + ID + '\'' +
-                ", weight=" + weight ;
-    }
+        if (location instanceof Port) {
+            return
+                    "ID='" + ID + '\'' +
+                    ", weight=" + weight + "location=" + ((Port) location).getName();}
+        else if (location instanceof Vehicle){
+            return
+                    "ID='" + ID + '\'' +
+                    ", weight=" + weight + "location=" + ((Vehicle) location).getName();}
+        return
+                "ID='" + ID + '\'' +
+                ", weight=" + weight
+                ;
+        }
+
 
     public String getID() {
         return ID;
@@ -89,7 +100,10 @@ public class Container implements Serializable {
         }
        if (location instanceof Vehicle){
            VehicleImplement vehicleImplement = new VehicleImplement((Vehicle) location);
-              vehicleImplement.loadContainer(this);
+              if(vehicleImplement.loadContainer(this))
+                  System.out.println("Container added to vehicle");
+              else
+                  System.out.println("Container not added to vehicle");
        }
        this.location = location;
     }
