@@ -25,13 +25,13 @@ public class PortMenu {
                 System.out.println("4. Delete a Port");
                 System.out.println("5. View the location of a Port");
                 System.out.println("6. View the storage capacity of a Port");
-                System.out.println("7. View the current Trips in a Port");
+                System.out.println("7. View the all Trips in a Port");
                 System.out.println("8. View the current Vehicles in a Port");
                 System.out.println("9. View the current Containers in a Port");
                 System.out.println("10. Get total Vehicles in a Port");
                 System.out.println("11. Get total Containers in a Port");
                 System.out.println("12. Calculate the distance between two Ports");
-                System.out.println("13. View the traffic record of a Port");
+                System.out.println("13. View current traffic record of a Port");
                 System.out.println("14. Back to Main Menu");
                 System.out.print("Enter your choice: ");
 
@@ -200,7 +200,7 @@ public class PortMenu {
                         Port port2 = systemAdmin.getPortById(portIDsCalculateDistance[1]);
                         double distanceBetweenPorts = port1.calculateDistanceFromPort(port2);
                         System.out.println("Distance between port with ID " + port1.getID() + " and port "
-                                + port2.getID() + " is : " + distanceBetweenPorts);
+                                + port2.getID() + " is : " + Double.toString(distanceBetweenPorts));
                         break;
 
                     case 13:

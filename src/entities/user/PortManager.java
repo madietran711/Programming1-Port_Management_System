@@ -12,17 +12,14 @@ public class PortManager extends User {
     private final UserImplement userImplement = new UserImplement(this);
     private Port managingPort;
 
-
-    public double calculateFuelUsageOnDate(Date date) {
-        throw new UnsupportedOperationException("Not implemented");
-    };
-
-
-
     public PortManager(String ID, String username, String password, Port managingPort) {
         super(ID, username, password);
         this.managingPort = managingPort;
     }
+
+    public double calculateFuelUsageOnDate(Date date) {
+        throw new UnsupportedOperationException("Not implemented");
+    };
 
     public Map<Container, Double> calculateWeightOfContainersByType() {
         throw new UnsupportedOperationException("Not implemented");
@@ -31,6 +28,7 @@ public class PortManager extends User {
     public List<Container> getAllContainers() {
         return userImplement.getAllContainers();
     }
+
     public Container getContainerById(String id) {
         return userImplement.getContainerById(id);
     }
@@ -42,9 +40,17 @@ public class PortManager extends User {
     public boolean deleteContainer(String id) {
         return userImplement.deleteContainer(id);
     }
+
     public Container createContainer(Container entity) {
         return userImplement.createContainer(entity);
     }
 
+    public Port getManagingPort() {
+        return managingPort;
+    }
+
+    public void setManagingPort(Port managingPort) {
+        this.managingPort = managingPort;
+    }
 
 }

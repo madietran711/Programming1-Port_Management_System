@@ -109,7 +109,8 @@ public class VehicleMenu {
                             Vehicle refuelingVehicle = systemAdmin.getVehicleById(refuelingVehicleID);
                             refuelingVehicle.setCurrentFuel(refuelingVehicle.getFuelTankCapacity());
                             systemAdmin.updateVehicle(refuelingVehicle);
-                            System.out.println("Vehicle with ID " + refuelingVehicleID + " has been updated.");
+                            System.out.println(
+                                    "Vehicle with ID " + refuelingVehicleID + " has been refuled and updated.");
                             System.out.println("Current fuel level for vehicle with ID " + refuelingVehicleID + " : "
                                     + Double.toString(refuelingVehicle.getCurrentFuel()));
                         } catch (Exception e) {
@@ -332,6 +333,7 @@ public class VehicleMenu {
                         LocalDate trackingFuelDate = LocalDate.of(Integer.parseInt(trackingFuelDateInput[0]),
                                 Integer.parseInt(trackingFuelDateInput[1]), Integer.parseInt(trackingFuelDateInput[2]));
                         List<Trip> allTripList = systemAdmin.getAllTrips();
+
                         double fuelUsage = 0.0;
                         for (Trip trip : allTripList) {
                             if (trip.getDepartureDate().isBefore(trackingFuelDate)
@@ -344,26 +346,11 @@ public class VehicleMenu {
                                 LocalDate arrivalDate = trip.getArrivalDate();
                                 long daysBetween = ChronoUnit.DAYS.between(departureDate, arrivalDate);
                                 double travelDistance = portDistance / daysBetween;
-                                List<Container> trackingContainers = trackingVehicle.getContainerList();
-                                double dryContainersWeight = 0.0;
-                                double wetContainersWeight = 0.0;
-                                double oSideContainersWeight = 0.0;
-                                double oTopContainersWeight = 0.0;
-                                double coldContainersWeight = 0.0;
-                                for (Container container : trackingContainers) {
-                                    if (container instanceof DryStorageContainer) {
-                                        dryContainersWeight += container.getWeight();
-                                    } else if (container instanceof LiquidContainer) {
-                                        wetContainersWeight += container.getWeight();
-                                    } else if (container instanceof OpenSideContainer) {
-                                        oSideContainersWeight += container.getWeight();
-                                    } else if (container instanceof OpenTopContainer) {
-                                        oTopContainersWeight += container.getWeight();
-                                    } else if (container instanceof RefridgeratedContainer) {
-                                        coldContainersWeight += container.getWeight();
-                                    }
-                                }
-                                fuelUsage += portDistance;
+                                double totalFuelConsumptionPerKm = trackingVehicle.getContainerList().stream()
+                                        .mapToDouble(container -> container.calculateFuelConsumption(trackingVehicle))
+                                        .sum();
+                                // How to get fuel consumption
+                                fuelUsage += travelDistance * totalFuelConsumptionPerKm;
                             }
                         }
                         System.out.println("On the Date " + trackingFuelDate.toString() + " the total fuel usage is "
