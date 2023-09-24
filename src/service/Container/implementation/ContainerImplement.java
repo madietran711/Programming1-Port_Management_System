@@ -7,6 +7,7 @@ import entities.vehicle.Vehicle;
 import service.CRUD.CRUDInterface;
 import service.CRUD.implementation.CRUDImplement;
 import service.Container.ContainerInterface;
+import utils.Validation;
 
 import java.io.Serializable;
 import java.util.List;
@@ -18,6 +19,9 @@ public class ContainerImplement implements ContainerInterface, Serializable {
     }
     @Override
     public Container create(Container entity) {
+        // check Id format
+
+
 containerRepository.create(entity);
         return entity;
     }

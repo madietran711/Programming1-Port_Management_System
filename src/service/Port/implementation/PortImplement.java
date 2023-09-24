@@ -9,6 +9,7 @@ import service.CRUD.CRUDInterface;
 import service.CRUD.implementation.CRUDImplement;
 import service.Port.PortInterface;
 import service.Trip.implementation.TripImplement;
+import utils.Validation;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -24,11 +25,15 @@ public class PortImplement implements PortInterface, Serializable {
     private Port port; // Add an instance variable to store the Port instance.
 
     public PortImplement(Port port) {
+
+        // check ID format
+
         this.port = port;
     }
 
     @Override
     public Port create(Port entity) {
+
         portRepository.create(entity);
         return entity;
     }
@@ -97,7 +102,7 @@ public class PortImplement implements PortInterface, Serializable {
         List<Trip> portDepartureTripsNotYetDeparted = portDepartureTrips.stream().filter(trip -> trip.getStatus().equals(TripStatus.PENDING)).toList();
         System.out.println("---------------------------------------------------------------------------------------------");
         System.out.println("Port " + this.port.getName() + " is about to depart " + portDepartureTripsNotYetDeparted.size() + " trips");
-        portArrivalTripsNotYetArrived.forEach(System.out::println);
+        portDepartureTripsNotYetDeparted.forEach(System.out::println);
         if (portArrivalTripsNotYetArrived.size() != 0) {
         System.out.println("Please load the containers to the vehicles docked at this port if needed");}
         // get all trips that have arrived

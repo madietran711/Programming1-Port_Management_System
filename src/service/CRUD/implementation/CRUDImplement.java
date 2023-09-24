@@ -18,6 +18,11 @@ public class CRUDImplement<T, ID> implements CRUDInterface<T, ID> {
     @Override
     public T create(T entity) {
         try {
+           // check if id is unique
+            if(getById((ID) entityType.getDeclaredMethod("getID").invoke(entity)) != null){
+                System.out.println("ID is not unique");
+                return null;
+            }
             List<T> entities = getAll();
             entities.add(entity);
             DatFileMethods.writeAllLines(fileName, entities);

@@ -12,6 +12,7 @@ import service.Container.implementation.ContainerImplement;
 import service.Port.implementation.PortImplement;
 import service.Trip.implementation.TripImplement;
 import service.Vehicle.VehicleInterface;
+import utils.Validation;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -33,6 +34,8 @@ public class VehicleImplement implements VehicleInterface, Serializable {
 
     @Override
     public Vehicle create(Vehicle entity) {
+        // check Id format
+
         vehicleRepository.create(entity);
         return entity;
     }

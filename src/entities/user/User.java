@@ -7,9 +7,12 @@ import java.util.Scanner;
 import entities.container.Container;
 import entities.port.Port;
 import entities.trip.Trip;
+import entities.vehicle.Ship;
+import entities.vehicle.Truck;
 import entities.vehicle.Vehicle;
 import service.User.UserInterface;
 import service.User.implementation.UserImplement;
+import utils.Validation;
 
 public class User implements Serializable {
     private final UserInterface userImplement = new UserImplement(this); // Pass the current User instance.//
@@ -74,6 +77,10 @@ public class User implements Serializable {
 
     public Port createPort(Port entity) {
 
+        if (!Validation.validatePortIDFormat(entity.getID())) {
+            System.out.println("Port ID format is invalid");
+            return null;
+        }
         return userImplement.createPort(entity);
     }
 
@@ -81,13 +88,24 @@ public class User implements Serializable {
     public Container getByContainerId(String id) {return userImplement.getContainerById(id);}
     public Container updateContainer(Container entity){ return userImplement.updateContainer(entity); }
     public boolean deleteContainer(String id) { return userImplement.deleteContainer(id); }
-    public Container createContainer(Container entity) { return userImplement.createContainer(entity); }
+    public Container createContainer(Container entity) {
+        if (!Validation.validateContainerIDFormat(entity.getID())) {
+            System.out.println("Container ID format is invalid");
+            return null;
+        }
+
+        return userImplement.createContainer(entity); }
 
     public List<Trip> getAllTrips() {
         return userImplement.getAllTrips();
     }
 
     public Trip createTrip(Trip entity) {
+
+        if (!Validation.validateTripIDFormat(entity.getID())) {
+            System.out.println("Trip ID format is invalid");
+            return null;
+        }
         return userImplement.createTrip(entity);
     }
 
@@ -107,6 +125,18 @@ public class User implements Serializable {
         return userImplement.getAllVehicles();
     }
     public Vehicle createVehicle(Vehicle entity) {
+        if (entity instanceof Truck){
+            if (!Validation.validateTruckIDFormat(entity.getID())) {
+                System.out.println("Truck ID format is invalid");
+                return null;
+            }
+        } else if (entity instanceof Ship) {
+            if (!Validation.validateShipIDFormat(entity.getID())) {
+                System.out.println("Ship ID format is invalid");
+                return null;
+            }
+        }
+
         return userImplement.createVehicle(entity);
     }
 
