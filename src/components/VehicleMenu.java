@@ -127,54 +127,9 @@ public class VehicleMenu {
                         if (loadingVehicle == null) {
                             System.out.println("Vehicle with ID " + loadingVehicleID + " does not exist.");
                         } else {
-                            Port loadingPort = loadingVehicle.getCurrentPort();
-                            List<Container> loadingPortContainerList = loadingPort.getContainerList();
-
-                            while (true) {
-                                System.out.println("List of containers on Port with ID "+ loadingPort.getName());
-                                loadingPortContainerList.forEach(System.out::println);
-                                System.out.println("Enter the ID of the container you want to load (or 'done' to finish): ");
-                                String loadingContainerID = scanner.nextLine();
-
-                                if (loadingContainerID.equalsIgnoreCase("done")) {
-                                    break; // Exit the loop if the user is done loading containers
-                                }
-
-                                // Check if loading container ID is valid
-                                Container loadingContainer = systemAdmin.getByContainerId(loadingContainerID);
-                                if (loadingContainer == null) {
-                                    System.out.println("Container with ID " + loadingContainerID + " does not exist.");
-
-                                } else if (loadingVehicle.getContainerList().contains(loadingContainer)) {
-                                    System.out.println("Container with ID " + loadingContainerID +
-                                            " is already on the loading vehicle.");
-
-                                } else if (!loadingPortContainerList.contains(loadingContainer)) {
-                                    System.out.println("The loading container with ID " + loadingContainerID +
-                                            " is not available at the " + loadingPort.getName() +
-                                            " port which the vehicle with ID " + loadingVehicleID + " is currently on.");
-
-                                } else {
-                                    // Attempt to load the container onto the vehicle
-                                    if (loadingVehicle.loadContainer(loadingContainer)) {
-                                        // Update the container lists
-                                        loadingPortContainerList.remove(loadingContainer);
-                                        loadingContainer.setLocation(loadingVehicleID);
-                                        systemAdmin.updateContainer(loadingContainer);
-                                        systemAdmin.updatePort(loadingPort);
-                                        systemAdmin.updateVehicle(loadingVehicle);
-                                        System.out.println("Container with ID " + loadingContainerID +
-                                                " has been loaded onto the vehicle with ID " + loadingVehicleID + ".");
-                                        // Display the current container list of the vehicle
-                                        System.out.println("Current containers list of vehicle with ID " + loadingVehicleID + " :");
-                                        loadingVehicle.getContainerList().forEach(System.out::println);
-                                        break;
-                                    } else {
-                                        System.out.println("Error loading container with ID " + loadingContainerID + ".");
-                                    }
-                                }
-                            }
+                            ManagerMenu.chooseLoadingContainer(loadingVehicleID, loadingVehicle, scanner, systemAdmin);
                         }
+                        break;
 
                     case 7:
                         System.out.println("---------------------UNLOAD A VEHICLE--------------------");

@@ -8,6 +8,7 @@ import entities.trip.Trip;
 import entities.vehicle.*;
 import service.CRUD.CRUDInterface;
 import service.CRUD.implementation.CRUDImplement;
+import service.Container.implementation.ContainerImplement;
 import service.Port.implementation.PortImplement;
 import service.Trip.implementation.TripImplement;
 import service.Vehicle.VehicleInterface;
@@ -84,6 +85,7 @@ public class VehicleImplement implements VehicleInterface, Serializable {
         } else if (this.vehicle instanceof ReeferTruck) {
             if (container instanceof RefridgeratedContainer) {
                 this.vehicle.getContainerList().add(container);
+
                 update(this.vehicle);
                 return  true;
             } else {
@@ -123,6 +125,7 @@ public class VehicleImplement implements VehicleInterface, Serializable {
         }
         List<Container> currentList = this.vehicle.getContainerList();
         Port currentPort = this.vehicle.getCurrentPort();
+
         if (currentPort == null) {
             System.out.println("Vehicle is not at any port");
             return false;
@@ -131,8 +134,11 @@ public class VehicleImplement implements VehicleInterface, Serializable {
         for (Container container : currentList) {
             portImplement.addContainer(container);
         }
+
         this.vehicle.getContainerList().clear();
         update(this.vehicle);
+        portImplement.update(currentPort);
+
         return this.vehicle.getContainerList().size() == 0;
     }
 

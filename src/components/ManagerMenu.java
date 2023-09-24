@@ -1,9 +1,12 @@
 package components;
 
+import entities.container.Container;
 import entities.port.Port;
 import entities.trip.Trip;
 import entities.user.PortManager;
+import entities.user.User;
 import entities.vehicle.Vehicle;
+import service.Vehicle.implementation.VehicleImplement;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -21,26 +24,32 @@ public class ManagerMenu {
 
     public void displayMenu() {
         while (true) {
-            System.out.println(">>>>>>>>>>>>>>>>>>>>> DISPLAYING [PORT MANAGEMER] MENU <<<<<<<<<<<<<<<<<<<<<");
-            System.out.println("1. Manage Containers");
-            System.out.println("2. View the location of Port");
-            System.out.println("3. View the storage capacity of Port");
-            System.out.println("4. View the all Trips at Port");
-            System.out.println("5. View the current Vehicles in Port");
-            System.out.println("6. View the current Containers in Port");
-            System.out.println("7. Get total Vehicles in a Port");
-            System.out.println("8. Get total Containers in a Port");
-            System.out.println("9. Calculate the distance between managing Port and another");
-            System.out.println("10. View the traffic record of Port");
-            System.out.println("11. Refuel a Vehicle");
-            System.out.println("12. Load Containers onto a Vehicle"); // For Phuong
-            System.out.println("13. Unload Containers from a Vehicle"); // For Phuong
-            System.out.println("14. View the carrying capacity of a Vehicle");
-            System.out.println("15. View the fuel capacity of a Vehicle");
-            System.out.println("16. View current containers on a Vehicle");
-            System.out.println("17. View the schedule of a Vehicle"); // For Phuong
-            System.out.println("18. Calculate how much fuel has been used in a day");
-            System.out.println("19. Exit");
+            String horizontalLine = "+---------------------------------------------------------------+";
+            String menuTitle = "|          DISPLAYING [PORT MANAGER] MENU - "+portManager.getManagingPort().getName()+"     |";
+
+            System.out.println(horizontalLine);
+            System.out.println(menuTitle);
+            System.out.println(horizontalLine);
+            System.out.println("| 1. Manage Containers                                            |");
+            System.out.println("| 2. View the location of Port                                   |");
+            System.out.println("| 3. View the storage capacity of Port                            |");
+            System.out.println("| 4. View the all Trips at Port                                  |");
+            System.out.println("| 5. View the current Vehicles in Port                            |");
+            System.out.println("| 6. View the current Containers in Port                          |");
+            System.out.println("| 7. Get total Vehicles in a Port                                 |");
+            System.out.println("| 8. Get total Containers in a Port                               |");
+            System.out.println("| 9. Calculate the distance between managing Port and another     |");
+            System.out.println("| 10. View the traffic record of Port                             |");
+            System.out.println("| 11. Refuel a Vehicle                                           |");
+            System.out.println("| 12. Load Containers onto a Vehicle                              |");
+            System.out.println("| 13. Unload Containers from a Vehicle                            |");
+            System.out.println("| 14. View the carrying capacity of a Vehicle                     |");
+            System.out.println("| 15. View the fuel capacity of a Vehicle                         |");
+            System.out.println("| 16. View current containers on a Vehicle                        |");
+            System.out.println("| 17. View the schedule of a Vehicle                              |");
+            System.out.println("| 18. Calculate how much fuel has been used in a day              |");
+            System.out.println("| 19. Exit                                                        |");
+            System.out.println(horizontalLine);
             System.out.print("Enter your choice: ");
 
 
@@ -80,7 +89,7 @@ public class ManagerMenu {
                     System.out.println("---------------------VIEW PORT CURRENT VEHICLES---------------------");
                     System.out.println("Port with ID " + portManager.getManagingPort().getID()
                             + " currently has these following vehicles :");
-                    portManager.getManagingPort().getTripList().forEach(System.out::println);
+                    portManager.getManagingPort().getVehicleList().forEach(System.out::println);
                     break;
 
                 case 6:
@@ -107,7 +116,7 @@ public class ManagerMenu {
                 case 9:
                     System.out.println("---------------------CALCULATE PORTS DISTANCE---------------------");
                     System.out.println(
-                            "Enter the ID of the Port you want to calculate the distance to from the current managin Port:");
+                            "Enter the ID of the Port you want to calculate the distance to from the current managing Port:");
                     String portIDCalDistanceTo = scanner.nextLine();
                     if (portManager.getPortById(portIDCalDistanceTo) == null) {
                         System.out.println("Port with ID " + portIDCalDistanceTo + " does not exist.");
@@ -138,13 +147,13 @@ public class ManagerMenu {
                         break;
                     }
                     // Check if the Vehicle is currently at the managing Port
-                    if (managingPort.getVehicleList()
-                            .contains(portManager.getVehicleById(refuelingVehicleID)) == false) {
+                    if (!managingPort.getVehicleList()
+                            .contains(portManager.getVehicleById(refuelingVehicleID))) {
                         System.out.println("Vehicle with ID " + refuelingVehicleID
                                 + " is not current at Port with ID " + portManager.getManagingPort().getID());
                         break;
                     }
-                    // Refule Vehicle
+                    // Refuel Vehicle
                     try {
                         Vehicle refuelingVehicle = portManager.getVehicleById(refuelingVehicleID);
                         refuelingVehicle.setCurrentFuel(refuelingVehicle.getFuelTankCapacity());
@@ -159,13 +168,58 @@ public class ManagerMenu {
 
                 case 12:
                     System.out.println("---------------------LOAD A VEHICLE---------------------");
+                    System.out.println("Vehicles currently at the managing port: ");
+
+                    managingPort.getVehicleList().forEach(System.out::println);
+                    System.out.println("Enter the ID of the vehicle you want to load: ");
+                    String loadingVehicleID = scanner.nextLine();
+
+// Check if loading vehicle exists
+                    Vehicle loadingVehicle = portManager.getVehicleById(loadingVehicleID);
+                    if (loadingVehicle == null) {
+                        System.out.println("Vehicle with ID " + loadingVehicleID + " does not exist.");
+                    } else if (!managingPort.getVehicleList().contains(loadingVehicle)) {
+                        System.out.println("Vehicle with ID " + loadingVehicleID + " is not currently at the "
+                                + managingPort.getName() + " port.");
+                    } else if (loadingVehicle.getContainerList().size() == loadingVehicle.getCarryingCapacity()) {
+                        System.out.println("Vehicle with ID " + loadingVehicleID + " is already full.");
+
+                    } else {
+                        chooseLoadingContainer(loadingVehicleID, loadingVehicle, scanner, portManager);
+                    }
                     // For Phuong
                     break;
 
                 case 13:
                     System.out.println("---------------------UNLOAD A VEHICLE---------------------");
-                    // For Phuong
-                    break;
+                    System.out.println("Vehicles currently at the managing port: ");
+
+                    managingPort.getVehicleList().forEach(System.out::println);
+                    System.out.println("Enter the ID of the vehicle you want to load: ");
+                    String unLoadingVehicleId = scanner.nextLine();
+
+// Check if loading vehicle exists
+                    Vehicle unLoadingVehicle = portManager.getVehicleById(unLoadingVehicleId);
+                    if (unLoadingVehicle == null) {
+                        System.out.println("Vehicle with ID " + unLoadingVehicleId + " does not exist.");
+                    } else if (!managingPort.getVehicleList().contains(unLoadingVehicle)) {
+                        System.out.println("Vehicle with ID " + unLoadingVehicleId + " is not currently at the "
+                                + managingPort.getName() + " port.");
+                    } else if (unLoadingVehicle.getContainerList().size() == 0) {
+                        System.out.println("Vehicle with ID " + unLoadingVehicleId + " is empty.");}
+                    else {
+                        if (unLoadingVehicle.unloadContainer()){
+
+
+
+                            System.out.println("Vehicle with ID " + unLoadingVehicleId + " has been unloaded.");
+                        }
+                        else {
+                            System.out.println("Error unloading vehicle with ID " + unLoadingVehicleId + ".");
+                        }
+                    }
+
+                        break;
 
                 case 14:
                     System.out.println("---------------------VIEW VEHICLE CARRYING CAPACITY---------------------");
@@ -177,8 +231,8 @@ public class ManagerMenu {
                         break;
                     }
                     // Check if the Vehicle is currently at the managing Port
-                    if (managingPort.getVehicleList()
-                            .contains(portManager.getVehicleById(vehicleIDViewCapacity)) == false) {
+                    if (!managingPort.getVehicleList()
+                            .contains(portManager.getVehicleById(vehicleIDViewCapacity))) {
                         System.out.println("Vehicle with ID " + vehicleIDViewCapacity
                                 + " is not current at Port with ID " + portManager.getManagingPort().getID());
                         break;
@@ -201,8 +255,8 @@ public class ManagerMenu {
                         break;
                     }
                     // Check if the Vehicle is currently at the managing Port
-                    if (managingPort.getVehicleList()
-                            .contains(portManager.getVehicleById(vehicleIDViewFuel)) == false) {
+                    if (!managingPort.getVehicleList()
+                            .contains(portManager.getVehicleById(vehicleIDViewFuel))) {
                         System.out.println("Vehicle with ID " + vehicleIDViewFuel
                                 + " is not current at Port with ID " + portManager.getManagingPort().getID());
                         break;
@@ -224,8 +278,8 @@ public class ManagerMenu {
                         break;
                     }
                     // Check if the Vehicle is currently at the managing Port
-                    if (managingPort.getVehicleList()
-                            .contains(portManager.getVehicleById(vehicleIDViewContainers)) == false) {
+                    if (!managingPort.getVehicleList()
+                            .contains(portManager.getVehicleById(vehicleIDViewContainers))) {
                         System.out.println("Vehicle with ID " + vehicleIDViewContainers
                                 + " is not current at Port with ID " + portManager.getManagingPort().getID());
                         break;
@@ -246,8 +300,8 @@ public class ManagerMenu {
                         break;
                     }
                     // Check if the Vehicle is currently at the managing Port
-                    if (managingPort.getVehicleList()
-                            .contains(portManager.getVehicleById(vehicleIDViewSchedule)) == false) {
+                    if (!managingPort.getVehicleList()
+                            .contains(portManager.getVehicleById(vehicleIDViewSchedule))) {
                         System.out.println("Vehicle with ID " + vehicleIDViewSchedule
                                 + " is not current at Port with ID " + portManager.getManagingPort().getID());
                         break;
@@ -292,6 +346,55 @@ public class ManagerMenu {
                     return;
                 default:
                     System.out.println("Invalid choice. Please try again.");
+            }
+        }
+    }
+
+    static void chooseLoadingContainer(String loadingVehicleID, Vehicle loadingVehicle, Scanner scanner, User portManager) {
+        Port loadingPort = loadingVehicle.getCurrentPort();
+        List<Container> loadingPortContainerList = loadingPort.getContainerList();
+
+        while (true) {
+            System.out.println("List of containers on Port with ID "+ loadingPort.getName());
+            loadingPortContainerList.forEach(System.out::println);
+            System.out.println("Enter the ID of the container you want to load (or 'done' to finish): ");
+            String loadingContainerID = scanner.nextLine();
+
+            if (loadingContainerID.equalsIgnoreCase("done")) {
+                break; // Exit the loop if the user is done loading containers
+            }
+
+            // Check if loading container ID is valid
+            Container loadingContainer = portManager.getByContainerId(loadingContainerID);
+            if (loadingContainer == null) {
+                System.out.println("Container with ID " + loadingContainerID + " does not exist.");
+
+            } else if (loadingVehicle.getContainerList().contains(loadingContainer)) {
+                System.out.println("Container with ID " + loadingContainerID +
+                        " is already on the loading vehicle.");
+
+            } else if (!loadingPortContainerList.contains(loadingContainer)) {
+                System.out.println("The loading container with ID " + loadingContainerID +
+                        " is not available at the " + loadingPort.getName() +
+                        " port which the vehicle with ID " + loadingVehicleID + " is currently on.");
+
+            } else {
+                // Attempt to load the container onto the vehicle
+                if (loadingVehicle.loadContainer(loadingContainer)) {
+                    // Update the container lists
+loadingPort.getContainerList().remove(loadingContainer);
+                    portManager.updateVehicle(loadingVehicle);
+                    portManager.updateContainer(loadingContainer);
+                    portManager.updatePort(loadingPort);
+                    System.out.println("Container with ID " + loadingContainerID +
+                            " has been loaded onto the vehicle with ID " + loadingVehicleID + ".");
+                    // Display the current container list of the vehicle
+                    System.out.println("Current containers list of vehicle with ID " + loadingVehicleID + " :");
+                    loadingVehicle.getContainerList().forEach(System.out::println);
+                    break;
+                } else {
+                    System.out.println("Error loading container with ID " + loadingContainerID + ".");
+                }
             }
         }
     }

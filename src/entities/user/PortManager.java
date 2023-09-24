@@ -14,7 +14,7 @@ public class PortManager extends User {
 
 
     public Port getManagingPort() {
-        return managingPort;
+        return userImplement.getPortById(managingPort.getID());
     }
 
     public void setManagingPort(Port managingPort) {

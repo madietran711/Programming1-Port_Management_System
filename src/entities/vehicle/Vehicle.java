@@ -143,11 +143,11 @@ public boolean loadContainer(Container container) {
         }
     return false;
 }
-public boolean unloadContainer(Container container) {
-    if (container != null) {
+public boolean unloadContainer() {
+
         return vehicleImplement.unloadContainer();
-    }
-    return false;
+
+
 }
 
     public ArrayList<Container> getContainerList() {
